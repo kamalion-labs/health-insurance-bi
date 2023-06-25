@@ -7,10 +7,7 @@ import { Decimal } from "@prisma/client/runtime";
 
 // This is required to enable streaming
 export const dynamic = "force-dynamic";
-
-export const config = {
-  runtime: "edge",
-};
+export const runtime = "edge";
 
 export const sleep = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));
