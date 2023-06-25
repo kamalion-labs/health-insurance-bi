@@ -9,8 +9,7 @@ import { Decimal } from "@prisma/client/runtime";
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-export const sleep = (ms: number) =>
-  new Promise((resolve) => setTimeout(resolve, ms));
+// const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 let encoder: TextEncoder;
 let writer: any;
