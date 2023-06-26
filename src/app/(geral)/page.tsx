@@ -3,7 +3,6 @@
 import { Money } from "@/components/Money";
 import { usePage } from "@/hooks";
 import { Competencia } from "@prisma/client";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { TabelaFaturamentoSinistro } from "./TabelaFaturamentoSinistro";
 import { GraficoSinistralidadeTempo } from "./GraficoSinistralidadeTempo";
@@ -15,7 +14,12 @@ export default function GeralPage() {
 
   useEffect(() => {
     (async () => {
-      const { data } = await axios("/api/competencias");
+      const res = await fetch("/api/competencias", {
+        next: { tags: ["competencias"] },
+      });
+
+      const data = await res.json();
+
       setCompetencias(data.data);
     })();
   }, []);

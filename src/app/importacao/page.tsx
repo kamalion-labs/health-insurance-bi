@@ -49,7 +49,6 @@ export default function ImportacaoPage() {
       fetch("/api/importFile", {
         method: "POST",
         body: formData,
-        next: { tags: ["competencias"] },
       });
 
       alert("Importado com sucesso");
