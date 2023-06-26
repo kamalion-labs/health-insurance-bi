@@ -41,6 +41,8 @@ export default function ImportacaoPage() {
         },
       });
 
+      alert("Importado com sucesso");
+
       // await importFile(res.data.path);
       // handle the error
       // if (!res.ok) throw new Error(await res.text());
