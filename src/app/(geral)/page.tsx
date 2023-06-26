@@ -12,7 +12,7 @@ export default function GeralPage() {
   usePage({ id: "dashboardGeral", title: "Dashboard Geral" });
   const [Competencias, setCompetencias] = useState<Competencia[]>([]);
   const [Loading, setLoading] = useState(true);
-  const [Error, setError] = useState("");
+  const [, setError] = useState("");
 
   useEffect(() => {
     (async () => {
