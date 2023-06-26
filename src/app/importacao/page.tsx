@@ -15,7 +15,6 @@ export default function ImportacaoPage() {
   const [file, setFile] = useState<File>();
   const [UploadProgress, setUploadProgress] = useState<number>();
   const [ImportProgress, setImportProgress] = useState<any>();
-  const [FilePath, setFilePath] = useState<string>();
 
   function onFileSelected(e: ChangeEvent<HTMLInputElement>) {
     const { files } = e.target;
@@ -42,9 +41,7 @@ export default function ImportacaoPage() {
         },
       });
 
-      setFilePath(res.data.path);
-
-      await importFile();
+      await importFile(res.data.path);
       // handle the error
       // if (!res.ok) throw new Error(await res.text());
     } catch (e: any) {
@@ -53,8 +50,8 @@ export default function ImportacaoPage() {
     }
   }
 
-  async function importFile() {
-    const eventSource = new EventSource(`/api/import?path=${FilePath}`);
+  async function importFile(filePath: string) {
+    const eventSource = new EventSource(`/api/import?path=${filePath}`);
 
     eventSource.onmessage = (event) => {
       const data = JSON.parse(event.data.replace(/\\n/g, "\n").trim());

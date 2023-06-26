@@ -2,8 +2,7 @@ import { NextRequest } from "next/server";
 import fs from "fs/promises";
 import { PathLike } from "fs";
 import { parse } from "date-fns";
-import { Competencia, PrismaClient } from "@prisma/client";
-import { Decimal } from "@prisma/client/runtime";
+import { Competencia, Prisma, PrismaClient } from "@prisma/client";
 
 // This is required to enable streaming
 export const dynamic = "force-dynamic";
@@ -50,12 +49,12 @@ export async function GET(request: NextRequest) {
 
         const competencia: Omit<Competencia, "id"> = {
           data,
-          faturamento: new Decimal(cols[1]),
-          coparticipacao: new Decimal(cols[2]),
-          sinistro: new Decimal(cols[3]),
-          sinistroGeral: new Decimal(cols[4]),
-          sinistralidade: new Decimal(cols[5]),
-          defasagemSinistralidade: new Decimal(cols[6]),
+          faturamento: new Prisma.Decimal(+cols[1]),
+          coparticipacao: new Prisma.Decimal(+cols[2]),
+          sinistro: new Prisma.Decimal(+cols[3]),
+          sinistroGeral: new Prisma.Decimal(+cols[4]),
+          sinistralidade: new Prisma.Decimal(+cols[5]),
+          defasagemSinistralidade: new Prisma.Decimal(+cols[6]),
         };
 
         const count = await prisma.competencia.count({
