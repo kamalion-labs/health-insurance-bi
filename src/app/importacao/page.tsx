@@ -14,7 +14,7 @@ export default function ImportacaoPage() {
 
   const [file, setFile] = useState<File>();
   const [UploadProgress, setUploadProgress] = useState<number>();
-  const [ImportProgress, setImportProgress] = useState<any>();
+  // const [ImportProgress, setImportProgress] = useState<any>();
 
   function onFileSelected(e: ChangeEvent<HTMLInputElement>) {
     const { files } = e.target;
@@ -33,7 +33,7 @@ export default function ImportacaoPage() {
       const data = new FormData();
       data.append("file", file);
 
-      const res = await axios("/api/upload", {
+      await axios("/api/importFile", {
         method: "POST",
         data,
         onUploadProgress: (e) => {
@@ -41,7 +41,7 @@ export default function ImportacaoPage() {
         },
       });
 
-      await importFile(res.data.path);
+      // await importFile(res.data.path);
       // handle the error
       // if (!res.ok) throw new Error(await res.text());
     } catch (e: any) {
@@ -50,19 +50,19 @@ export default function ImportacaoPage() {
     }
   }
 
-  async function importFile(filePath: string) {
-    const eventSource = new EventSource(`/api/import?path=${filePath}`);
+  // async function importFile(filePath: string) {
+  //   const eventSource = new EventSource(`/api/import?path=${filePath}`);
 
-    eventSource.onmessage = (event) => {
-      const data = JSON.parse(event.data.replace(/\\n/g, "\n").trim());
+  //   eventSource.onmessage = (event) => {
+  //     const data = JSON.parse(event.data.replace(/\\n/g, "\n").trim());
 
-      setImportProgress(data);
+  //     setImportProgress(data);
 
-      if (data.progress === 100) {
-        eventSource.close();
-      }
-    };
-  }
+  //     if (data.progress === 100) {
+  //       eventSource.close();
+  //     }
+  //   };
+  // }
 
   return (
     <div className="p-4">
@@ -116,12 +116,12 @@ export default function ImportacaoPage() {
               </Button>
             </div>
 
-            {ImportProgress && (
+            {/* {ImportProgress && (
               <div>
                 <ProgressBar progress={ImportProgress.progress} />
                 <div>Status: {ImportProgress.status}</div>
               </div>
-            )}
+            )} */}
           </div>
         )}
       </form>
