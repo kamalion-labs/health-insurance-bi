@@ -8,7 +8,7 @@ import {
   FaVirusCovid,
 } from "react-icons/fa6";
 
-import DarkToggle from "../DarkToggle";
+import { DarkToggle } from "@/components";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import NavItem from "./NavItem";
 import { usePage } from "@/hooks";

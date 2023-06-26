@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["jsonProtocol"]
@@ -8,18 +5,18 @@ generator client {
 
 datasource db {
   provider          = "postgresql"
-  url               = env("POSTGRES_PRISMA_URL") // uses connection pooling
-  directUrl         = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
-  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
+  url               = env("POSTGRES_PRISMA_URL")
+  directUrl         = env("POSTGRES_URL_NON_POOLING")
+  shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING")
 }
 
 model Competencia {
   id                      Int      @id @default(autoincrement())
   data                    DateTime
-  faturamento             Decimal
-  coparticipacao          Decimal
-  sinistro                Decimal
-  sinistroGeral           Decimal
-  sinistralidade          Decimal
-  defasagemSinistralidade Decimal
+  faturamento             Decimal  @db.Decimal(10, 2)
+  coparticipacao          Decimal  @db.Decimal(10, 2)
+  sinistro                Decimal  @db.Decimal(10, 2)
+  sinistroGeral           Decimal  @db.Decimal(10, 2)
+  sinistralidade          Decimal  @db.Decimal(10, 2)
+  defasagemSinistralidade Decimal  @db.Decimal(10, 2)
 }

@@ -5,7 +5,7 @@ import { useTheme } from "next-themes";
 import { RiSunLine, RiMoonClearLine } from "react-icons/ri";
 import clsx from "clsx";
 
-function DarkToggle() {
+export function DarkToggle() {
   const [mounted, setMounted] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const { theme, setTheme } = useTheme();
@@ -52,5 +52,3 @@ function DarkToggle() {
     </button>
   );
 }
-
-export default DarkToggle;
