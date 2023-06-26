@@ -11,21 +11,33 @@ import { GraficoFaturamentoSinistro } from "./GraficoFaturamentoSinistro";
 export default function GeralPage() {
   usePage({ id: "dashboardGeral", title: "Dashboard Geral" });
   const [Competencias, setCompetencias] = useState<Competencia[]>([]);
+  const [Loading, setLoading] = useState(true);
+  const [Error, setError] = useState("");
 
   useEffect(() => {
     (async () => {
-      const res = await fetch("/api/competencias", {
-        next: { tags: ["competencias"], revalidate: 60 },
-      });
+      try {
+        const res = await fetch("/api/competencias", {
+          next: { tags: ["competencias"], revalidate: 60 },
+        });
 
-      const data = await res.json();
+        const data = await res.json();
 
-      setCompetencias(data.data);
+        setCompetencias(data.data);
+      } catch (e: any) {
+        setError(e.text());
+      } finally {
+        setLoading(false);
+      }
     })();
   }, []);
 
+  if (Loading) {
+    return <div className="p-5">Carregando...</div>;
+  }
+
   if (Competencias.length === 0) {
-    return <div>Carregando...</div>;
+    return <div className="p-5">Nenhum dado a ser exibido</div>;
   }
 
   return (
