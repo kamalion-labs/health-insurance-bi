@@ -8,8 +8,6 @@ import { TabelaFaturamentoSinistro } from "./TabelaFaturamentoSinistro";
 import { GraficoSinistralidadeTempo } from "./GraficoSinistralidadeTempo";
 import { GraficoFaturamentoSinistro } from "./GraficoFaturamentoSinistro";
 
-export const revalidate = 10;
-
 export default function GeralPage() {
   usePage({ id: "dashboardGeral", title: "Dashboard Geral" });
   const [Competencias, setCompetencias] = useState<Competencia[]>([]);
@@ -17,7 +15,7 @@ export default function GeralPage() {
   useEffect(() => {
     (async () => {
       const res = await fetch("/api/competencias", {
-        next: { tags: ["competencias"] },
+        next: { tags: ["competencias"], revalidate: 60 },
       });
 
       const data = await res.json();
