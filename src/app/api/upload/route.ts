@@ -1,4 +1,5 @@
 import { writeFile } from "fs/promises";
+import fs from "fs";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -16,6 +17,11 @@ export async function POST(request: NextRequest) {
   // With the file data in the buffer, you can do whatever you want with it.
   // For this, we'll just write it to the filesystem in a new location
   const path = `./tmp/${file.name}`;
+
+  if (!fs.existsSync("./tmp")) {
+    fs.mkdirSync("./tmp");
+  }
+
   await writeFile(path, buffer);
   console.log(`open ${path} to see the uploaded file`);
 
