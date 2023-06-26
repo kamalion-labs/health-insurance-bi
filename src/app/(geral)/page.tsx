@@ -8,6 +8,8 @@ import { TabelaFaturamentoSinistro } from "./TabelaFaturamentoSinistro";
 import { GraficoSinistralidadeTempo } from "./GraficoSinistralidadeTempo";
 import { GraficoFaturamentoSinistro } from "./GraficoFaturamentoSinistro";
 
+export const revalidate = 10;
+
 export default function GeralPage() {
   usePage({ id: "dashboardGeral", title: "Dashboard Geral" });
   const [Competencias, setCompetencias] = useState<Competencia[]>([]);
