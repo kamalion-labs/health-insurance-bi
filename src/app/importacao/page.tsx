@@ -3,17 +3,17 @@
 import { Button } from "@/components";
 import { usePage } from "@/hooks";
 import clsx from "clsx";
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { FaFileLines } from "react-icons/fa6";
-import FormData from "form-data";
-import axios from "axios";
-import { ProgressBar } from "@/components/ProgressBar";
+// import { ProgressBar } from "@/components/ProgressBar";
 
 export default function ImportacaoPage() {
   usePage({ id: "importacao", title: "Importação de Arquivos" });
 
+  const inputFileRef = useRef<HTMLInputElement | null>(null);
+
   const [file, setFile] = useState<File>();
-  const [UploadProgress, setUploadProgress] = useState<number>();
+  // const [UploadProgress, setUploadProgress] = useState<number>();
   // const [ImportProgress, setImportProgress] = useState<any>();
 
   function onFileSelected(e: ChangeEvent<HTMLInputElement>) {
@@ -29,16 +29,30 @@ export default function ImportacaoPage() {
   async function upload(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    try {
-      const data = new FormData();
-      data.append("file", file);
+    if (!inputFileRef.current?.files?.length) {
+      alert("Please, select file you want to upload");
+      return;
+    }
 
-      await axios("/api/importFile", {
+    try {
+      const formData = new FormData();
+
+      Object.values(inputFileRef.current.files).forEach((file) => {
+        formData.append("file", file);
+      });
+
+      // await axios("/api/importFile", {
+      //   method: "POST",
+      //   data: formData,
+      //   onUploadProgress: (e) => {
+      //     setUploadProgress(e.progress! * 100);
+      //   },
+      // });
+
+      fetch("/api/importFile", {
         method: "POST",
-        data,
-        onUploadProgress: (e) => {
-          setUploadProgress(e.progress! * 100);
-        },
+        body: formData,
+        next: { tags: ["competencias"] },
       });
 
       alert("Importado com sucesso");
@@ -89,6 +103,7 @@ export default function ImportacaoPage() {
               name="coverUrl"
               className="invisible h-0 w-0"
               onChange={onFileSelected}
+              ref={inputFileRef}
             />
           </>
         )}
@@ -107,7 +122,7 @@ export default function ImportacaoPage() {
                   {file.size > 1e6 ? "mb" : "kb"}
                 </span>
 
-                <ProgressBar progress={UploadProgress} />
+                {/* <ProgressBar progress={UploadProgress} /> */}
               </div>
             </div>
 

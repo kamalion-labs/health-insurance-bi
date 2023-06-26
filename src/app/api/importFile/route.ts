@@ -1,5 +1,6 @@
 import { Competencia, Prisma, PrismaClient } from "@prisma/client";
 import { parse } from "date-fns";
+import { revalidateTag } from "next/cache";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -49,6 +50,8 @@ export async function POST(request: NextRequest) {
 
     await prisma.competencia.create({ data: competencia });
   }
+
+  revalidateTag("competencias");
 
   return NextResponse.json({ success: true });
 }
