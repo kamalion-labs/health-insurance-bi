@@ -12,7 +12,7 @@ export default function ImportacaoPage() {
 
   const inputFileRef = useRef<HTMLInputElement | null>(null);
 
-  const [file, setFile] = useState<File>();
+  const [files, setFiles] = useState<FileList>();
   // const [UploadProgress, setUploadProgress] = useState<number>();
   // const [ImportProgress, setImportProgress] = useState<any>();
 
@@ -23,23 +23,20 @@ export default function ImportacaoPage() {
       return;
     }
 
-    setFile(files[0]);
+    setFiles(files);
   }
 
   async function upload(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    if (!inputFileRef.current?.files?.length) {
+    if (!files) {
       alert("Please, select file you want to upload");
       return;
     }
 
     try {
       const formData = new FormData();
-
-      Object.values(inputFileRef.current.files).forEach((file) => {
-        formData.append("file", file);
-      });
+      formData.append("file", files[0]);
 
       // await axios("/api/importFile", {
       //   method: "POST",
@@ -56,6 +53,7 @@ export default function ImportacaoPage() {
       });
 
       alert("Importado com sucesso");
+      setFiles(undefined);
 
       // await importFile(res.data.path);
       // handle the error
@@ -83,7 +81,7 @@ export default function ImportacaoPage() {
   return (
     <div className="p-4">
       <form onSubmit={upload} className="rounded bg-alt p-4">
-        {!file && (
+        {!files && (
           <>
             <label
               htmlFor="media"
@@ -108,18 +106,18 @@ export default function ImportacaoPage() {
           </>
         )}
 
-        {file && (
+        {files && (
           <div className="flex flex-col space-y-5">
             <div className="flex items-center space-x-5">
               <FaFileLines size={30} />
               <div className="flex flex-col">
-                <span>{file.name}</span>
+                <span>{files[0].name}</span>
 
                 <span>
-                  {(file.size / (file.size > 1e6 ? 1024 * 1024 : 1024)).toFixed(
-                    2
-                  )}
-                  {file.size > 1e6 ? "mb" : "kb"}
+                  {(
+                    files[0].size / (files[0].size > 1e6 ? 1024 * 1024 : 1024)
+                  ).toFixed(2)}
+                  {files[0].size > 1e6 ? "mb" : "kb"}
                 </span>
 
                 {/* <ProgressBar progress={UploadProgress} /> */}
@@ -128,7 +126,7 @@ export default function ImportacaoPage() {
 
             <div className="flex space-x-3">
               <Button submit>Importar</Button>
-              <Button type="secondary" onClick={() => setFile(undefined)}>
+              <Button type="secondary" onClick={() => setFiles(undefined)}>
                 Selecionar outro arquivo
               </Button>
             </div>
