@@ -1,13 +1,11 @@
-"use client";
+type Props = {
+  title: string;
+};
 
-import { usePage } from "@/hooks";
-
-export function Header() {
-  const { pageTitle } = usePage();
-
+export function Header({ title }: Props) {
   return (
     <header className="sticky bg-[var(--color-header-bg)] p-5">
-      <div className=" text-3xl font-light">{pageTitle}</div>
+      <div className=" text-3xl font-light">{title}</div>
     </header>
   );
 }

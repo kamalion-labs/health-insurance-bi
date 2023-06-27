@@ -1,15 +1,12 @@
 "use client";
 
-import { Button } from "@/components";
-import { usePage } from "@/hooks";
+import { Button, Page } from "@/components";
 import clsx from "clsx";
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { FaFileLines } from "react-icons/fa6";
 // import { ProgressBar } from "@/components/ProgressBar";
 
 export default function ImportacaoPage() {
-  usePage({ id: "importacao", title: "Importação de Arquivos" });
-
   const inputFileRef = useRef<HTMLInputElement | null>(null);
 
   const [files, setFiles] = useState<FileList>();
@@ -78,7 +75,7 @@ export default function ImportacaoPage() {
   // }
 
   return (
-    <div className="p-4">
+    <Page title="Importação de Arquivos" id="importacao" className="p-4">
       <form onSubmit={upload} className="rounded bg-alt p-4">
         {!files && (
           <>
@@ -139,6 +136,6 @@ export default function ImportacaoPage() {
           </div>
         )}
       </form>
-    </div>
+    </Page>
   );
 }

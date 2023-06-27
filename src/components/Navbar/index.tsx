@@ -11,12 +11,13 @@ import {
 import { DarkToggle } from "@/components";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import NavItem from "./NavItem";
-import { usePage } from "@/hooks";
 import { useEffect, useState } from "react";
 
-export function Navbar() {
-  const { pageId } = usePage();
+type Props = {
+  pageId: string;
+};
 
+export function Navbar({ pageId }: Props) {
   const [val, setVal] = useState(pageId);
 
   useEffect(() => {

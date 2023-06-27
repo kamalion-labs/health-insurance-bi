@@ -1,53 +1,32 @@
-"use client";
-
 import { Money } from "@/components/Money";
-import { usePage } from "@/hooks";
-import { Competencia } from "@prisma/client";
-import { useEffect, useState } from "react";
+import { PrismaClient } from "@prisma/client";
 import { TabelaFaturamentoSinistro } from "./TabelaFaturamentoSinistro";
 import { GraficoSinistralidadeTempo } from "./GraficoSinistralidadeTempo";
 import { GraficoFaturamentoSinistro } from "./GraficoFaturamentoSinistro";
+import { Page } from "@/components";
 
-export default function GeralPage() {
-  usePage({ id: "dashboardGeral", title: "Dashboard Geral" });
-  const [Competencias, setCompetencias] = useState<Competencia[]>([]);
-  const [Loading, setLoading] = useState(true);
-  const [, setError] = useState("");
+export const dynamic = "force-dynamic";
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await fetch("/api/competencias", {
-          next: { tags: ["competencias"], revalidate: 60 },
-        });
+export default async function GeralPage() {
+  const prisma = new PrismaClient();
+  const competencias = await prisma.competencia.findMany();
 
-        const data = await res.json();
-
-        setCompetencias(data.data);
-      } catch (e: any) {
-        setError(e.text());
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
-
-  if (Loading) {
-    return <div className="p-5">Carregando...</div>;
-  }
-
-  if (Competencias.length === 0) {
-    return <div className="p-5">Nenhum dado a ser exibido</div>;
+  if (competencias.length === 0) {
+    return (
+      <Page title="Dashboard Geral" id="dashboardGeral" className="p-5">
+        Nenhum dado a ser exibido
+      </Page>
+    );
   }
 
   return (
-    <div className="space-y-5 p-5">
+    <Page title="Dashboard Geral" id="dashboardGeral" className="space-y-5 p-5">
       {/* Header */}
       <div className="grid grid-cols-3 gap-3 text-white">
         <div className="flex flex-col justify-center rounded bg-alt bg-cyan-400 px-4 py-3">
           <div className="text-3xl font-bold">
             <Money
-              value={Competencias.reduce(
+              value={competencias.reduce(
                 (sum, current) => sum + +current.faturamento,
                 0
               )}
@@ -59,7 +38,7 @@ export default function GeralPage() {
         <div className="flex flex-col justify-center rounded bg-alt bg-red-400 px-4 py-3">
           <div className="text-3xl font-bold">
             <Money
-              value={Competencias.reduce(
+              value={competencias.reduce(
                 (sum, current) => sum + +current.sinistro,
                 0
               )}
@@ -71,7 +50,7 @@ export default function GeralPage() {
         <div className="flex flex-col justify-center rounded bg-alt bg-purple-400 px-4 py-3">
           <div className="text-3xl font-bold">
             <Money
-              value={Competencias.reduce(
+              value={competencias.reduce(
                 (sum, current) => sum + +current.coparticipacao,
                 0
               )}
@@ -85,7 +64,7 @@ export default function GeralPage() {
         <div className="text-lg font-medium">Faturamento x Sinistro</div>
 
         <div className="flex h-[300px]">
-          <GraficoFaturamentoSinistro data={Competencias} />
+          <GraficoFaturamentoSinistro data={competencias} />
         </div>
       </div>
 
@@ -93,7 +72,7 @@ export default function GeralPage() {
         <div className="text-lg font-medium">Sinistralidade por Tempo</div>
 
         <div className="flex h-[300px]">
-          <GraficoSinistralidadeTempo data={Competencias} />
+          <GraficoSinistralidadeTempo data={competencias} />
         </div>
       </div>
 
@@ -103,8 +82,8 @@ export default function GeralPage() {
           Tabela de Faturamento e Sinistro
         </div>
 
-        <TabelaFaturamentoSinistro data={Competencias} />
+        <TabelaFaturamentoSinistro data={competencias} />
       </div>
-    </div>
+    </Page>
   );
 }
