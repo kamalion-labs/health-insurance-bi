@@ -19,6 +19,11 @@ export async function POST(request: NextRequest) {
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
+
+    if (line === "") {
+      continue;
+    }
+
     const cols = line.split("|");
 
     const data = parse(`01/${cols[0]}`, "dd/MM/yyyy", new Date());
