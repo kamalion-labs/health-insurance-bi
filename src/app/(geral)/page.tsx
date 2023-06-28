@@ -1,9 +1,8 @@
-import { Money } from "@/components/Money";
 import { PrismaClient } from "@prisma/client";
 import { TabelaFaturamentoSinistro } from "./TabelaFaturamentoSinistro";
 import { GraficoSinistralidadeTempo } from "./GraficoSinistralidadeTempo";
 import { GraficoFaturamentoSinistro } from "./GraficoFaturamentoSinistro";
-import { Page } from "@/components";
+import { Page, Money } from "@/components";
 
 export const dynamic = "force-dynamic";
 
