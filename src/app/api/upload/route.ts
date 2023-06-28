@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
   if (!fs.existsSync("./tmp")) {
     fs.mkdirSync("./tmp");
   }
-  const path = `./${file.name}`;
+  const path = `./tmp/${file.name}`;
 
   await writeFile(path, buffer);
   console.log(`open ${path} to see the uploaded file`);
