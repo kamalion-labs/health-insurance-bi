@@ -7,7 +7,7 @@ type Props = {
   title: string;
   id: string;
   className?: string;
-  children: ReactNode;
+  children?: ReactNode;
 };
 
 export function Page({ title, id, className, children }: Props) {

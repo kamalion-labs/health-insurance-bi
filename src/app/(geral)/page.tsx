@@ -60,7 +60,8 @@ export default async function GeralPage() {
         </div>
       </div>
 
-      <div className="flex flex-col space-y-5 rounded bg-alt p-4">
+      {/* Gráfico 1 */}
+      <div className="flex flex-col space-y-5 rounded bg-alt p-4 shadow">
         <div className="text-lg font-medium">Faturamento x Sinistro</div>
 
         <div className="flex h-[300px]">
@@ -68,7 +69,8 @@ export default async function GeralPage() {
         </div>
       </div>
 
-      <div className="flex flex-col space-y-5 rounded bg-alt p-4">
+      {/* Gráfico 2 */}
+      <div className="flex flex-col space-y-5 rounded bg-alt p-4 shadow">
         <div className="text-lg font-medium">Sinistralidade por Tempo</div>
 
         <div className="flex h-[300px]">
@@ -77,7 +79,7 @@ export default async function GeralPage() {
       </div>
 
       {/* Tabela de faturamento e sinistro */}
-      <div className="flex flex-col space-y-5 rounded bg-alt p-4">
+      <div className="flex flex-col space-y-5 rounded bg-alt p-4 shadow">
         <div className="text-lg font-medium">
           Tabela de Faturamento e Sinistro
         </div>

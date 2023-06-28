@@ -1,13 +1,19 @@
 "use client";
 
-import { usePage } from "@/hooks";
+import { Page } from "@/components";
+import clsx from "clsx";
 
 export default function CovidDashboard() {
-  usePage({
-    id: "covidDashboard",
-    parentId: "covid",
-    title: "Dashboard Covid-19",
-  });
-
-  return <></>;
+  return (
+    <Page title="Dashboard Covid-19" id="covidDashboard" className="">
+      <div className="flex">
+        <button className={clsx("")}>Botão</button>
+        <button className={clsx("")}>Botão 2</button>
+        <button className={clsx("")}>Botão 2</button>
+        <button className={clsx("")}>Botão 2</button>
+        <button className={clsx("")}>Botão 2</button>
+        <button className={clsx("")}>Botão 2</button>
+      </div>
+    </Page>
+  );
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { usePage } from "@/hooks";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import clsx from "clsx";
 import { ReactNode } from "react";
@@ -15,8 +14,6 @@ interface Props {
 }
 
 export default function NavItem({ title, icon, href, children, id }: Props) {
-  const { pageId, parentId } = usePage();
-
   if (!children)
     return (
       <NavigationMenu.Item value={id}>
@@ -24,7 +21,7 @@ export default function NavItem({ title, icon, href, children, id }: Props) {
           href={href}
           className={clsx(
             "group flex w-full select-none items-center space-x-4 px-4 py-2 transition-colors hover:bg-[var(--color-main-bg)]",
-            id === pageId && "text-primary"
+            "text-primary"
           )}
         >
           <div className="flex h-8 w-8 items-center justify-end">{icon}</div>
@@ -38,7 +35,7 @@ export default function NavItem({ title, icon, href, children, id }: Props) {
       <NavigationMenu.Trigger
         className={clsx(
           "group flex w-full select-none items-center space-x-4 px-4 py-2 transition-colors radix-state-open:bg-[var(--color-main-bg)]",
-          id === parentId && "text-primary"
+          "text-primary"
         )}
         onPointerMove={(event) => event.preventDefault()}
         onPointerLeave={(event) => event.preventDefault()}

@@ -1,6 +1,5 @@
 "use client";
 
-import { PageProvider } from "@/hooks";
 import { ThemeProvider } from "next-themes";
 import { ReactNode, useEffect, useState } from "react";
 
@@ -16,7 +15,7 @@ function Providers({ children }: { children: ReactNode }) {
   }
   return (
     <ThemeProvider attribute="class" enableSystem={true} defaultTheme="light">
-      <PageProvider>{children}</PageProvider>
+      <>{children}</>
     </ThemeProvider>
   );
 }
