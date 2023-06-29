@@ -1,3 +1,5 @@
+"use client";
+
 import { Money } from "@/components";
 import { Competencia } from "@prisma/client";
 import { format } from "date-fns";
@@ -21,22 +23,22 @@ export function TabelaFaturamentoSinistro({ data }: { data: Competencia[] }) {
           <tr key={comp.id}>
             <td>{format(new Date(comp.data), "MM/yyyy")}</td>
             <td className="text-end">
-              <Money value={comp.faturamento} />
+              <Money value={+comp.faturamento} />
             </td>
             <td className="text-end">
-              <Money value={comp.coparticipacao} />
+              <Money value={+comp.coparticipacao} />
             </td>
             <td className="text-end">
-              <Money value={comp.sinistro} />
+              <Money value={+comp.sinistro} />
             </td>
             <td className="text-end">
-              <Money value={comp.sinistroGeral} />
+              <Money value={+comp.sinistroGeral} />
             </td>
             <td className="text-end">
-              <Money value={comp.sinistralidade} percent />
+              <Money value={+comp.sinistralidade} percent />
             </td>
             <td className="text-end">
-              <Money value={comp.defasagemSinistralidade} percent />
+              <Money value={+comp.defasagemSinistralidade} percent />
             </td>
           </tr>
         ))}

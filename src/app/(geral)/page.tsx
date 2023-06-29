@@ -2,24 +2,24 @@ import { PrismaClient } from "@prisma/client";
 import { TabelaFaturamentoSinistro } from "./TabelaFaturamentoSinistro";
 import { GraficoSinistralidadeTempo } from "./GraficoSinistralidadeTempo";
 import { GraficoFaturamentoSinistro } from "./GraficoFaturamentoSinistro";
-import { Page, Money } from "@/components";
+import { Money, PageInitializer } from "@/components";
 
 export const dynamic = "force-dynamic";
 
 export default async function GeralPage() {
   const prisma = new PrismaClient();
-  const competencias = await prisma.competencia.findMany();
+  let competencias = await prisma.competencia.findMany();
+
+  competencias = JSON.parse(JSON.stringify(competencias));
 
   if (competencias.length === 0) {
-    return (
-      <Page title="Dashboard Geral" id="dashboardGeral" className="p-5">
-        Nenhum dado a ser exibido
-      </Page>
-    );
+    return <div className="p-5">Nenhum dado a ser exibido</div>;
   }
 
   return (
-    <Page title="Dashboard Geral" id="dashboardGeral" className="space-y-5 p-5">
+    <div className="space-y-5 p-5">
+      <PageInitializer id={"dashboardGeral"} title={"Dashboard Geral"} />
+
       {/* Header */}
       <div className="grid grid-cols-3 gap-3 text-white">
         <div className="flex flex-col justify-center rounded bg-alt bg-cyan-400 px-4 py-3">
@@ -85,6 +85,6 @@ export default async function GeralPage() {
 
         <TabelaFaturamentoSinistro data={competencias} />
       </div>
-    </Page>
+    </div>
   );
 }

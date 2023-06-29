@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, Page } from "@/components";
+import { Button, Page, PageInitializer } from "@/components";
 import clsx from "clsx";
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { FaFileLines } from "react-icons/fa6";
@@ -75,7 +75,9 @@ export default function ImportacaoPage() {
   // }
 
   return (
-    <Page title="Importação de Arquivos" id="importacao" className="p-4">
+    <div className="p-4">
+      <PageInitializer id={"importacao"} title={"Importação de Arquivos"} />
+
       <form onSubmit={upload} className="rounded bg-alt p-4">
         {!files && (
           <>
@@ -136,6 +138,6 @@ export default function ImportacaoPage() {
           </div>
         )}
       </form>
-    </Page>
+    </div>
   );
 }

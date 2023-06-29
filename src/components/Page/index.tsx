@@ -1,16 +1,19 @@
+"use client";
+
 import { ReactNode } from "react";
 import { Navbar } from "../Navbar";
 import { Header } from "../Header";
 import clsx from "clsx";
+import { usePage } from "@/stores";
 
 type Props = {
-  title: string;
-  id: string;
   className?: string;
   children?: ReactNode;
 };
 
-export function Page({ title, id, className, children }: Props) {
+export function Page({ className, children }: Props) {
+  const { title, id } = usePage();
+
   return (
     <>
       <Navbar pageId={id} />

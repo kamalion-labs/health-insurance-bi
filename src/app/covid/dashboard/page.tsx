@@ -1,11 +1,17 @@
 "use client";
 
-import { Page } from "@/components";
+import { PageInitializer } from "@/components";
 import clsx from "clsx";
 
 export default function CovidDashboard() {
   return (
-    <Page title="Dashboard Covid-19" id="covidDashboard" className="">
+    <div className="p-4">
+      <PageInitializer
+        title="Dashboard Covid-19"
+        id="covidDashboard"
+        parentId="covid"
+      />
+
       <div className="flex">
         <button className={clsx("")}>Botão</button>
         <button className={clsx("")}>Botão 2</button>
@@ -14,6 +20,6 @@ export default function CovidDashboard() {
         <button className={clsx("")}>Botão 2</button>
         <button className={clsx("")}>Botão 2</button>
       </div>
-    </Page>
+    </div>
   );
 }

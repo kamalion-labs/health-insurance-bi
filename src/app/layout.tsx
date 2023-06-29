@@ -2,6 +2,7 @@ import "./globals.css";
 import { Inter, Titillium_Web as Titillium } from "next/font/google";
 import Providers from "./Providers";
 import { ReactNode } from "react";
+import { Page } from "@/components";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const tt = Titillium({
@@ -21,7 +22,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body
         className={`${inter.variable} ${tt.variable} flex h-screen bg-[var(--color-main-bg)] font-sans text-[var(--foreground)]`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <Page>{children}</Page>
+        </Providers>
       </body>
     </html>
   );
