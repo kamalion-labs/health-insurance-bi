@@ -14,7 +14,6 @@ module.exports = {
       },
       textColor: {
         primary: "var(--color-primary)",
-        "red-400": "#0F0",
       },
       backgroundColor: {
         main: "var(--color-main-bg)",

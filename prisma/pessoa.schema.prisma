@@ -1,5 +1,6 @@
 model Pessoa {
   id                Int      @id @default(autoincrement())
+  Nome              String
   CPF               String
   Sexo              Sexo?
   DataNascimento    DateTime

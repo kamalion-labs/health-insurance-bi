@@ -13,6 +13,8 @@ model ArquivoOperadora {
 
   operadora   Operadora @relation(fields: [idOperadora], references: [id])
   idOperadora Int
+
+  colunas ColunaArquivo[]
 }
 
 enum TipoArquivoOperadora {
@@ -23,15 +25,19 @@ enum TipoArquivoOperadora {
 }
 
 model ColunaArquivo {
-  id               Int        @id @default(autoincrement())
-  nome             String
-  coluna           String
-  tipo             TipoColuna
-  posicao          Int?
-  inicio           Int?
-  fim              Int?
+  id      Int        @id @default(autoincrement())
+  nome    String
+  coluna  String
+  tipo    TipoColuna
+  posicao Int?
+  inicio  Int?
+  fim     Int?
+
   referenciaTabela String?
   referenciaColuna String?
+
+  arquivoOperadora   ArquivoOperadora @relation(fields: [idArquivoOperadora], references: [id])
+  idArquivoOperadora Int
 }
 
 enum TipoColuna {
