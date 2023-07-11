@@ -12,3 +12,21 @@ CREATE TABLE "Competencia" (
     CONSTRAINT "Competencia_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Sinistro" (
+    "id" SERIAL NOT NULL,
+    "competencia" TIMESTAMP(3) NOT NULL,
+    "tipo" VARCHAR(100) NOT NULL,
+    "valor" DECIMAL(10,2) NOT NULL,
+
+    CONSTRAINT "Sinistro_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Operadora" (
+    "id" SERIAL NOT NULL,
+    "nome" TEXT NOT NULL,
+    "codigo" TEXT NOT NULL,
+
+    CONSTRAINT "Operadora_pkey" PRIMARY KEY ("id")
+);

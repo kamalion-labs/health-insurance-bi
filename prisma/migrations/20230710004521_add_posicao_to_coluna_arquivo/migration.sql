@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "ColunaArquivo" ADD COLUMN     "posicao" INTEGER,
+ALTER COLUMN "inicio" DROP NOT NULL,
+ALTER COLUMN "fim" DROP NOT NULL;

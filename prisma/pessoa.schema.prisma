@@ -1,0 +1,13 @@
+model Pessoa {
+  id                Int      @id @default(autoincrement())
+  CPF               String
+  Sexo              Sexo?
+  DataNascimento    DateTime
+  DataAdmissao      DateTime
+  DataAdmissaoPlano DateTime
+}
+
+enum Sexo {
+  M
+  F
+}
