@@ -22,21 +22,22 @@ model ArquivoOperadora {
 model Empresa {
   id               Int                @id @default(autoincrement())
   nome             String
-  CNPJ             String
-  numeroContrato   String
-  inicioContrato   DateTime
-  fimContrato      DateTime
-  indiceReajuste   Int
-  limitadorTecnico Int
+  CNPJ             String             @unique
+  numeroContrato   String?
+  inicioContrato   DateTime?
+  fimContrato      DateTime?
+  indiceReajuste   Int?
+  limitadorTecnico Int?
   coparticipacoes  Coparticipacao[]
   empresaOperadora EmpresaOperadora[]
   pessoas          Pessoa[]
 }
 
 model Coparticipacao {
-  id        Int     @id @default(autoincrement())
-  nome      String
-  CNPJ      String
+  id   Int     @id @default(autoincrement())
+  nome String
+  CNPJ String? @unique
+
   empresa   Empresa @relation(fields: [idEmpresa], references: [id])
   idEmpresa Int
 }
@@ -90,4 +91,3 @@ enum TipoColuna {
   mesAno
   referencia
 }
-

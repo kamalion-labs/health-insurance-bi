@@ -1,15 +1,15 @@
 model Evento {
     id             Int             @id @default(autoincrement())
     codigo         Int
-    descricao      Int
+    descricao      String
     dataRealizacao DateTime
-    dataPagamento  Float
+    dataPagamento  DateTime?
     quantidade     Int
     custoTotal     Float
     sinistro       Float
-    teveInternacao Boolean
-    prontoSocorro  Boolean
-    UTI            Boolean
+    teveInternacao Boolean?
+    prontoSocorro  Boolean?
+    UTI            Boolean?
     situacao       Situacao?
     risco          Risco?
     tipoInternacao TipoInternacao?
@@ -45,9 +45,9 @@ model Prestador {
 
 model Cid {
     id                 Int      @id @default(autoincrement())
-    codigo             String
+    codigo             String   @unique
     descricao          String
-    descricaoAbreviada String
+    descricaoAbreviada String?
     eventos            Evento[]
 }
 
@@ -70,21 +70,21 @@ model Exame {
     idCategoria Int
 }
 
+model TipoProcedimento {
+    id      Int      @id @default(autoincrement())
+    nome    String
+    eventos Evento[]
+
+    categoria   Categoria @relation(fields: [idCategoria], references: [id])
+    idCategoria Int
+}
+
 model Categoria {
     id                Int                @id @default(autoincrement())
     nome              String
     tiposProcedimento TipoProcedimento[]
     exames            Exame[]
     subcategorias     SubCategoria[]
-}
-
-model TipoProcedimento {
-    id   Int    @id @default(autoincrement())
-    nome String
-
-    categoria   Categoria @relation(fields: [idCategoria], references: [id])
-    idCategoria Int
-    Evento      Evento[]
 }
 
 model SubCategoria {
@@ -152,4 +152,3 @@ enum RegimeInternacao {
     HOSPITALAR
     HOSPITAL_DIA
 }
-

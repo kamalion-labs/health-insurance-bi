@@ -1,13 +1,13 @@
 model Pessoa {
   id                Int        @id @default(autoincrement())
   nome              String
-  CPF               String
+  CPF               String     @unique
   sexo              Sexo?
-  dataNascimento    DateTime
-  dataAdmissao      DateTime
-  dataAdmissaoPlano DateTime
-  funcionario       Boolean
-  status            Status
+  dataNascimento    DateTime?
+  dataAdmissao      DateTime?
+  dataAdmissaoPlano DateTime?
+  funcionario       Boolean?
+  status            Status?
   scoreDiabetes     Float?
   scoreHipertensao  Float?
   atestados         Atestado[]
@@ -32,7 +32,7 @@ model Pessoa {
 
 model Cargo {
   id      Int      @id @default(autoincrement())
-  nome    String
+  nome    String   @unique
   pessoas Pessoa[]
 
   setor   Setor @relation(fields: [idSetor], references: [id])
@@ -77,4 +77,3 @@ enum Titularidade {
   TITULAR
   DEPENDENTE
 }
-
