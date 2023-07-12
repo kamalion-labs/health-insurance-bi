@@ -1,3 +1,4 @@
+
 model Pessoa {
   id                Int        @id @default(autoincrement())
   nome              String
@@ -11,6 +12,7 @@ model Pessoa {
   scoreDiabetes     Float?
   scoreHipertensao  Float?
   atestados         Atestado[]
+  eventos           Evento[]
 
   cargo   Cargo? @relation(fields: [idCargo], references: [id])
   idCargo Int

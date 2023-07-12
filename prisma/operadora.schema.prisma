@@ -1,3 +1,4 @@
+
 model Operadora {
   id               Int                @id @default(autoincrement())
   nome             String

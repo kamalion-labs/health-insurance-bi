@@ -1,3 +1,4 @@
+
 model Evento {
     id             Int             @id @default(autoincrement())
     codigo         Int
@@ -15,18 +16,83 @@ model Evento {
     tipoInternacao TipoInternacao?
     tipoParto      TipoParto?
 
-    prestador      Prestador @relation(fields: [idPrestador], references: [id])
-    idPrestador    Int
+    prestador   Prestador @relation(fields: [idPrestador], references: [id])
+    idPrestador Int
 
+    CID   Cid @relation(fields: [idCid], references: [id])
+    idCid Int
 
+    especialidade   Especialidade @relation(fields: [idEspecialidade], references: [id])
+    idEspecialidade Int
+
+    tipoProcedimento   TipoProcedimento @relation(fields: [idTipoProcedimento], references: [id])
+    idTipoProcedimento Int
+
+    pessoa   Pessoa @relation(fields: [idPessoa], references: [id])
+    idPessoa Int
+
+    exame   Exame @relation(fields: [idExame], references: [id])
+    idExame Int
 }
 
-model Prestador { 
-    id Int @id @default(autoincrement())
-    nome String
-    UF String?
+model Prestador {
+    id       Int      @id @default(autoincrement())
+    nome     String
+    UF       String?
     hospital Boolean
+    eventos  Evento[]
+}
+
+model Cid {
+    id                 Int      @id @default(autoincrement())
+    codigo             String
+    descricao          String
+    descricaoAbreviada String
+    eventos            Evento[]
+}
+
+model Especialidade {
+    id      Int      @id @default(autoincrement())
+    nome    String
     eventos Evento[]
+    exames  Exame[]
+}
+
+model Exame {
+    id      Int      @id @default(autoincrement())
+    nome    String
+    eventos Evento[]
+
+    especialidade   Especialidade @relation(fields: [idEspecialidade], references: [id])
+    idEspecialidade Int
+
+    categoria   Categoria @relation(fields: [idCategoria], references: [id])
+    idCategoria Int
+}
+
+model Categoria {
+    id                Int                @id @default(autoincrement())
+    nome              String
+    tiposProcedimento TipoProcedimento[]
+    exames            Exame[]
+    subcategorias     SubCategoria[]
+}
+
+model TipoProcedimento {
+    id   Int    @id @default(autoincrement())
+    nome String
+
+    categoria   Categoria @relation(fields: [idCategoria], references: [id])
+    idCategoria Int
+    Evento      Evento[]
+}
+
+model SubCategoria {
+    id   Int    @id @default(autoincrement())
+    nome String
+
+    categoria   Categoria @relation(fields: [idCategoria], references: [id])
+    idCategoria Int
 }
 
 enum Situacao {
