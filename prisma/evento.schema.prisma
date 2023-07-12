@@ -1,4 +1,3 @@
-
 model Evento {
     id             Int             @id @default(autoincrement())
     codigo         Int
@@ -36,11 +35,12 @@ model Evento {
 }
 
 model Prestador {
-    id       Int      @id @default(autoincrement())
-    nome     String
-    UF       String?
-    hospital Boolean
-    eventos  Evento[]
+    id         Int         @id @default(autoincrement())
+    nome       String
+    UF         String?
+    hospital   Boolean
+    eventos    Evento[]
+    liberacoes Liberacao[]
 }
 
 model Cid {
@@ -95,6 +95,28 @@ model SubCategoria {
     idCategoria Int
 }
 
+model Liberacao {
+    id                   Int               @id @default(autoincrement())
+    certificado          Int
+    dependencia          Int?
+    contrato             Int?
+    subfatura            Int?
+    senha                String?
+    diasSolicitacaoSenha Int?
+    diasLiberacaoSenha   Int?
+    situacaoSenha        SituacaoSenha?
+    possuiLiminar        Boolean?
+    regimeInternacao     RegimeInternacao?
+    dataSolicitacao      DateTime?
+    dataInternacao       DateTime?
+
+    plano   Plano @relation(fields: [idPlano], references: [id])
+    idPlano Int
+
+    prestador   Prestador @relation(fields: [idPrestador], references: [id])
+    idPrestador Int
+}
+
 enum Situacao {
     PENDENTE
     LIBERADA
@@ -120,3 +142,14 @@ enum TipoParto {
     CESAREO
     VAGINAL
 }
+
+enum SituacaoSenha {
+    LIBERADA
+    NEGADA
+}
+
+enum RegimeInternacao {
+    HOSPITALAR
+    HOSPITAL_DIA
+}
+

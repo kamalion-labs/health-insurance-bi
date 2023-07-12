@@ -1,4 +1,3 @@
-
 model Operadora {
   id               Int                @id @default(autoincrement())
   nome             String
@@ -68,9 +67,10 @@ model ColunaArquivo {
 }
 
 model Plano {
-  id      Int      @id @default(autoincrement())
-  nome    String
-  pessoas Pessoa[]
+  id         Int         @id @default(autoincrement())
+  nome       String
+  pessoas    Pessoa[]
+  liberacoes Liberacao[]
 
   operadora   Operadora @relation(fields: [idOperadora], references: [id])
   idOperadora Int
@@ -90,3 +90,4 @@ enum TipoColuna {
   mesAno
   referencia
 }
+
