@@ -1,6 +1,5 @@
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["jsonProtocol"]
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -27,10 +26,12 @@ model Sinistro {
 }
 
 model Usuario {
-  id   Int    @id @default(autoincrement())
-  nome String
-  email String
+  id    Int    @id @default(autoincrement())
+  email String @unique
   senha String
-  excluido Boolean
-  createdAt DateTime @default(now())
+  nome  String
+
+  ativo        Boolean   @default(true)
+  criadoEm     DateTime? @default(now())
+  atualizadoEm DateTime? @updatedAt
 }

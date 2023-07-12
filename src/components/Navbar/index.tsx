@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  FaChartColumn,
-  FaFileLines,
-  FaHeartPulse,
-  // FaUsers,
-  FaVirusCovid,
-} from "react-icons/fa6";
+import { FaChartColumn, FaHeartPulse, FaVirusCovid } from "react-icons/fa6";
 
 import { DarkToggle } from "@/components";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
@@ -73,13 +67,6 @@ export function Navbar({ pageId }: Props) {
                 />
               </NavigationMenu.List>
             </NavItem>
-
-            <NavItem
-              title="Importação"
-              icon={<FaFileLines size={20} />}
-              href="/importacao"
-              id="importacao"
-            />
 
             {/* <NavItem title="Análise Populacional" icon={<FaUsers size={20} />}>
               <NavItem

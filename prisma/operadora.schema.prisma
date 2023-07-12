@@ -2,7 +2,7 @@ model Operadora {
   id               Int                @id @default(autoincrement())
   nome             String
   arquivos         ArquivoOperadora[]
-  EmpresaOperadora EmpresaOperadora[]
+  empresaOperadora EmpresaOperadora[]
   planos           Plano[]
 }
 
@@ -67,7 +67,7 @@ model ColunaArquivo {
 }
 
 model Plano {
-  id      Int       @id @default(autoincrement())
+  id      Int      @id @default(autoincrement())
   nome    String
   pessoas Pessoa[]
 
@@ -89,4 +89,3 @@ enum TipoColuna {
   mesAno
   referencia
 }
-
