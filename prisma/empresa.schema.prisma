@@ -1,4 +1,0 @@
-model Empresa {
-  id   Int    @id @default(autoincrement())
-  nome String
-}

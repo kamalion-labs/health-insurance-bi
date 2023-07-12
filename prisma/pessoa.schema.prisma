@@ -1,13 +1,78 @@
 model Pessoa {
-  id                Int      @id @default(autoincrement())
+  id                Int        @id @default(autoincrement())
+  nome              String
   CPF               String
-  Sexo              Sexo?
-  DataNascimento    DateTime
-  DataAdmissao      DateTime
-  DataAdmissaoPlano DateTime
+  sexo              Sexo?
+  dataNascimento    DateTime
+  dataAdmissao      DateTime
+  dataAdmissaoPlano DateTime
+  funcionario       Boolean
+  status            Status
+  scoreDiabetes     Float?
+  scoreHipertensao  Float?
+  atestados         Atestado[]
+
+  cargo   Cargo? @relation(fields: [idCargo], references: [id])
+  idCargo Int
+
+  tipoTitularidade   TipoTitularidade @relation(fields: [idTipoTitularidade], references: [id])
+  idTipoTitularidade Int
+
+  empresa   Empresa @relation(fields: [idEmpresa], references: [id])
+  idEmpresa Int
+
+  plano   Plano @relation(fields: [idPlano], references: [id])
+  idPlano Int
+
+  titular   Pessoa?  @relation("Titular", fields: [idTitular], references: [id])
+  idTitular Int?
+  pessoas   Pessoa[] @relation("Titular")
+}
+
+model Cargo {
+  id      Int      @id @default(autoincrement())
+  nome    String
+  pessoas Pessoa[]
+
+  setor   Setor @relation(fields: [idSetor], references: [id])
+  idSetor Int
+}
+
+model Setor {
+  id     Int     @id @default(autoincrement())
+  nome   String
+  cargos Cargo[]
+}
+
+model TipoTitularidade {
+  id             Int          @id @default(autoincrement())
+  nome           Titularidade
+  grauParentesco String?
+  pessoas        Pessoa[]
+}
+
+model Atestado {
+  id         Int      @id @default(autoincrement())
+  dataInicio DateTime
+  dataFim    DateTime
+  duracao    Int
+
+  pessoa   Pessoa @relation(fields: [idPessoa], references: [id])
+  idPessoa Int
 }
 
 enum Sexo {
   M
   F
+}
+
+enum Status {
+  ATIVO
+  INATIVO
+  EXCLUIDO
+}
+
+enum Titularidade {
+  TITULAR
+  DEPENDENTE
 }

@@ -1,7 +1,9 @@
 model Operadora {
-  id       Int                @id @default(autoincrement())
-  nome     String
-  arquivos ArquivoOperadora[]
+  id               Int                @id @default(autoincrement())
+  nome             String
+  arquivos         ArquivoOperadora[]
+  EmpresaOperadora EmpresaOperadora[]
+  planos           Plano[]
 }
 
 model ArquivoOperadora {
@@ -15,11 +17,35 @@ model ArquivoOperadora {
   idOperadora Int
 }
 
-enum TipoArquivoOperadora {
-  txt
-  csv
-  xls
-  xlsx
+model Empresa {
+  id               Int                @id @default(autoincrement())
+  nome             String
+  CNPJ             String
+  numeroContrato   String
+  inicioContrato   DateTime
+  fimContrato      DateTime
+  indiceReajuste   Int
+  limitadorTecnico Int
+  coparticipacoes  Coparticipacao[]
+  empresaOperadora EmpresaOperadora[]
+  pessoas          Pessoa[]
+}
+
+model Coparticipacao {
+  id        Int     @id @default(autoincrement())
+  nome      String
+  CNPJ      String
+  empresa   Empresa @relation(fields: [idEmpresa], references: [id])
+  idEmpresa Int
+}
+
+model EmpresaOperadora {
+  empresa     Empresa   @relation(fields: [idEmpresa], references: [id])
+  idEmpresa   Int
+  operadora   Operadora @relation(fields: [idOperadora], references: [id])
+  idOperadora Int
+
+  @@id([idEmpresa, idOperadora])
 }
 
 model ColunaArquivo {
@@ -34,6 +60,22 @@ model ColunaArquivo {
   referenciaColuna String?
 }
 
+model Plano {
+  id      Int       @id @default(autoincrement())
+  nome    String
+  pessoas Pessoa[]
+
+  operadora   Operadora @relation(fields: [idOperadora], references: [id])
+  idOperadora Int
+}
+
+enum TipoArquivoOperadora {
+  txt
+  csv
+  xls
+  xlsx
+}
+
 enum TipoColuna {
   string
   number
@@ -41,3 +83,4 @@ enum TipoColuna {
   mesAno
   referencia
 }
+

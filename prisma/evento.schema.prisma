@@ -1,0 +1,56 @@
+model Evento {
+    id             Int             @id @default(autoincrement())
+    codigo         Int
+    descricao      Int
+    dataRealizacao DateTime
+    dataPagamento  Float
+    quantidade     Int
+    custoTotal     Float
+    sinistro       Float
+    teveInternacao Boolean
+    prontoSocorro  Boolean
+    UTI            Boolean
+    situacao       Situacao?
+    risco          Risco?
+    tipoInternacao TipoInternacao?
+    tipoParto      TipoParto?
+
+    prestador      Prestador @relation(fields: [idPrestador], references: [id])
+    idPrestador    Int
+
+
+}
+
+model Prestador { 
+    id Int @id @default(autoincrement())
+    nome String
+    UF String?
+    hospital Boolean
+    eventos Evento[]
+}
+
+enum Situacao {
+    PENDENTE
+    LIBERADA
+    NEGADA
+    CANCELADA
+}
+
+enum Risco {
+    BAIXO
+    MEDIO
+    ALTO
+}
+
+enum TipoInternacao {
+    CLINICA
+    CIRURGICA
+    OBSTETRICA
+    PSIQUIATRICA
+    PEDIATRICA
+}
+
+enum TipoParto {
+    CESAREO
+    VAGINAL
+}
