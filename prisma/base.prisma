@@ -7,24 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Competencia {
-  id                      Int      @id @default(autoincrement())
-  data                    DateTime
-  faturamento             Decimal  @db.Decimal(10, 2)
-  coparticipacao          Decimal  @db.Decimal(10, 2)
-  sinistro                Decimal  @db.Decimal(10, 2)
-  sinistroGeral           Decimal  @db.Decimal(10, 2)
-  sinistralidade          Decimal  @db.Decimal(10, 2)
-  defasagemSinistralidade Decimal  @db.Decimal(10, 2)
-}
-
-model Sinistro {
-  id          Int      @id @default(autoincrement())
-  competencia DateTime
-  tipo        String   @db.VarChar(100)
-  valor       Decimal  @db.Decimal(10, 2)
-}
-
 model Usuario {
   id    Int    @id @default(autoincrement())
   email String @unique

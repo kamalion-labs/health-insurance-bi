@@ -5,5 +5,5 @@ interface ButtonContentProps {
 }
 
 export function ButtonContent({ children }: ButtonContentProps) {
-  return <div>{children}</div>;
+  return <div className="drop-shadow-md">{children}</div>;
 }

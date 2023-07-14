@@ -18,7 +18,7 @@ export function Page({ className, children }: Props) {
     <>
       <Navbar pageId={id} />
 
-      <div className="z-10 flex h-full flex-auto flex-col">
+      <div className="z-10 flex h-full flex-auto flex-col rounded-l-2xl bg-main">
         <Header title={title} />
 
         <main

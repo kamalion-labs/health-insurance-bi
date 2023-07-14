@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="pt-br">
       <body
-        className={`${inter.variable} ${tt.variable} flex h-screen bg-[var(--color-main-bg)] font-sans text-[var(--foreground)]`}
+        className={`${inter.variable} ${tt.variable} flex h-screen font-sans text-[var(--foreground)]`}
       >
         <Providers>{children}</Providers>
       </body>

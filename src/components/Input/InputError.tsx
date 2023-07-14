@@ -5,5 +5,5 @@ interface InputErrorsProps {
 export function InputError({ error }: InputErrorsProps) {
   if (!error) return null;
 
-  return <div className="text-red-400 text-sm">{error}</div>;
+  return <div className="text-sm text-red-400">{error}</div>;
 }

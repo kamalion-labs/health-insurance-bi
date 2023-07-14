@@ -5,8 +5,9 @@ model Evento {
     dataRealizacao DateTime
     dataPagamento  DateTime?
     quantidade     Int
-    custoTotal     Float
-    sinistro       Float
+    custoTotal     Decimal         @db.Decimal(10, 2)
+    sinistro       Decimal         @db.Decimal(10, 2)
+    coparticipacao Decimal         @db.Decimal(10, 2)
     teveInternacao Boolean?
     prontoSocorro  Boolean?
     UTI            Boolean?

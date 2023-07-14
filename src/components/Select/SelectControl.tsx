@@ -49,7 +49,7 @@ export function SelectControl({
               <button
                 className={twMerge(
                   "inline-flex select-none items-center justify-center rounded-md border p-2 text-sm",
-                  "bg-alt hover:bg-gray-50",
+                  "bg-main hover:bg-gray-50",
                   "focus:outline-none focus-visible:ring focus-visible:ring-zinc-500 focus-visible:ring-opacity-75",
                   // Register all radix states
                   "group",

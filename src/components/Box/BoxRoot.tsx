@@ -5,5 +5,5 @@ interface BoxRootProps {
 }
 
 export function BoxRoot({ children }: BoxRootProps) {
-  return <div className="rounded-md bg-alt">{children}</div>;
+  return <div className="rounded-md bg-main">{children}</div>;
 }

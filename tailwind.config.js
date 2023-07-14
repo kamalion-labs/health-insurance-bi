@@ -14,6 +14,7 @@ module.exports = {
       },
       textColor: {
         primary: "var(--color-primary)",
+        main: "var(--foreground)",
       },
       backgroundColor: {
         main: "var(--color-main-bg)",
@@ -152,5 +153,9 @@ module.exports = {
       },
     },
   },
-  plugins: [require("tailwind-scrollbar"), require("tailwindcss-radix")()],
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("tailwind-scrollbar"),
+    require("tailwindcss-radix")(),
+  ],
 };

@@ -1,11 +1,16 @@
 import { prisma } from "@/lib/db/prisma";
+import { ThenArg } from "@/lib/util/ThenArg";
 import { Operadora } from "@prisma/client";
 
 export const OperadoraRepositorio = {
   listar: async () => {
     const operadoras = await prisma.operadora.findMany({
       include: {
-        arquivos: true,
+        arquivos: {
+          include: {
+            colunas: true,
+          },
+        },
       },
     });
     return operadoras;
@@ -17,7 +22,11 @@ export const OperadoraRepositorio = {
         id,
       },
       include: {
-        arquivos: true,
+        arquivos: {
+          include: {
+            colunas: true,
+          },
+        },
       },
     });
 
@@ -35,9 +44,16 @@ export const OperadoraRepositorio = {
       },
     });
   },
+
+  deletar: async (id: number) => {
+    return await prisma.operadora.delete({
+      where: {
+        id,
+      },
+    });
+  },
 };
 
-type ThenArg<T> = T extends PromiseLike<infer U> ? U : T;
 export type OperadorasWithArquivos = ThenArg<
   ReturnType<typeof OperadoraRepositorio.listar>
 >;

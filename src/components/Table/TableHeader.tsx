@@ -11,6 +11,7 @@ export interface TableColumn {
 interface TableHeaderProps {
   columns: TableColumn[];
   isSelectable?: boolean;
+  isEditable?: boolean;
   onOrder?: (
     columnKey: string,
     direction: TableOrderDirection
@@ -20,6 +21,7 @@ interface TableHeaderProps {
 export function TableHeader({
   columns,
   isSelectable,
+  isEditable,
   onOrder,
 }: TableHeaderProps) {
   const [ColumnKey, setColumnKey] = useState(columns[0].key);
@@ -39,13 +41,13 @@ export function TableHeader({
 
   return (
     <thead>
-      <tr>
-        {isSelectable && <th></th>}
+      <tr className="">
+        {isSelectable && <th className="border border-slate-600"></th>}
         {columns.map((col) => (
           <th
             key={col.key}
-            className="cursor-pointer"
             onClick={() => handleOnOrder(col.key)}
+            className="cursor-pointer border border-slate-600"
           >
             {col.label}
 
@@ -53,6 +55,7 @@ export function TableHeader({
             {Direction === "desc" && <FaChevronUp />} */}
           </th>
         ))}
+        {isEditable && <th className="border border-slate-600"></th>}
       </tr>
     </thead>
   );

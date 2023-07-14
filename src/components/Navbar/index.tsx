@@ -1,11 +1,14 @@
 "use client";
 
-import { FaChartColumn, FaHeartPulse, FaVirusCovid } from "react-icons/fa6";
+import { FaChartColumn, FaVirusCovid } from "react-icons/fa6";
 
 import { DarkToggle } from "@/components";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import NavItem from "./NavItem";
 import { useEffect, useState } from "react";
+
+import logo from "../../assets/interliga.png";
+import Image from "next/image";
 
 type Props = {
   pageId: string;
@@ -21,10 +24,11 @@ export function Navbar({ pageId }: Props) {
   }, [pageId]);
 
   return (
-    <nav className="sticky z-20 flex h-full flex-col bg-alt shadow-lg md:w-[280px]">
-      <div className="flex items-center space-x-2 px-5 py-10 font-alt text-3xl font-bold">
-        <FaHeartPulse className="text-primary" />
-        <span>SEGURO BI</span>
+    <nav className="sticky z-20 flex h-full flex-col pt-5 text-white shadow-lg md:w-[280px]">
+      <div className="flex justify-center">
+        <div className="rounded-full bg-white px-2 py-4">
+          <Image alt="Interliga" src={logo} className="w-[80px]" />
+        </div>
       </div>
 
       <div className="scrollbar-rounded-md flex flex-auto flex-col overflow-y-auto scrollbar">
@@ -39,7 +43,7 @@ export function Navbar({ pageId }: Props) {
             <NavItem
               title="Dashboard Geral"
               icon={<FaChartColumn size={20} />}
-              href="/"
+              href="/app"
               id="dashboardGeral"
             />
 
@@ -51,18 +55,18 @@ export function Navbar({ pageId }: Props) {
               <NavigationMenu.List>
                 <NavItem
                   title="Dashboard"
-                  href="/covid/dashboard"
+                  href="/app/covid/dashboard"
                   id="covidDashboard"
                 />
                 <NavItem
                   title="Análise Temporal"
-                  href="/covid/timeline"
+                  href="/app/covid/timeline"
                   id="covidTimeline"
                 />
                 <NavItem title="Exames" href="/covid/exames" id="covidExames" />
                 <NavItem
                   title="Internação"
-                  href="/covid/internacao"
+                  href="/app/covid/internacao"
                   id="covidInternacao"
                 />
               </NavigationMenu.List>

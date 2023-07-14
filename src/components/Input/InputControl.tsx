@@ -55,7 +55,7 @@ export function InputControl({
   }) {
     const props = {
       className: twMerge(
-        "rounded px-2 py-1 border h-fit bg-alt",
+        "rounded px-2 py-1 border h-fit bg-main",
         rightButton && "rounded-r-none",
         className
       ),

@@ -19,6 +19,22 @@ model ArquivoOperadora {
   colunas ColunaArquivo[]
 }
 
+model ColunaArquivo {
+  id      Int        @id @default(autoincrement())
+  nome    String
+  coluna  String
+  tipo    TipoColuna
+  posicao Int?
+  inicio  Int?
+  fim     Int?
+
+  referenciaTabela String?
+  referenciaColuna String?
+
+  arquivoOperadora   ArquivoOperadora @relation(fields: [idArquivoOperadora], references: [id])
+  idArquivoOperadora Int
+}
+
 model Empresa {
   id               Int                @id @default(autoincrement())
   nome             String
@@ -49,22 +65,6 @@ model EmpresaOperadora {
   idOperadora Int
 
   @@id([idEmpresa, idOperadora])
-}
-
-model ColunaArquivo {
-  id      Int        @id @default(autoincrement())
-  nome    String
-  coluna  String
-  tipo    TipoColuna
-  posicao Int?
-  inicio  Int?
-  fim     Int?
-
-  referenciaTabela String?
-  referenciaColuna String?
-
-  arquivoOperadora   ArquivoOperadora @relation(fields: [idArquivoOperadora], references: [id])
-  idArquivoOperadora Int
 }
 
 model Plano {

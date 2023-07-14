@@ -1,6 +1,6 @@
 "use client";
 
-import { Competencia } from "@prisma/client";
+import { Evento } from "@prisma/client";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -33,15 +33,17 @@ export const options = {
 
 // const labels = ["January", "February", "March", "April", "May", "June", "July"];
 
-export function GraficoFaturamentoSinistro({ data }: { data: Competencia[] }) {
-  const labels = data.map((comp) => format(new Date(comp.data), "MM/yyyy"));
+export function GraficoFaturamentoSinistro({ data }: { data: Evento[] }) {
+  const labels = data.map((evento) =>
+    format(new Date(evento.dataPagamento!), "MM/yyyy")
+  );
 
   const chartData = {
     labels,
     datasets: [
       {
         label: "Faturamento",
-        data: data.map((comp) => +comp.faturamento),
+        data: data.map((comp) => +comp.custoTotal),
         borderColor: "#52CD9F",
         backgroundColor: "#52CD9F",
       },
@@ -49,7 +51,7 @@ export function GraficoFaturamentoSinistro({ data }: { data: Competencia[] }) {
         label: "Sinistro",
         data: data.map((comp) => +comp.sinistro),
         borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
+        backgroundColor: "rgb(255, 99, 132)",
       },
       {
         label: "Coparticipacao",

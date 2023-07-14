@@ -8,6 +8,6 @@ interface SelectRootProps {
 
 export function SelectRoot({ children, className }: SelectRootProps) {
   return (
-    <div className={twMerge("flex flex-col w-full", className)}>{children}</div>
+    <div className={twMerge("flex w-full flex-col", className)}>{children}</div>
   );
 }

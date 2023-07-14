@@ -3,13 +3,15 @@
 @tailwind utilities;
 
 :root {
-  --color-primary: #52C4F2;
+  --color-primary: #3C98EF;
   --color-gray: #363A45;
   --color-white: #F1F5F9;
   
   --foreground: var(--color-gray);
-  --color-main-bg: var(--color-white);
-  --color-alt-bg: #FFF;
+  --color-main-bg: #FFF;
+  --color-alt-bg: var(--color-primary);
+
+  --color-input-bg: var(--color-white);
 
   --scrollbar-thumb-radius: 5px;
   --scrollbar-thumb: var(--color-primary);
@@ -18,15 +20,26 @@
 
 :root.dark {
   --foreground: var(--color-white);
-  --color-alt-bg: #272B33;
   --color-main-bg: var(--color-gray);
+  --color-alt-bg: #272B33;
+
+  --color-input-bg: var(--color-gray);
 }
 
 body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 
-  @apply transition-all;
+  @apply transition-all bg-alt;
+}
+
+[type='checkbox'] {
+  @apply h-5 w-5 cursor-pointer rounded border-gray-400 text-[color:var(--color-primary)] 
+  focus:ring-[color:var(--color-primary)] focus:border-[color:var(--color-primary)];
+}
+
+select {
+  position: relative !important;
 }
 
 .scrollbar::-webkit-scrollbar {

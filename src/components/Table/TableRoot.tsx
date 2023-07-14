@@ -15,6 +15,7 @@ interface TableRootProps {
     orderDirection: TableOrderDirection
   ) => any;
   onSelect?: (item: any) => Promise<void>;
+  onEdit?: (item: any) => Promise<void>;
 }
 
 export function TableRoot({
@@ -24,9 +25,10 @@ export function TableRoot({
   selected,
   onQuery,
   onSelect,
+  onEdit,
 }: TableRootProps) {
   return (
-    <table>
+    <table className="table-auto border-collapse border border-slate-600">
       {!children && (
         <>
           {columns && data && (
@@ -34,11 +36,13 @@ export function TableRoot({
               <Table.Header
                 columns={columns}
                 isSelectable={typeof onSelect !== "undefined"}
+                isEditable={typeof onEdit !== "undefined"}
               />
               <Table.Content
                 columns={columns}
                 data={data}
                 onSelect={onSelect}
+                onEdit={onEdit}
                 selected={selected}
               />
             </>

@@ -7,24 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Competencia {
-  id                      Int      @id @default(autoincrement())
-  data                    DateTime
-  faturamento             Decimal  @db.Decimal(10, 2)
-  coparticipacao          Decimal  @db.Decimal(10, 2)
-  sinistro                Decimal  @db.Decimal(10, 2)
-  sinistroGeral           Decimal  @db.Decimal(10, 2)
-  sinistralidade          Decimal  @db.Decimal(10, 2)
-  defasagemSinistralidade Decimal  @db.Decimal(10, 2)
-}
-
-model Sinistro {
-  id          Int      @id @default(autoincrement())
-  competencia DateTime
-  tipo        String   @db.VarChar(100)
-  valor       Decimal  @db.Decimal(10, 2)
-}
-
 model Usuario {
   id    Int    @id @default(autoincrement())
   email String @unique
@@ -42,8 +24,9 @@ model Evento {
     dataRealizacao DateTime
     dataPagamento  DateTime?
     quantidade     Int
-    custoTotal     Float
-    sinistro       Float
+    custoTotal     Decimal         @db.Decimal(10, 2)
+    sinistro       Decimal         @db.Decimal(10, 2)
+    coparticipacao Decimal         @db.Decimal(10, 2)
     teveInternacao Boolean?
     prontoSocorro  Boolean?
     UTI            Boolean?
@@ -210,6 +193,22 @@ model ArquivoOperadora {
   colunas ColunaArquivo[]
 }
 
+model ColunaArquivo {
+  id      Int        @id @default(autoincrement())
+  nome    String
+  coluna  String
+  tipo    TipoColuna
+  posicao Int?
+  inicio  Int?
+  fim     Int?
+
+  referenciaTabela String?
+  referenciaColuna String?
+
+  arquivoOperadora   ArquivoOperadora @relation(fields: [idArquivoOperadora], references: [id])
+  idArquivoOperadora Int
+}
+
 model Empresa {
   id               Int                @id @default(autoincrement())
   nome             String
@@ -240,22 +239,6 @@ model EmpresaOperadora {
   idOperadora Int
 
   @@id([idEmpresa, idOperadora])
-}
-
-model ColunaArquivo {
-  id      Int        @id @default(autoincrement())
-  nome    String
-  coluna  String
-  tipo    TipoColuna
-  posicao Int?
-  inicio  Int?
-  fim     Int?
-
-  referenciaTabela String?
-  referenciaColuna String?
-
-  arquivoOperadora   ArquivoOperadora @relation(fields: [idArquivoOperadora], references: [id])
-  idArquivoOperadora Int
 }
 
 model Plano {
