@@ -64,7 +64,7 @@ export function LoginForm() {
   }
 
   return (
-    <div className="flex h-full w-full max-w-md flex-col space-y-10 bg-white p-5 md:h-fit md:w-full md:rounded-md">
+    <div className="flex h-full w-full max-w-md flex-col space-y-10 bg-white p-5 dark:bg-slate-700 md:h-fit md:w-full md:rounded-md">
       <div className="flex w-full justify-center">
         <Image alt="Interliga" src={logo} className="w-full md:w-[200px]" />
       </div>

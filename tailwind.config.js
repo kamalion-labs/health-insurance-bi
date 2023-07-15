@@ -21,7 +21,7 @@ module.exports = {
         alt: "var(--color-alt-bg)",
       },
       backgroundImage: {
-        login: "linear-gradient(to bottom, #56ccf2, #2f80ed)",
+        gradient: "linear-gradient(to bottom, #56ccf2, #2f80ed)",
       },
       borderColor: {
         primary: "var(--color-primary)",

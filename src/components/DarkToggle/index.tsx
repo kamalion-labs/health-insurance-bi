@@ -31,7 +31,7 @@ export function DarkToggle() {
     >
       <input
         type="checkbox"
-        className="peer absolute left-1/2 h-full w-full -translate-x-1/2 appearance-none rounded-md"
+        className="peer invisible absolute left-1/2 h-full w-full -translate-x-1/2 appearance-none rounded-md"
         checked={isDark}
         readOnly
       />

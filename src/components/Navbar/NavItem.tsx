@@ -23,8 +23,10 @@ export default function NavItem({ title, icon, href, children, id }: Props) {
         <NavigationMenu.Link
           href={href}
           className={clsx(
-            "group flex w-full select-none items-center space-x-4 px-4 py-2 transition-colors hover:bg-[var(--color-main-bg)]",
-            id === currentPageId && "text-primary"
+            "group flex w-full select-none items-center space-x-4 rounded-md px-4 py-2 drop-shadow-md transition-colors hover:bg-slate-200 hover:text-primary",
+            "dark:hover:bg-slate-700 dark:hover:text-white",
+            id === currentPageId &&
+              "bg-slate-200 text-primary dark:bg-slate-700 dark:text-slate-200"
           )}
         >
           <div className="flex h-8 w-8 items-center justify-end">{icon}</div>
@@ -37,8 +39,11 @@ export default function NavItem({ title, icon, href, children, id }: Props) {
     <NavigationMenu.Item className="group" value={id}>
       <NavigationMenu.Trigger
         className={clsx(
-          "group flex w-full select-none items-center space-x-4 px-4 py-2 transition-colors radix-state-open:bg-[var(--color-main-bg)]",
-          id === parentId && "text-primary"
+          "group flex w-full select-none items-center space-x-4 rounded-md px-4 py-2 drop-shadow-md transition-colors",
+          "radix-state-open:bg-slate-200 radix-state-open:text-primary ",
+          "dark:radix-state-open:bg-slate-700 dark:radix-state-open:text-white",
+          id === parentId &&
+            "bg-slate-200 text-primary dark:bg-slate-700 dark:text-slate-200"
         )}
         onPointerMove={(event) => event.preventDefault()}
         onPointerLeave={(event) => event.preventDefault()}
@@ -47,6 +52,7 @@ export default function NavItem({ title, icon, href, children, id }: Props) {
         <span className="flex flex-1 items-start font-medium">{title}</span>
         <FaChevronRight className="transform duration-300 ease-in-out group-radix-state-open:rotate-90" />
       </NavigationMenu.Trigger>
+
       <NavigationMenu.Content
         className={clsx(
           "w-radix-navigation-menu-viewport",

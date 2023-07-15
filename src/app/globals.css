@@ -8,8 +8,6 @@
   --color-white: #F1F5F9;
   
   --foreground: var(--color-gray);
-  --color-main-bg: #FFF;
-  --color-alt-bg: var(--color-primary);
 
   --color-input-bg: var(--color-white);
 
@@ -20,8 +18,6 @@
 
 :root.dark {
   --foreground: var(--color-white);
-  --color-main-bg: var(--color-gray);
-  --color-alt-bg: #272B33;
 
   --color-input-bg: var(--color-gray);
 }

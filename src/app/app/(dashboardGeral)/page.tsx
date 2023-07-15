@@ -22,7 +22,7 @@ export default async function GeralPage() {
 
       {/* Header */}
       <div className="grid grid-cols-3 gap-3 text-white">
-        <div className="flex flex-col justify-center rounded bg-[#52CD9F] bg-alt px-4 py-3">
+        <div className="flex flex-col justify-center rounded bg-[#52CD9F] px-4 py-3">
           <div className="text-3xl font-bold">
             <Money
               value={eventos.reduce(
@@ -34,7 +34,7 @@ export default async function GeralPage() {
           <div className="font-light">Faturamento acumulado</div>
         </div>
 
-        <div className="flex flex-col justify-center rounded bg-alt bg-red-400 px-4 py-3">
+        <div className="flex flex-col justify-center rounded bg-red-400 px-4 py-3">
           <div className="text-3xl font-bold">
             <Money
               value={eventos.reduce(
@@ -46,7 +46,7 @@ export default async function GeralPage() {
           <div className="font-light">Sinistro Acumulado</div>
         </div>
 
-        <div className="flex flex-col justify-center rounded bg-[#5B93FF] bg-alt px-4 py-3">
+        <div className="flex flex-col justify-center rounded bg-[#5B93FF] px-4 py-3">
           <div className="text-3xl font-bold">
             <Money
               value={eventos.reduce(

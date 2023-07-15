@@ -24,8 +24,8 @@ export function Navbar({ pageId }: Props) {
   }, [pageId]);
 
   return (
-    <nav className="sticky z-20 flex h-full flex-col pt-5 text-white shadow-lg md:w-[280px]">
-      <div className="flex justify-center">
+    <nav className="sticky z-20 hidden h-full flex-col bg-gradient pt-5 text-white md:flex md:min-w-[280px]">
+      <div className="flex justify-center pb-10">
         <div className="rounded-full bg-white px-2 py-4">
           <Image alt="Interliga" src={logo} className="w-[80px]" />
         </div>
@@ -39,7 +39,7 @@ export function Navbar({ pageId }: Props) {
           defaultValue={pageId}
           onValueChange={setVal}
         >
-          <NavigationMenu.List className="flex list-none flex-col justify-center rounded">
+          <NavigationMenu.List className="flex list-none flex-col justify-center space-y-3 rounded p-3">
             <NavItem
               title="Dashboard Geral"
               icon={<FaChartColumn size={20} />}
