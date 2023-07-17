@@ -7,5 +7,5 @@ interface BoxContentProps {
 }
 
 export function BoxContent({ children, className }: BoxContentProps) {
-  return <div className={twMerge("p-4", className)}>{children}</div>;
+  return <div className={twMerge("pb-4", className)}>{children}</div>;
 }

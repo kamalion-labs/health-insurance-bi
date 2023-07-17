@@ -2,10 +2,12 @@
 
 import { useState } from "react";
 import { TableOrderDirection } from ".";
+import { twMerge } from "tailwind-merge";
 
 export interface TableColumn {
   key: string;
   label: string;
+  type?: "text" | "date" | "money" | "percent" | undefined;
 }
 
 interface TableHeaderProps {
@@ -41,13 +43,18 @@ export function TableHeader({
 
   return (
     <thead>
-      <tr className="">
-        {isSelectable && <th className="border border-slate-600"></th>}
+      <tr className="bg-slate-200 ">
+        {isSelectable && <th className="w-0"></th>}
+
         {columns.map((col) => (
           <th
             key={col.key}
             onClick={() => handleOnOrder(col.key)}
-            className="cursor-pointer border border-slate-600"
+            className={twMerge(
+              "p-2 text-start text-sm",
+              isSelectable && "cursor-pointer",
+              (col.type === "money" || col.type === "percent") && "text-end"
+            )}
           >
             {col.label}
 
@@ -55,7 +62,8 @@ export function TableHeader({
             {Direction === "desc" && <FaChevronUp />} */}
           </th>
         ))}
-        {isEditable && <th className="border border-slate-600"></th>}
+
+        {isEditable && <th className="w-0"></th>}
       </tr>
     </thead>
   );

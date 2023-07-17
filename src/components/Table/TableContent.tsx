@@ -1,7 +1,9 @@
-import clsx from "clsx";
 import { TableColumn } from "./TableHeader";
 import { FaPencil } from "react-icons/fa6";
 import { Button } from "../Button";
+import { twMerge } from "tailwind-merge";
+import { Money } from "../Money";
+import { format } from "date-fns";
 
 interface TableContentProps {
   columns: TableColumn[];
@@ -35,11 +37,14 @@ export function TableContent({
       {data.map((item, idx) => (
         <tr
           key={idx}
-          className={clsx("cursor-pointer hover:bg-alt")}
+          className={twMerge(
+            "even:bg-slate-100",
+            onSelect && "cursor-pointer hover:bg-alt"
+          )}
           onClick={() => handleOnSelect(item)}
         >
           {typeof onSelect !== "undefined" && (
-            <td className="border border-slate-600 px-2 py-1 pb-2">
+            <td className="px-2 py-1">
               <input type="checkbox" checked={item === selected} readOnly />
             </td>
           )}
@@ -47,14 +52,29 @@ export function TableContent({
           {columns.map((column) => (
             <td
               key={column.key}
-              className="content-center border border-slate-600 px-2 py-1"
+              className={twMerge(
+                "content-center px-2 py-1 text-start text-sm",
+                (column.type === "money" || column.type === "percent") &&
+                  "text-end"
+              )}
             >
-              {item[column.key]}
+              {column.type === "money" || column.type === "percent" ? (
+                <Money
+                  value={+item[column.key]}
+                  percent={column.type === "percent"}
+                />
+              ) : (
+                <>
+                  {column.type === "date"
+                    ? format(new Date(item[column.key]), "dd/MM/yyyy")
+                    : item[column.key]}
+                </>
+              )}
             </td>
           ))}
 
           {typeof onEdit !== "undefined" && (
-            <td className="border border-slate-600 px-2 py-1 pb-2">
+            <td className="px-2 py-1">
               <Button.Root onClick={() => handleOnEdit(item)}>
                 <Button.Icon>
                   <FaPencil />

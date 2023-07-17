@@ -35,6 +35,7 @@ export function DarkToggle() {
         checked={isDark}
         readOnly
       />
+
       <span
         className={clsx(
           "ml-4 flex h-10 w-16 flex-shrink-0 items-center rounded-full bg-gray-300 p-1 duration-300 ease-in-out",
@@ -42,6 +43,7 @@ export function DarkToggle() {
           "peer-checked:bg-[var(--color-gray)] peer-checked:after:translate-x-6 peer-checked:after:bg-alt"
         )}
       ></span>
+
       <span className="absolute left-[34px] duration-300 ease-in-out peer-checked:translate-x-6">
         {isDark ? (
           <RiMoonClearLine className="text-purple-400" />

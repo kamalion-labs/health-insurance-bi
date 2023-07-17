@@ -4,6 +4,7 @@ export * from "./Page";
 export * from "./PageInitializer";
 
 export * from "./Box";
+export * from "./Card";
 export * from "./Chart";
 export * from "./Button";
 export * from "./Input";

@@ -28,29 +28,31 @@ export function TableRoot({
   onEdit,
 }: TableRootProps) {
   return (
-    <table className="table-auto border-collapse border border-slate-600">
-      {!children && (
-        <>
-          {columns && data && (
-            <>
-              <Table.Header
-                columns={columns}
-                isSelectable={typeof onSelect !== "undefined"}
-                isEditable={typeof onEdit !== "undefined"}
-              />
-              <Table.Content
-                columns={columns}
-                data={data}
-                onSelect={onSelect}
-                onEdit={onEdit}
-                selected={selected}
-              />
-            </>
-          )}
-        </>
-      )}
+    <div className="max-w-scren flex overflow-x-auto">
+      <table className="w-full table-auto border-collapse">
+        {!children && (
+          <>
+            {columns && data && (
+              <>
+                <Table.Header
+                  columns={columns}
+                  isSelectable={typeof onSelect !== "undefined"}
+                  isEditable={typeof onEdit !== "undefined"}
+                />
+                <Table.Content
+                  columns={columns}
+                  data={data}
+                  onSelect={onSelect}
+                  onEdit={onEdit}
+                  selected={selected}
+                />
+              </>
+            )}
+          </>
+        )}
 
-      {children}
-    </table>
+        {children}
+      </table>
+    </div>
   );
 }

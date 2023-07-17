@@ -1,6 +1,6 @@
 "use client";
 
-import { FaChartColumn, FaVirusCovid } from "react-icons/fa6";
+import { FaChartColumn, FaUsers, FaVirusCovid } from "react-icons/fa6";
 
 import { DarkToggle } from "@/components";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
@@ -24,9 +24,9 @@ export function Navbar({ pageId }: Props) {
   }, [pageId]);
 
   return (
-    <nav className="sticky z-20 hidden h-full flex-col bg-gradient pt-5 text-white md:flex md:min-w-[280px]">
+    <nav className="sticky z-20 hidden h-full flex-col bg-gradient pt-5 text-white md:flex md:min-w-[280px] md:max-w-[280px]">
       <div className="flex justify-center pb-10">
-        <div className="rounded-full bg-white px-2 py-4">
+        <div className="rounded-full bg-white px-2 py-4 drop-shadow-md">
           <Image alt="Interliga" src={logo} className="w-[80px]" />
         </div>
       </div>
@@ -72,20 +72,27 @@ export function Navbar({ pageId }: Props) {
               </NavigationMenu.List>
             </NavItem>
 
-            {/* <NavItem title="Análise Populacional" icon={<FaUsers size={20} />}>
+            <NavItem
+              title="Análise Populacional"
+              id="analisePopulacional"
+              icon={<FaUsers size={20} />}
+            >
               <NavItem
                 title="Indicadores Sociodemográficos (IS)"
-                href="/populacional/is"
+                href="/app/analisePopulacional/is"
+                id="analisePopulacionalIS"
               />
               <NavItem
                 title="Indicadores Comparativos de Utilização (ANS)"
-                href="/populacional/ans"
+                href="/app/populacional/ans"
+                id="analisePopulacionalANS"
               />
               <NavItem
                 title="Relatórios de Atestados"
-                href="/populacional/atestados"
+                href="/app/populacional/atestados"
+                id="analisePopulacionalAtestados"
               />
-            </NavItem> */}
+            </NavItem>
           </NavigationMenu.List>
         </NavigationMenu.Root>
       </div>
