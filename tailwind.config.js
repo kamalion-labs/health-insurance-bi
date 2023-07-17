@@ -14,7 +14,6 @@ module.exports = {
       },
       textColor: {
         primary: "var(--color-primary)",
-        main: "var(--foreground)",
       },
       backgroundColor: {
         main: "var(--color-main-bg)",
@@ -25,7 +24,6 @@ module.exports = {
       },
       borderColor: {
         primary: "var(--color-primary)",
-        main: "var(--foreground)",
       },
       transitionProperty: {
         height: "height",

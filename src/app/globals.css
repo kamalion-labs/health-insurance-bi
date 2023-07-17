@@ -6,8 +6,6 @@
   --color-primary: #3C98EF;
   --color-gray: #363A45;
   --color-white: #F1F5F9;
-  
-  --foreground: var(--color-gray);
 
   --color-input-bg: var(--color-white);
 
@@ -17,8 +15,6 @@
 }
 
 :root.dark {
-  --foreground: var(--color-white);
-
   --color-input-bg: var(--color-gray);
 }
 
@@ -26,7 +22,7 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 
-  @apply transition-all bg-alt;
+  @apply transition-all bg-alt text-slate-700 dark:text-white;
 }
 
 [type='checkbox'] {
