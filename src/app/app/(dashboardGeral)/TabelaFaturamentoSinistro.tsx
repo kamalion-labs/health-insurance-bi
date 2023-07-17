@@ -1,48 +1,32 @@
 "use client";
 
-import { Money } from "@/components";
+import { Table } from "@/components";
+import { TableColumn } from "@/components/Table/TableHeader";
 import { Evento } from "@prisma/client";
-import { format } from "date-fns";
+
+const cols: TableColumn[] = [
+  {
+    key: "dataPagamento",
+    label: "Competência",
+    type: "date",
+  },
+  {
+    key: "custoTotal",
+    label: "Faturamento",
+    type: "money",
+  },
+  {
+    key: "coparticipacao",
+    label: "Coparticipação",
+    type: "money",
+  },
+  {
+    key: "sinistro",
+    label: "Sinistro",
+    type: "money",
+  },
+];
 
 export function TabelaFaturamentoSinistro({ data }: { data: Evento[] }) {
-  return (
-    <table>
-      <thead>
-        <tr>
-          <th className="text-start">Competência</th>
-          <th className="text-end">Faturamento</th>
-          <th className="text-end">Coparticipação</th>
-          <th className="text-end">Sinistro</th>
-          <th className="text-end">Sinistro Geral</th>
-          <th className="text-end">Sinistralidade</th>
-          <th className="text-end">Defasagem de sinistralidade</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((comp) => (
-          <tr key={comp.id}>
-            <td>{format(new Date(comp.dataPagamento!), "MM/yyyy")}</td>
-            <td className="text-end">
-              <Money value={+comp.custoTotal} />
-            </td>
-            <td className="text-end">
-              <Money value={+comp.coparticipacao} />
-            </td>
-            <td className="text-end">
-              <Money value={+comp.sinistro} />
-            </td>
-            {/* <td className="text-end">
-              <Money value={+comp.sinistroGeral} />
-            </td>
-            <td className="text-end">
-              <Money value={+comp.sinistralidade} percent />
-            </td>
-            <td className="text-end">
-              <Money value={+comp.defasagemSinistralidade} percent />
-            </td> */}
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  );
+  return <Table.Root columns={cols} data={data} />;
 }

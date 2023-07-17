@@ -1,62 +1,89 @@
 "use client";
 
+import { Chart } from "@/components";
 import { Evento } from "@prisma/client";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import { format } from "date-fns";
-import { Line } from "react-chartjs-2";
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
-
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: "top" as const,
-    },
-  },
+type DataType = {
+  id: string;
+  color: string;
+  data: { x: string; y: number }[];
 };
 
-// const labels = ["January", "February", "March", "April", "May", "June", "July"];
+const labels = ["Meta", "Sinistro Total"];
+
+const META = 70;
 
 export function GraficoSinistralidadeTempo({ data }: { data: Evento[] }) {
-  const labels = data.map((comp) =>
-    format(new Date(comp.dataPagamento!), "MM/yyyy")
+  const chartData: DataType[] = [
+    {
+      id: "Meta",
+      color: "#5B93FF",
+      data: [],
+    },
+    {
+      id: "Sinistralidade",
+      color: "#F87171",
+      data: [],
+    },
+  ];
+
+  chartData[0].data = data.reduce<{ x: string; y: number }[]>(
+    (previous, current) => {
+      let date = new Date(current.dataPagamento!);
+      date = new Date(date.getFullYear(), date.getMonth(), 1);
+
+      let competencia = previous.find((x) => x.x === date.toISOString())!;
+
+      if (competencia) {
+        previous.splice(previous.indexOf(competencia), 1, {
+          ...competencia,
+          y: META,
+        });
+      } else {
+        competencia = {
+          x: date.toISOString(),
+          y: META,
+        };
+
+        previous.push(competencia);
+      }
+
+      return previous;
+    },
+    []
   );
 
-  const chartData = {
-    labels,
-    datasets: [
-      {
-        label: "Meta",
-        data: data.map(() => 70),
-        borderColor: "rgb(255, 99, 132)",
-        backgroundColor: "rgb(255, 99, 132)",
-      },
-      {
-        label: "Sinistralidade",
-        data: data.map((comp) => (+comp.sinistro * 100) / +comp.custoTotal),
-        borderColor: "#5B93FF",
-        backgroundColor: "#5B93FF",
-      },
-    ],
+  chartData[1].data = data.reduce<{ x: string; y: number }[]>(
+    (previous, current) => {
+      let date = new Date(current.dataPagamento!);
+      date = new Date(date.getFullYear(), date.getMonth(), 1);
+
+      let competencia = previous.find((x) => x.x === date.toISOString())!;
+
+      if (competencia) {
+        previous.splice(previous.indexOf(competencia), 1, {
+          ...competencia,
+          y: (Number(current.sinistro) * 100) / Number(current.custoTotal),
+        });
+      } else {
+        competencia = {
+          x: date.toISOString(),
+          y: (Number(current.sinistro) * 100) / Number(current.custoTotal),
+        };
+
+        previous.push(competencia);
+      }
+
+      return previous;
+    },
+    []
+  );
+
+  const options = {
+    keys: labels,
+    indexBy: "Date",
+    data: chartData,
   };
 
-  return <Line options={options} data={chartData} />;
+  return <Chart.Line {...options} />;
 }
