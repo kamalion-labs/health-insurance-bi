@@ -281,7 +281,7 @@ model Pessoa {
   eventos           Evento[]
 
   cargo   Cargo? @relation(fields: [idCargo], references: [id])
-  idCargo Int
+  idCargo Int?
 
   tipoTitularidade   TipoTitularidade @relation(fields: [idTipoTitularidade], references: [id])
   idTipoTitularidade Int
