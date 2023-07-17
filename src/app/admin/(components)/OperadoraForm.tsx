@@ -1,6 +1,6 @@
 "use client";
 
-import { Table, Input } from "@/components";
+import { Table, Input, Box } from "@/components";
 import { ArquivoOperadora, ColunaArquivo, Operadora } from "@prisma/client";
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -118,68 +118,80 @@ export function OperadoraForm({ data }: { data: OperadorasWithArquivos }) {
 
   return (
     <div className="space-y-5">
-      <h3 className="text-2xl">Operadoras</h3>
+      <Box.Root className="space-y-5">
+        <Box.Title>Operadoras</Box.Title>
 
-      <Table.Root
-        columns={columns}
-        data={data}
-        onSelect={handleSelectOperadora}
-        selected={operadora}
-      />
-
-      <hr />
+        <Box.Content>
+          <Table.Root
+            columns={columns}
+            data={data}
+            onSelect={handleSelectOperadora}
+            selected={operadora}
+          />
+        </Box.Content>
+      </Box.Root>
 
       {operadora && (
         <>
-          <h3 className="text-2xl">Dados da Operadora</h3>
+          <Box.Root>
+            <Box.Title>Dados da Operadora</Box.Title>
 
-          <form className="flex flex-col space-y-3">
-            <Input.Root>
-              <Input.Label htmlFor="nome" text="Nome:" />
-              <Input.Control control={control} name="nome" />
-            </Input.Root>
-          </form>
+            <Box.Content>
+              <form className="flex flex-col space-y-3 px-4">
+                <Input.Root>
+                  <Input.Label htmlFor="nome" text="Nome:" />
+                  <Input.Control control={control} name="nome" />
+                </Input.Root>
+              </form>
+            </Box.Content>
+          </Box.Root>
 
           {operadora && (
             <>
-              <hr />
+              <Box.Root>
+                <Box.Title>Arquivos</Box.Title>
 
-              <h3 className="text-2xl">Arquivos</h3>
-
-              <ArquivosForm
-                ref={formArquivosRef}
-                operadora={operadora}
-                arquivo={arquivo}
-                setIdArquivo={setIdArquivo}
-              />
-
-              <Table.Root
-                columns={arquivoColumns}
-                data={operadora.arquivos}
-                onSelect={handleSelectArquivo}
-                onEdit={handleEditArquivo}
-                selected={arquivo}
-              />
-
-              {arquivo && (
-                <>
-                  <hr />
-
-                  <h3 className="text-2xl">Colunas</h3>
-
-                  <ColunasForm
-                    operadora={operadora}
-                    arquivo={arquivo}
-                    coluna={coluna}
-                  />
+                <Box.Content>
+                  <div className="p-4">
+                    <ArquivosForm
+                      ref={formArquivosRef}
+                      operadora={operadora}
+                      arquivo={arquivo}
+                      setIdArquivo={setIdArquivo}
+                    />
+                  </div>
 
                   <Table.Root
-                    columns={colunasTableColumns}
-                    data={arquivo?.colunas}
-                    onSelect={handleSelectColuna}
-                    selected={coluna}
+                    columns={arquivoColumns}
+                    data={operadora.arquivos}
+                    onSelect={handleSelectArquivo}
+                    onEdit={handleEditArquivo}
+                    selected={arquivo}
                   />
-                </>
+                </Box.Content>
+              </Box.Root>
+
+              {arquivo && (
+                <Box.Root>
+                  <Box.Title>Colunas</Box.Title>
+
+                  <Box.Content>
+                    <div className="p-4">
+                      <ColunasForm
+                        operadora={operadora}
+                        arquivo={arquivo}
+                        coluna={coluna}
+                      />
+                    </div>
+
+                    <Table.Root
+                      columns={colunasTableColumns}
+                      data={arquivo?.colunas}
+                      onSelect={handleSelectColuna}
+                      selected={coluna}
+                    />
+                  </Box.Content>
+                </Box.Root>
               )}
             </>
           )}
