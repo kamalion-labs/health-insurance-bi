@@ -26,6 +26,12 @@ export function GraficoSexo({ data }: { data: Pessoa[] }) {
     color: "#F87171",
   });
 
+  chartData.push({
+    id: "Não Informado",
+    value: data.filter((x) => !x.sexo).length,
+    color: "#52CD9F",
+  });
+
   const options = {
     keys: labels,
     data: chartData,

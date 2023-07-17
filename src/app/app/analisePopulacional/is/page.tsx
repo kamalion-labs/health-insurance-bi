@@ -29,11 +29,16 @@ export default async function ISPage() {
         <Card.Root>
           <Card.Title>Idade Média dos Usuários</Card.Title>
           <Card.Value className="flex flex-col">
-            {data.reduce(
-              (sum, current) =>
-                sum + differenceInYears(new Date(), current.dataNascimento!),
-              0
-            ) / data.length}
+            {(
+              data.reduce(
+                (sum, current) =>
+                  sum + differenceInYears(new Date(), current.dataNascimento!),
+                0
+              ) / data.length
+            ).toLocaleString("pt-br", {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 0,
+            })}
           </Card.Value>
         </Card.Root>
 
@@ -44,7 +49,7 @@ export default async function ISPage() {
               (sum, current) =>
                 sum + differenceInYears(new Date(), current.dataNascimento!),
               0
-            ) / data.filter((x) => x.sexo === "M").length}
+            ) / masculinos.length}
           </Card.Value>
         </Card.Root>
 
@@ -55,7 +60,7 @@ export default async function ISPage() {
               (sum, current) =>
                 sum + differenceInYears(new Date(), current.dataNascimento!),
               0
-            ) / data.filter((x) => x.sexo === "F").length}
+            ) / femininos.length}
           </Card.Value>
         </Card.Root>
       </div>
