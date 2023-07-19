@@ -14,7 +14,7 @@ interface Props {
   id?: string;
 }
 
-export default function NavItem({ title, icon, href, children, id }: Props) {
+export function NavItem({ title, icon, href, children, id }: Props) {
   const { id: currentPageId, parentId } = usePage();
 
   if (!children)
