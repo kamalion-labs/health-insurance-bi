@@ -14,13 +14,13 @@ const cols: TableColumn[] = [
     type: "money",
   },
   {
-    key: "coparticipacao",
-    label: "Coparticipação",
+    key: "sinistro",
+    label: "Sinistro",
     type: "money",
   },
   {
-    key: "sinistro",
-    label: "Sinistro",
+    key: "coparticipacao",
+    label: "Coparticipação",
     type: "money",
   },
 ];

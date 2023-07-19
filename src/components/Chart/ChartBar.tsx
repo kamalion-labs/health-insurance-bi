@@ -5,22 +5,10 @@ import { ResponsiveBar } from "@nivo/bar";
 export function ChartBar(props: any) {
   return (
     <ResponsiveBar
-      margin={{ top: 10, right: 130, bottom: 40, left: 60 }}
+      margin={{ top: 10, right: 130, bottom: 40, left: 120 }}
       padding={0.3}
       colors={({ id, data }) => data[`${id}Color`]}
-      borderColor={{
-        from: "color",
-        modifiers: [["darker", 1.6]],
-      }}
-      axisLeft={{
-        tickValues: 4,
-      }}
-      labelSkipWidth={12}
-      labelSkipHeight={12}
-      labelTextColor={{
-        from: "color",
-        modifiers: [["darker", 1.6]],
-      }}
+      label={null}
       legends={[
         {
           dataFrom: "keys",

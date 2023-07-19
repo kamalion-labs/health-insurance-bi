@@ -1,5 +1,8 @@
+"use client";
+
 import { Chart } from "@/components";
 import { Evento } from "@prisma/client";
+import { format } from "date-fns";
 
 type DataType = {
   id: string;
@@ -25,82 +28,54 @@ export function GraficoSinistralidadeTempo({ data }: { data: Evento[] }) {
     },
   ];
 
-  chartData[0].data = data.reduce<{ x: string; y: number }[]>(
-    (previous, current) => {
-      let date = new Date(current.dataPagamento!);
-      date = new Date(date.getFullYear(), date.getMonth(), 1);
+  const competencias = [
+    ...new Set(data.map((x) => format(x.dataPagamento!, "MM/yyyy"))),
+  ];
 
-      let competencia = previous.find((x) => x.x === date.toISOString())!;
+  chartData[0].data = competencias.map((comp) => {
+    return { x: comp, y: META };
+  });
 
-      if (competencia) {
-        previous.splice(previous.indexOf(competencia), 1, {
-          ...competencia,
-          y: META,
-        });
-      } else {
-        competencia = {
-          x: date.toISOString(),
-          y: META,
-        };
+  chartData[1].data = competencias.map((comp) => {
+    const eventosCompetencia = data.filter(
+      (x) => format(x.dataPagamento!, "MM/yyyy") === comp
+    );
 
-        previous.push(competencia);
-      }
+    const totalFaturamento = eventosCompetencia.reduce(
+      (sum, current) => sum + current.custoTotal,
+      0
+    );
+    const totalSinistro = eventosCompetencia.reduce(
+      (sum, current) => sum + current.sinistro,
+      0
+    );
 
-      return previous;
-    },
-    []
-  );
-
-  chartData[1].data = data.reduce<{ x: string; y: number }[]>(
-    (previous, current) => {
-      let date = new Date(current.dataPagamento!);
-      date = new Date(date.getFullYear(), date.getMonth(), 1);
-
-      let competencia = previous.find((x) => x.x === date.toISOString())!;
-
-      if (competencia) {
-        previous.splice(previous.indexOf(competencia), 1, {
-          ...competencia,
-          y: (current.sinistro * 100) / current.custoTotal,
-        });
-      } else {
-        competencia = {
-          x: date.toISOString(),
-          y: (current.sinistro * 100) / current.custoTotal,
-        };
-
-        previous.push(competencia);
-      }
-
-      return previous;
-    },
-    []
-  );
+    return {
+      x: comp,
+      y: (totalSinistro * 100) / totalFaturamento,
+    };
+  });
 
   const options = {
     keys: labels,
     indexBy: "Date",
     data: chartData,
-    xScale: {
-      format: "%Y-%m-%dT%H:%M:%S.%L%Z",
-      type: "time",
-      precision: "month",
-      useUTC: false,
-    },
-    xFormat: "time:%m/%Y",
-    axisBottom: {
-      tickSize: 5,
-      tickPadding: 5,
-      tickRotation: 0,
-      format: "%m/%Y",
-      legendOffset: 36,
-      legendPosition: "middle",
-      tickValues: "every 1 month",
-    },
     yScale: {
       type: "linear",
       min: "auto",
       max: "auto",
+    },
+    axisLeft: {
+      tickValues: 4,
+      format: (value: number) =>
+        `${value.toLocaleString("pt-BR", {
+          minimumFractionDigits: 2,
+        })}%`,
+    },
+    yFormat: (value: any) => {
+      return `${value.toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+      })}%`;
     },
   };
 

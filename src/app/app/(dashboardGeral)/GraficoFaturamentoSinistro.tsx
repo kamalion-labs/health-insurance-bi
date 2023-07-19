@@ -1,3 +1,5 @@
+"use client";
+
 import { Chart } from "@/components";
 import { Evento } from "@prisma/client";
 import { format } from "date-fns";
@@ -15,41 +17,52 @@ type DataType = {
 const labels = ["Faturamento", "Sinistro", "Coparticipacao"];
 
 export function GraficoFaturamentoSinistro({ data }: { data: Evento[] }) {
-  const chartData = data.reduce<DataType[]>((previous, current) => {
-    let competencia = previous.find(
-      (x) => x.Date === format(new Date(current.dataPagamento!), "MM/yyyy")
+  const competencias = [
+    ...new Set(data.map((x) => format(x.dataPagamento!, "MM/yyyy"))),
+  ];
+
+  const chartData: DataType[] = competencias.map((comp) => {
+    const eventosCompetencia = data.filter(
+      (x) => format(x.dataPagamento!, "MM/yyyy") === comp
     );
 
-    if (competencia) {
-      previous.splice(previous.indexOf(competencia), 1, {
-        ...competencia,
-        Faturamento: competencia.Faturamento + Number(current.custoTotal),
-        Sinistro: competencia.Sinistro + Number(current.sinistro),
-        Coparticipacao:
-          competencia.Coparticipacao + Number(current.coparticipacao),
-      });
-    } else {
-      competencia = {
-        Date: format(new Date(current.dataPagamento!), "MM/yyyy"),
-        Faturamento: Number(current.custoTotal),
-        FaturamentoColor: "#52CD9F",
-        Sinistro: Number(current.sinistro),
-        SinistroColor: "#F87171",
-        Coparticipacao: Number(current.coparticipacao),
-        CoparticipacaoColor: "#5B93FF",
-      };
+    return {
+      Date: comp,
+      Faturamento: eventosCompetencia.reduce(
+        (sum, current) => sum + current.custoTotal,
+        0
+      ),
+      Sinistro: eventosCompetencia.reduce(
+        (sum, current) => sum + current.sinistro,
+        0
+      ),
+      Coparticipacao: eventosCompetencia.reduce(
+        (sum, current) => sum + current.coparticipacao,
+        0
+      ),
 
-      previous.push(competencia);
-    }
-
-    return previous;
-  }, []);
+      SinistroColor: "#F87171",
+      FaturamentoColor: "#52CD9F",
+      CoparticipacaoColor: "#5B93FF",
+    };
+  });
 
   const options = {
     keys: labels,
     indexBy: "Date",
     groupMode: "grouped",
     data: chartData,
+    axisLeft: {
+      tickValues: 4,
+      format: (value: number) =>
+        `R$ ${value.toLocaleString("pt-BR", {
+          minimumFractionDigits: 2,
+        })}`,
+    },
+    valueFormat: (value: any) =>
+      `R$ ${value.toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+      })}`,
   };
 
   return <Chart.Bar {...options} />;
