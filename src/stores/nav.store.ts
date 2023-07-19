@@ -15,7 +15,7 @@ export const usePage = create<PageState>((set) => ({
   id: "",
   parentId: "",
 
-  setTitle: () => set((state) => ({ title: state.title })),
-  setId: () => set((state) => ({ id: state.id })),
-  setParentId: () => set((state) => ({ parentId: state.parentId })),
+  setTitle: (title) => set(() => ({ title })),
+  setId: (id) => set(() => ({ id })),
+  setParentId: (parentId) => set(() => ({ parentId })),
 }));
