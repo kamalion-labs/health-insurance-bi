@@ -16,6 +16,7 @@ model Usuario {
   ativo        Boolean   @default(true)
   criadoEm     DateTime? @default(now())
   atualizadoEm DateTime? @updatedAt
+  admin        Boolean   @default(false)
 }
 model Evento {
     id             Int             @id @default(autoincrement())
