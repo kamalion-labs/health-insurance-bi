@@ -1,5 +1,3 @@
-"use client";
-
 import { Chart } from "@/components";
 import { Pessoa } from "@prisma/client";
 
