@@ -61,12 +61,12 @@ export function GraficoSinistralidadeTempo({ data }: { data: Evento[] }) {
       if (competencia) {
         previous.splice(previous.indexOf(competencia), 1, {
           ...competencia,
-          y: (Number(current.sinistro) * 100) / Number(current.custoTotal),
+          y: (current.sinistro * 100) / current.custoTotal,
         });
       } else {
         competencia = {
           x: date.toISOString(),
-          y: (Number(current.sinistro) * 100) / Number(current.custoTotal),
+          y: (current.sinistro * 100) / current.custoTotal,
         };
 
         previous.push(competencia);

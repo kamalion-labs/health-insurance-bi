@@ -8,8 +8,8 @@ model Pessoa {
   dataAdmissaoPlano DateTime?
   funcionario       Boolean?
   status            Status?
-  scoreDiabetes     Float?
-  scoreHipertensao  Float?
+  scoreDiabetes     Float?     @db.DoublePrecision
+  scoreHipertensao  Float?     @db.DoublePrecision
   atestados         Atestado[]
   eventos           Evento[]
 
