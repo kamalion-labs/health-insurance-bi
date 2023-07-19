@@ -1,5 +1,3 @@
-"use client";
-
 import { Chart } from "@/components";
 import { Evento } from "@prisma/client";
 
@@ -83,6 +81,27 @@ export function GraficoSinistralidadeTempo({ data }: { data: Evento[] }) {
     keys: labels,
     indexBy: "Date",
     data: chartData,
+    xScale: {
+      format: "%Y-%m-%dT%H:%M:%S.%L%Z",
+      type: "time",
+      precision: "month",
+      useUTC: false,
+    },
+    xFormat: "time:%m/%Y",
+    axisBottom: {
+      tickSize: 5,
+      tickPadding: 5,
+      tickRotation: 0,
+      format: "%m/%Y",
+      legendOffset: 36,
+      legendPosition: "middle",
+      tickValues: "every 1 month",
+    },
+    yScale: {
+      type: "linear",
+      min: "auto",
+      max: "auto",
+    },
   };
 
   return <Chart.Line {...options} />;

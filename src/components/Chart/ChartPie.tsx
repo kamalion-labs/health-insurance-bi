@@ -45,6 +45,7 @@ export function ChartPie(props: any) {
           ],
         },
       ]}
+      role="application"
       {...props}
     />
   );

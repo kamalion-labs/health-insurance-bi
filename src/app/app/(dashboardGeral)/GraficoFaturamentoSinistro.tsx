@@ -1,5 +1,3 @@
-"use client";
-
 import { Chart } from "@/components";
 import { Evento } from "@prisma/client";
 import { format } from "date-fns";
@@ -50,6 +48,7 @@ export function GraficoFaturamentoSinistro({ data }: { data: Evento[] }) {
   const options = {
     keys: labels,
     indexBy: "Date",
+    groupMode: "grouped",
     data: chartData,
   };
 

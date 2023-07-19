@@ -8,27 +8,6 @@ export function ChartLine(props: any) {
       padding={0.3}
       colors={({ color }) => color}
       margin={{ top: 10, right: 130, bottom: 40, left: 60 }}
-      xScale={{
-        format: "%Y-%m-%dT%H:%M:%S.%L%Z",
-        type: "time",
-        precision: "month",
-        useUTC: false,
-      }}
-      xFormat="time:%m/%Y"
-      axisBottom={{
-        tickSize: 5,
-        tickPadding: 5,
-        tickRotation: 0,
-        format: "%m/%Y",
-        legendOffset: 36,
-        legendPosition: "middle",
-        tickValues: "every 1 month",
-      }}
-      yScale={{
-        type: "linear",
-        min: "auto",
-        max: "auto",
-      }}
       axisLeft={{
         tickValues: 5,
       }}

@@ -5,7 +5,6 @@ import { ResponsiveBar } from "@nivo/bar";
 export function ChartBar(props: any) {
   return (
     <ResponsiveBar
-      groupMode="grouped"
       margin={{ top: 10, right: 130, bottom: 40, left: 60 }}
       padding={0.3}
       colors={({ id, data }) => data[`${id}Color`]}

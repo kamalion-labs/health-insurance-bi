@@ -1,5 +1,3 @@
-"use client";
-
 import { Table } from "@/components";
 import { TableColumn } from "@/components/Table/TableHeader";
 import { Evento } from "@prisma/client";
