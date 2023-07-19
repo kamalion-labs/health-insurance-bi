@@ -3,9 +3,9 @@ model Pessoa {
   nome              String
   CPF               String     @unique
   sexo              Sexo?
-  dataNascimento    DateTime?
-  dataAdmissao      DateTime?
-  dataAdmissaoPlano DateTime?
+  dataNascimento    DateTime?  @db.Date
+  dataAdmissao      DateTime?  @db.Date
+  dataAdmissaoPlano DateTime?  @db.Date
   funcionario       Boolean?
   status            Status?
   scoreDiabetes     Float?     @db.DoublePrecision
@@ -54,8 +54,8 @@ model TipoTitularidade {
 
 model Atestado {
   id         Int      @id @default(autoincrement())
-  dataInicio DateTime
-  dataFim    DateTime
+  dataInicio DateTime @db.Date
+  dataFim    DateTime @db.Date
   duracao    Int
 
   pessoa   Pessoa @relation(fields: [idPessoa], references: [id])

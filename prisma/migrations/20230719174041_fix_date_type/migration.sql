@@ -1,0 +1,24 @@
+-- AlterTable
+ALTER TABLE "Atestado" ALTER COLUMN "dataInicio" SET DATA TYPE DATE,
+ALTER COLUMN "dataFim" SET DATA TYPE DATE;
+
+-- AlterTable
+ALTER TABLE "Empresa" ALTER COLUMN "fimContrato" SET DATA TYPE DATE,
+ALTER COLUMN "inicioContrato" SET DATA TYPE DATE;
+
+-- AlterTable
+ALTER TABLE "Evento" ALTER COLUMN "dataRealizacao" SET DATA TYPE DATE,
+ALTER COLUMN "dataPagamento" SET DATA TYPE DATE;
+
+-- AlterTable
+ALTER TABLE "Liberacao" ALTER COLUMN "dataSolicitacao" SET DATA TYPE DATE,
+ALTER COLUMN "dataInternacao" SET DATA TYPE DATE;
+
+-- AlterTable
+ALTER TABLE "Pessoa" ALTER COLUMN "dataAdmissao" SET DATA TYPE DATE,
+ALTER COLUMN "dataAdmissaoPlano" SET DATA TYPE DATE,
+ALTER COLUMN "dataNascimento" SET DATA TYPE DATE;
+
+-- AlterTable
+ALTER TABLE "Usuario" ALTER COLUMN "atualizadoEm" SET DATA TYPE DATE,
+ALTER COLUMN "criadoEm" SET DATA TYPE DATE;

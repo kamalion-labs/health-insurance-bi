@@ -14,22 +14,23 @@ const labels = ["Titulares", "Dependentes"];
 
 export function GraficoUsuariosMes({ data }: { data: EventoWithPessoa[] }) {
   const competencias = [
-    ...new Set(data.map((x) => format(new Date(x?.dataPagamento!), "MM/yyyy"))),
+    ...new Set(data.map((x) => format(x?.dataPagamento!, "MM/yyyy"))),
   ];
 
   const chartData = competencias.map<DataType>((comp) => ({
     Date: comp,
     Titulares: data.filter(
       (x) =>
-        (format(new Date(x?.dataPagamento!), "MM/yyyy") === comp &&
+        (format(x?.dataPagamento!, "MM/yyyy") === comp &&
           x?.pessoa.idTipoTitularidade) === 1
     ).length,
-    TitularesColor: "#52CD9F",
     Dependentes: data.filter(
       (x) =>
-        format(new Date(x?.dataPagamento!), "MM/yyyy") === comp &&
+        format(x?.dataPagamento!, "MM/yyyy") === comp &&
         x?.pessoa.idTipoTitularidade !== 1
     ).length,
+
+    TitularesColor: "#52CD9F",
     DependentesColor: "#5B93FF",
   }));
 

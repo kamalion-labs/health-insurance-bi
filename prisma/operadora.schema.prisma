@@ -40,8 +40,8 @@ model Empresa {
   nome             String
   CNPJ             String             @unique
   numeroContrato   String?
-  inicioContrato   DateTime?
-  fimContrato      DateTime?
+  inicioContrato   DateTime?          @db.Date
+  fimContrato      DateTime?          @db.Date
   indiceReajuste   Int?
   limitadorTecnico Int?
   coparticipacoes  Coparticipacao[]

@@ -14,16 +14,16 @@ model Usuario {
   nome  String
 
   ativo        Boolean   @default(true)
-  criadoEm     DateTime? @default(now())
-  atualizadoEm DateTime? @updatedAt
+  criadoEm     DateTime? @default(now()) @db.Date
+  atualizadoEm DateTime? @updatedAt @db.Date
   admin        Boolean   @default(false)
 }
 model Evento {
     id             Int             @id @default(autoincrement())
     codigo         Int
     descricao      String
-    dataRealizacao DateTime
-    dataPagamento  DateTime?
+    dataRealizacao DateTime        @db.Date
+    dataPagamento  DateTime?       @db.Date
     quantidade     Int
     custoTotal     Float           @db.DoublePrecision
     sinistro       Float           @db.DoublePrecision
@@ -128,8 +128,8 @@ model Liberacao {
     situacaoSenha        SituacaoSenha?
     possuiLiminar        Boolean?
     regimeInternacao     RegimeInternacao?
-    dataSolicitacao      DateTime?
-    dataInternacao       DateTime?
+    dataSolicitacao      DateTime?         @db.Date
+    dataInternacao       DateTime?         @db.Date
 
     plano   Plano @relation(fields: [idPlano], references: [id])
     idPlano Int
@@ -215,8 +215,8 @@ model Empresa {
   nome             String
   CNPJ             String             @unique
   numeroContrato   String?
-  inicioContrato   DateTime?
-  fimContrato      DateTime?
+  inicioContrato   DateTime?          @db.Date
+  fimContrato      DateTime?          @db.Date
   indiceReajuste   Int?
   limitadorTecnico Int?
   coparticipacoes  Coparticipacao[]
@@ -271,13 +271,13 @@ model Pessoa {
   nome              String
   CPF               String     @unique
   sexo              Sexo?
-  dataNascimento    DateTime?
-  dataAdmissao      DateTime?
-  dataAdmissaoPlano DateTime?
+  dataNascimento    DateTime?  @db.Date
+  dataAdmissao      DateTime?  @db.Date
+  dataAdmissaoPlano DateTime?  @db.Date
   funcionario       Boolean?
   status            Status?
-  scoreDiabetes     Float?
-  scoreHipertensao  Float?
+  scoreDiabetes     Float?     @db.DoublePrecision
+  scoreHipertensao  Float?     @db.DoublePrecision
   atestados         Atestado[]
   eventos           Evento[]
 
@@ -322,8 +322,8 @@ model TipoTitularidade {
 
 model Atestado {
   id         Int      @id @default(autoincrement())
-  dataInicio DateTime
-  dataFim    DateTime
+  dataInicio DateTime @db.Date
+  dataFim    DateTime @db.Date
   duracao    Int
 
   pessoa   Pessoa @relation(fields: [idPessoa], references: [id])

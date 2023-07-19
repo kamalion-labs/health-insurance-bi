@@ -14,7 +14,7 @@ model Usuario {
   nome  String
 
   ativo        Boolean   @default(true)
-  criadoEm     DateTime? @default(now())
-  atualizadoEm DateTime? @updatedAt
+  criadoEm     DateTime? @default(now()) @db.Date
+  atualizadoEm DateTime? @updatedAt @db.Date
   admin        Boolean   @default(false)
 }
