@@ -8,7 +8,12 @@ export function ChartBar(props: any) {
       margin={{ top: 10, right: 130, bottom: 40, left: 120 }}
       padding={0.3}
       colors={({ id, data }) => data[`${id}Color`]}
-      label={null}
+      labelSkipWidth={12}
+      labelSkipHeight={12}
+      labelTextColor={{
+        from: "color",
+        modifiers: [["brighter", 100]],
+      }}
       legends={[
         {
           dataFrom: "keys",

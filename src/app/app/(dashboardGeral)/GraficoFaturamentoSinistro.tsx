@@ -52,6 +52,7 @@ export function GraficoFaturamentoSinistro({ data }: { data: Evento[] }) {
     indexBy: "Date",
     groupMode: "grouped",
     data: chartData,
+    label: null,
     axisLeft: {
       tickValues: 4,
       format: (value: number) =>

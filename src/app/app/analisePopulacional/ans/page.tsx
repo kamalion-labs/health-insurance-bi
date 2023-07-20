@@ -1,24 +1,49 @@
 import { Box, PageInitializer } from "@/components";
-import { ExameRepositorio } from "@/lib/exames/repositorio/ExameRepositorio";
 import { Grafico } from "./Grafico";
+import { prisma } from "@/lib/db/prisma";
+
+async function calcularMedia(idCategoria: number) {
+  const total = await prisma.evento.count({
+    where: {
+      exame: {
+        idCategoria,
+      },
+    },
+  });
+
+  const listaConsultasPessoa = await prisma.evento.findMany({
+    where: {
+      exame: {
+        idCategoria,
+      },
+    },
+    include: {
+      pessoa: true,
+    },
+    distinct: "idPessoa",
+  });
+
+  const qntPessoas = listaConsultasPessoa.length;
+
+  return total / qntPessoas;
+}
 
 export default async function ANSPage() {
-  const exames = await ExameRepositorio.listar();
+  const mediaConsultas = await calcularMedia(2);
+  const mediaConsultasEletivas = await calcularMedia(3);
+  const mediaConsultasPS = await calcularMedia(4);
+  const mediaExames = await calcularMedia(5);
+  const mediaOutros = await calcularMedia(6);
+  const mediaTerapia = await calcularMedia(7);
 
-  const listaConsultas = exames.filter((x) => x.idCategoria === 2);
-  const listaConsultasEletivas = exames.filter((x) => x.idCategoria === 3);
-  const listaConsultasPS = exames.filter((x) => x.idCategoria === 4);
-  const listaExames = exames.filter((x) => x.idCategoria === 5);
-  const listaOutros = exames.filter((x) => x.idCategoria === 6);
-  const listaTerapia = exames.filter((x) => x.idCategoria === 7);
-
-  const chartData = [
-    {
-      Item: 1,
-      Total: 5.78,
-      TotalColor: "#5B93FF",
-    },
-  ];
+  const mediaANS = {
+    consultas: 5.35,
+    consultasEletivas: 3.7,
+    consultasPS: 1,
+    exames: 16.9,
+    outros: 3,
+    terapias: 0.9,
+  };
 
   return (
     <div className="space-y-5 p-4">
@@ -33,7 +58,16 @@ export default async function ANSPage() {
           <Box.Title>Exames por Beneficiário</Box.Title>
 
           <Box.Content className="h-[300px]">
-            <Grafico data={chartData} />
+            <Grafico
+              mediaANS={mediaANS.exames}
+              data={[
+                {
+                  Item: 1,
+                  Total: mediaExames,
+                  TotalColor: "#5B93FF",
+                },
+              ]}
+            />
           </Box.Content>
         </Box.Root>
 
@@ -41,7 +75,86 @@ export default async function ANSPage() {
           <Box.Title>Consultas por Beneficiário</Box.Title>
 
           <Box.Content className="h-[300px]">
-            <Grafico data={chartData} />
+            <Grafico
+              mediaANS={mediaANS.consultas}
+              data={[
+                {
+                  Item: 2,
+                  Total: mediaConsultas,
+                  TotalColor: "#5B93FF",
+                },
+              ]}
+            />
+          </Box.Content>
+        </Box.Root>
+
+        <Box.Root>
+          <Box.Title>Consultas Eletivas por Beneficiário</Box.Title>
+
+          <Box.Content className="h-[300px]">
+            <Grafico
+              mediaANS={mediaANS.consultasEletivas}
+              data={[
+                {
+                  Item: 2,
+                  Total: mediaConsultasEletivas,
+                  TotalColor: "#5B93FF",
+                },
+              ]}
+            />
+          </Box.Content>
+        </Box.Root>
+
+        <Box.Root>
+          <Box.Title>Terapias por Beneficiários</Box.Title>
+
+          <Box.Content className="h-[300px]">
+            <Grafico
+              mediaANS={mediaANS.terapias}
+              data={[
+                {
+                  Item: 2,
+                  Total: mediaTerapia,
+                  TotalColor: "#5B93FF",
+                },
+              ]}
+            />
+          </Box.Content>
+        </Box.Root>
+
+        <Box.Root>
+          <Box.Title>Consultas em PS por Beneficiário</Box.Title>
+
+          <Box.Content className="h-[300px]">
+            <Grafico
+              mediaANS={mediaANS.consultasPS}
+              data={[
+                {
+                  Item: 2,
+                  Total: mediaConsultasPS,
+                  TotalColor: "#5B93FF",
+                },
+              ]}
+            />
+          </Box.Content>
+        </Box.Root>
+
+        <Box.Root>
+          <Box.Title>
+            Outros Procedimentos Ambulatoriais por Beneficiário
+          </Box.Title>
+
+          <Box.Content className="h-[300px]">
+            <Grafico
+              mediaANS={mediaANS.outros}
+              data={[
+                {
+                  Item: 2,
+                  Total: mediaOutros,
+                  TotalColor: "#5B93FF",
+                },
+              ]}
+            />
           </Box.Content>
         </Box.Root>
       </div>
