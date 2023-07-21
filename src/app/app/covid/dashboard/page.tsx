@@ -1,24 +1,31 @@
-"use client";
+import { Box, PageInitializer } from "@/components";
+import { GraficoCustoTotal } from "./GraficoCustoTotal";
+import { prisma } from "@/lib/db/prisma";
 
-import { PageInitializer } from "@/components";
-import clsx from "clsx";
+export default async function CovidDashboard() {
+  const cids = await prisma.cid.findMany({
+    include: {
+      eventos: true,
+    },
+  });
 
-export default function CovidDashboard() {
   return (
-    <div className="p-4">
+    <div className="space-y-5 p-4">
       <PageInitializer
         title="Dashboard Covid-19"
         id="covidDashboard"
         parentId="covid"
       />
 
-      <div className="flex">
-        <button className={clsx("")}>Botão</button>
-        <button className={clsx("")}>Botão 2</button>
-        <button className={clsx("")}>Botão 2</button>
-        <button className={clsx("")}>Botão 2</button>
-        <button className={clsx("")}>Botão 2</button>
-        <button className={clsx("")}>Botão 2</button>
+      {/* Gráfico 1 */}
+      <div className="grid grid-cols-1 gap-5">
+        <Box.Root>
+          <Box.Title>Impacto Custo Total Covid-19</Box.Title>
+
+          <Box.Content className="h-[300px]">
+            <GraficoCustoTotal data={cids} />
+          </Box.Content>
+        </Box.Root>
       </div>
     </div>
   );
