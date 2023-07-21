@@ -15,7 +15,7 @@ type DataType = {
   items: Evento[];
 };
 
-const cidsCovid = ["A00", "A01"];
+const cidsCovid = ["A00", "A01", "B50"];
 
 export function GraficoCustoTotal({ data }: { data: CidWithEventos[] }) {
   const chartData: DataType[] = [];
@@ -33,9 +33,6 @@ export function GraficoCustoTotal({ data }: { data: CidWithEventos[] }) {
       (listaEventos, cid) => [...listaEventos, ...cid.eventos],
       []
     );
-
-  console.log("Eventos coronga:", eventosCovid);
-  console.log("eventos n coronga:,", eventosNaoCovid);
 
   chartData.push({
     id: "Covid",
