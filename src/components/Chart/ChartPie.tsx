@@ -1,8 +1,8 @@
 "use client";
 
-import { ResponsivePie } from "@nivo/pie";
+import { PieSvgProps, ResponsivePie } from "@nivo/pie";
 
-export function ChartPie(props: any) {
+export function ChartPie(props: Omit<PieSvgProps<any>, "width" | "height">) {
   return (
     <ResponsivePie
       margin={{ top: 40, right: 80, bottom: 80, left: 80 }}

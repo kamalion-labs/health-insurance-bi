@@ -1,5 +1,5 @@
 import { Chart } from "@/components";
-import { EventoWithPessoa } from "@/lib/evento/repositorio/EventoRepositorio";
+import { Prisma } from "@prisma/client";
 import { format } from "date-fns";
 
 type DataType = {
@@ -11,6 +11,10 @@ type DataType = {
 };
 
 const labels = ["Titulares", "Dependentes"];
+
+type EventoWithPessoa = Prisma.EventoGetPayload<{
+  include: { pessoa: true };
+}>;
 
 export function GraficoUsuariosMes({ data }: { data: EventoWithPessoa[] }) {
   const competencias = [

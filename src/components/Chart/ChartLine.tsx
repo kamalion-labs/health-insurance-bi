@@ -1,11 +1,10 @@
 "use client";
 
-import { ResponsiveLine } from "@nivo/line";
+import { LineSvgProps, ResponsiveLine } from "@nivo/line";
 
-export function ChartLine(props: any) {
+export function ChartLine(props: LineSvgProps) {
   return (
     <ResponsiveLine
-      padding={0.3}
       colors={({ color }) => color}
       margin={{ top: 10, right: 130, bottom: 40, left: 60 }}
       axisLeft={{

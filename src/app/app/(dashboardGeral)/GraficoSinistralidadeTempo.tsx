@@ -1,6 +1,7 @@
 "use client";
 
 import { Chart } from "@/components";
+import { LineSvgProps } from "@nivo/line";
 import { Evento } from "@prisma/client";
 import { format } from "date-fns";
 
@@ -9,8 +10,6 @@ type DataType = {
   color: string;
   data: { x: string; y: number }[];
 };
-
-const labels = ["Meta", "Sinistro Total"];
 
 const META = 70;
 
@@ -56,9 +55,7 @@ export function GraficoSinistralidadeTempo({ data }: { data: Evento[] }) {
     };
   });
 
-  const options = {
-    keys: labels,
-    indexBy: "Date",
+  const options: LineSvgProps = {
     data: chartData,
     yScale: {
       type: "linear",

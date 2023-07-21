@@ -72,8 +72,6 @@ export function GraficoSinistroEspecialidade({
     });
   }
 
-  console.log({ chartData });
-
   const options: Omit<PieSvgProps<DataType>, "width" | "height"> = {
     data: chartData,
     colors: { scheme: "set2" },
