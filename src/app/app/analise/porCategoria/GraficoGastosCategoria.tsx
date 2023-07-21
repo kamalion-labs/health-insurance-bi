@@ -1,0 +1,89 @@
+"use client";
+
+import { Chart } from "@/components";
+import { PieSvgProps } from "@nivo/pie";
+import { Evento, Prisma } from "@prisma/client";
+
+type CategoriaWithExamesEventos = Prisma.CategoriaGetPayload<{
+  include: { exames: { include: { eventos: true } } };
+}>;
+
+interface DataType {
+  id: string;
+  value: number;
+}
+
+export function GraficoGastosCategoria({
+  data,
+}: {
+  data: CategoriaWithExamesEventos[];
+}) {
+  const chartData: DataType[] = [];
+
+  for (const item of data) {
+    const eventos = item.exames.reduce<Evento[]>(
+      (lista, exame) => [...lista, ...exame.eventos],
+      []
+    );
+
+    chartData.push({
+      id: item.nome,
+      value: eventos.reduce((sum, current) => sum + current.custoTotal, 0),
+    });
+  }
+
+  const CenteredMetric = ({ dataWithArc, centerX, centerY }: any) => {
+    let total = 0;
+    dataWithArc.forEach((datum: any) => {
+      total += datum.value;
+    });
+
+    return (
+      <g x={centerX} y={centerY} dominantBaseline="central">
+        <text
+          x={centerX}
+          y={centerY - 10}
+          textAnchor="middle"
+          style={{
+            fontSize: "20px",
+            fontWeight: 600,
+          }}
+        >
+          R${" "}
+          {total.toLocaleString("pt-Br", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2,
+          })}
+        </text>
+
+        <text
+          x={centerX}
+          y={centerY + 10}
+          textAnchor="middle"
+          style={{
+            fontSize: "16px",
+          }}
+        >
+          Total
+        </text>
+      </g>
+    );
+  };
+
+  const options: Omit<PieSvgProps<DataType>, "width" | "height"> = {
+    data: chartData,
+    colors: { scheme: "set2" },
+    enableArcLabels: false,
+    enableArcLinkLabels: false,
+    innerRadius: 0.7,
+    margin: { top: 10, right: 100, bottom: 20, left: 0 },
+    valueFormat: (value: number) =>
+      `R$ ${value.toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`,
+    layers: ["arcs", "legends", CenteredMetric],
+  };
+
+  return <Chart.Pie {...options} />;
+}

@@ -9,7 +9,6 @@ export function ChartPie(props: any) {
       colors={{ datum: "data.color" }}
       innerRadius={0.5}
       padAngle={0.7}
-      cornerRadius={3}
       activeOuterRadiusOffset={8}
       borderWidth={1}
       arcLinkLabelsSkipAngle={10}
@@ -22,12 +21,12 @@ export function ChartPie(props: any) {
       }}
       legends={[
         {
-          anchor: "bottom",
-          direction: "row",
+          anchor: "right",
+          direction: "column",
           justify: false,
           translateX: 0,
-          translateY: 56,
-          itemsSpacing: 0,
+          translateY: 0,
+          itemsSpacing: 2,
           itemWidth: 100,
           itemHeight: 18,
           itemTextColor: "#999",

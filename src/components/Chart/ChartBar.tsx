@@ -1,8 +1,8 @@
 "use client";
 
-import { ResponsiveBar } from "@nivo/bar";
+import { BarSvgProps, ResponsiveBar } from "@nivo/bar";
 
-export function ChartBar(props: any) {
+export function ChartBar(props: Omit<BarSvgProps<any>, "width" | "height">) {
   return (
     <ResponsiveBar
       margin={{ top: 10, right: 130, bottom: 40, left: 120 }}

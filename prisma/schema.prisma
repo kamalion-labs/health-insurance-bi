@@ -42,9 +42,6 @@ model Evento {
     CID   Cid @relation(fields: [idCid], references: [id])
     idCid Int
 
-    especialidade   Especialidade @relation(fields: [idEspecialidade], references: [id])
-    idEspecialidade Int
-
     tipoProcedimento   TipoProcedimento @relation(fields: [idTipoProcedimento], references: [id])
     idTipoProcedimento Int
 
@@ -73,10 +70,9 @@ model Cid {
 }
 
 model Especialidade {
-    id      Int      @id @default(autoincrement())
-    nome    String
-    eventos Evento[]
-    exames  Exame[]
+    id     Int     @id @default(autoincrement())
+    nome   String
+    exames Exame[]
 }
 
 model Exame {

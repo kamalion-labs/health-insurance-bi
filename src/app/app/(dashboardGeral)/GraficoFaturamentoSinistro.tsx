@@ -1,6 +1,7 @@
 "use client";
 
 import { Chart } from "@/components";
+import { BarSvgProps } from "@nivo/bar";
 import { Evento } from "@prisma/client";
 import { format } from "date-fns";
 
@@ -47,12 +48,12 @@ export function GraficoFaturamentoSinistro({ data }: { data: Evento[] }) {
     };
   });
 
-  const options = {
+  const options: Omit<BarSvgProps<DataType>, "width" | "height"> = {
     keys: labels,
     indexBy: "Date",
     groupMode: "grouped",
     data: chartData,
-    label: null,
+    label: "",
     axisLeft: {
       tickValues: 4,
       format: (value: number) =>
