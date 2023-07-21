@@ -1,12 +1,7 @@
 import { ReactNode } from "react";
 import { Header, Navbar, Page } from "@/components";
 import { headers } from "next/headers";
-import {
-  FaChartColumn,
-  FaDollarSign,
-  FaUsers,
-  FaVirusCovid,
-} from "react-icons/fa6";
+import { NavItems } from "./nav";
 
 export default async function RootLayout({
   children,
@@ -22,83 +17,7 @@ export default async function RootLayout({
         <Navbar.Root>
           <Navbar.Header />
 
-          <Navbar.Content>
-            <Navbar.List>
-              <Navbar.Item
-                title="Dashboard Geral"
-                icon={<FaChartColumn size={20} />}
-                href="/app"
-                id="dashboardGeral"
-              />
-
-              <Navbar.Item
-                title="Análise Covid-19"
-                icon={<FaVirusCovid size={20} />}
-                id="covid"
-              >
-                <Navbar.List>
-                  <Navbar.Item
-                    title="Dashboard"
-                    href="/app/covid/dashboard"
-                    id="covidDashboard"
-                  />
-                  <Navbar.Item
-                    title="Análise Temporal"
-                    href="/app/covid/timeline"
-                    id="covidTimeline"
-                  />
-                  <Navbar.Item
-                    title="Exames"
-                    href="/covid/exames"
-                    id="covidExames"
-                  />
-                  <Navbar.Item
-                    title="Internação"
-                    href="/app/covid/internacao"
-                    id="covidInternacao"
-                  />
-                </Navbar.List>
-              </Navbar.Item>
-
-              <Navbar.Item
-                title="Análise Populacional"
-                id="analisePopulacional"
-                icon={<FaUsers size={20} />}
-              >
-                <Navbar.List>
-                  <Navbar.Item
-                    title="Indicadores Sociodemográficos (IS)"
-                    href="/app/analisePopulacional/is"
-                    id="analisePopulacionalIS"
-                  />
-                  <Navbar.Item
-                    title="Indicadores Comparativos de Utilização (ANS)"
-                    href="/app/analisePopulacional/ans"
-                    id="analisePopulacionalANS"
-                  />
-                  <Navbar.Item
-                    title="Relatórios de Atestados"
-                    href="/app/analisePopulacional/atestados"
-                    id="analisePopulacionalAtestados"
-                  />
-                </Navbar.List>
-              </Navbar.Item>
-
-              <Navbar.Item
-                title="Análise de Utilização"
-                id="analise"
-                icon={<FaDollarSign size={20} />}
-              >
-                <Navbar.List>
-                  <Navbar.Item
-                    title="Por Categoria"
-                    href="/app/analise/porCategoria"
-                    id="analisePorCategoria"
-                  />
-                </Navbar.List>
-              </Navbar.Item>
-            </Navbar.List>
-          </Navbar.Content>
+          <Navbar.Content items={NavItems} />
         </Navbar.Root>
       </Page.Nav>
 
@@ -107,7 +26,7 @@ export default async function RootLayout({
           <Header />
         </Page.Header>
 
-        <main className="scrollbar-rounded-md flex flex-auto flex-col overflow-y-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300">
+        <main className="scrollbar-rounded-md z-10 flex flex-auto flex-col overflow-y-auto scrollbar-thin scrollbar-track-gray-100 scrollbar-thumb-gray-300">
           {children}
         </main>
       </div>
