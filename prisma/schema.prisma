@@ -64,7 +64,7 @@ model Prestador {
 model Cid {
     id                 Int      @id @default(autoincrement())
     codigo             String   @unique
-    descricao          String
+    descricao          String?
     descricaoAbreviada String?
     eventos            Evento[]
 }
