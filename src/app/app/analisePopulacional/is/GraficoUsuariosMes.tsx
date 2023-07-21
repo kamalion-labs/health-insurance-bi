@@ -1,4 +1,8 @@
+"use client";
+
 import { Chart } from "@/components";
+import { BarTotalLayer } from "@/lib/util/charts/bars";
+import { BarSvgProps } from "@nivo/bar";
 import { Prisma } from "@prisma/client";
 import { format } from "date-fns";
 
@@ -38,9 +42,19 @@ export function GraficoUsuariosMes({ data }: { data: EventoWithPessoa[] }) {
     DependentesColor: "#5B93FF",
   }));
 
-  const options = {
+  const options: Omit<BarSvgProps<any>, "width" | "height"> = {
     keys: labels,
+    margin: { top: 30, right: 130, bottom: 40, left: 120 },
     indexBy: "Date",
+    layers: [
+      "grid",
+      "axes",
+      "markers",
+      "bars",
+      "legends",
+      "annotations",
+      BarTotalLayer,
+    ],
     data: chartData,
   };
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { Chart } from "@/components";
+import { CenteredMoneyMetric } from "@/lib/util/charts/pie";
 import { PieSvgProps } from "@nivo/pie";
 import { Evento, Prisma } from "@prisma/client";
 
@@ -32,44 +33,6 @@ export function GraficoGastosCategoria({
     });
   }
 
-  const CenteredMetric = ({ dataWithArc, centerX, centerY }: any) => {
-    let total = 0;
-    dataWithArc.forEach((datum: any) => {
-      total += datum.value;
-    });
-
-    return (
-      <g x={centerX} y={centerY} dominantBaseline="central">
-        <text
-          x={centerX}
-          y={centerY - 10}
-          textAnchor="middle"
-          style={{
-            fontSize: "20px",
-            fontWeight: 600,
-          }}
-        >
-          R${" "}
-          {total.toLocaleString("pt-Br", {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })}
-        </text>
-
-        <text
-          x={centerX}
-          y={centerY + 10}
-          textAnchor="middle"
-          style={{
-            fontSize: "16px",
-          }}
-        >
-          Total
-        </text>
-      </g>
-    );
-  };
-
   const options: Omit<PieSvgProps<DataType>, "width" | "height"> = {
     data: chartData,
     colors: { scheme: "set2" },
@@ -82,7 +45,7 @@ export function GraficoGastosCategoria({
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
       })}`,
-    layers: ["arcs", "legends", CenteredMetric],
+    layers: ["arcs", "legends", CenteredMoneyMetric],
   };
 
   return <Chart.Pie {...options} />;

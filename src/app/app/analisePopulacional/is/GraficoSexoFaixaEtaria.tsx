@@ -1,4 +1,8 @@
+"use client";
+
 import { Chart } from "@/components";
+import { BarTotalLayer } from "@/lib/util/charts/bars";
+import { BarSvgProps } from "@nivo/bar";
 import { Pessoa } from "@prisma/client";
 import { differenceInYears } from "date-fns";
 
@@ -41,10 +45,20 @@ export function GraficoSexoFaixaEtaria({ data }: { data: Pessoa[] }) {
 
   chartData.push(addChartData(data, 59));
 
-  const options = {
+  const options: Omit<BarSvgProps<any>, "width" | "height"> = {
     keys: labels,
     indexBy: "Faixa",
     data: chartData,
+    margin: { top: 30, right: 130, bottom: 40, left: 120 },
+    layers: [
+      "grid",
+      "axes",
+      "markers",
+      "bars",
+      "legends",
+      "annotations",
+      BarTotalLayer,
+    ],
   };
 
   return <Chart.Bar {...options} />;

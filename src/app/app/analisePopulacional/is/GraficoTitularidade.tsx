@@ -1,7 +1,6 @@
 import { Chart } from "@/components";
+import { PieSvgProps } from "@nivo/pie";
 import { Pessoa } from "@prisma/client";
-
-const labels = ["Masculino", "Feminino"];
 
 type DataType = {
   id: string;
@@ -24,8 +23,7 @@ export function GraficoTitularidade({ data }: { data: Pessoa[] }) {
     color: "#52CD9F",
   });
 
-  const options = {
-    keys: labels,
+  const options: Omit<PieSvgProps<DataType>, "width" | "height"> = {
     data: chartData,
   };
 
