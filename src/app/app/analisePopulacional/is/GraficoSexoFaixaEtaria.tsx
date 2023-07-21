@@ -1,18 +1,6 @@
 import { Chart } from "@/components";
 import { Pessoa } from "@prisma/client";
-
-const faixas = [
-  "0-18",
-  "19-23",
-  "24-28",
-  "29-33",
-  "34-38",
-  "39-43",
-  "44-48",
-  "49-53",
-  "54-58",
-  "59 ou mais",
-];
+import { differenceInYears } from "date-fns";
 
 const labels = ["Masculino", "Feminino"];
 
@@ -24,12 +12,19 @@ type DataType = {
   FemininoColor: string;
 };
 
-function addChartData(idx: number, feminino: number, masculino: number) {
+function addChartData(data: Pessoa[], inicio: number, fim?: number) {
+  const pessoas = data.filter((pessoa) => {
+    const idade = differenceInYears(new Date(), pessoa.dataNascimento!);
+
+    return idade >= inicio && idade <= (fim || 999);
+  });
+
   return {
-    Faixa: faixas[idx],
-    Feminino: feminino,
+    Faixa: fim ? `${inicio}-${fim}` : `${inicio} ou mais`,
+    Feminino: pessoas.filter((pessoa) => pessoa.sexo === "F", []).length,
+    Masculino: pessoas.filter((pessoa) => pessoa.sexo === "M", []).length,
+
     FemininoColor: "#F87171",
-    Masculino: masculino,
     MasculinoColor: "#5B93FF",
   };
 }
@@ -37,16 +32,14 @@ function addChartData(idx: number, feminino: number, masculino: number) {
 export function GraficoSexoFaixaEtaria({ data }: { data: Pessoa[] }) {
   const chartData: DataType[] = [];
 
-  chartData.push(addChartData(0, 0, 0));
-  chartData.push(addChartData(1, 0, 0));
-  chartData.push(addChartData(2, 0, 0));
-  chartData.push(addChartData(3, 1, 1));
-  chartData.push(addChartData(4, 0, 0));
-  chartData.push(addChartData(5, 0, 0));
-  chartData.push(addChartData(6, 0, 0));
-  chartData.push(addChartData(7, 0, 0));
-  chartData.push(addChartData(8, 0, 0));
-  chartData.push(addChartData(9, 0, 0));
+  chartData.push(addChartData(data, 0, 18));
+
+  // Dos 19 aos 48 cria um intervalo de 4 anos por faixa
+  for (let i = 19; i <= 58; i = i + 5) {
+    chartData.push(addChartData(data, i, i + 4));
+  }
+
+  chartData.push(addChartData(data, 59));
 
   const options = {
     keys: labels,
