@@ -1,7 +1,7 @@
-import { prisma } from "@/lib/db/prisma";
 import { faker } from "@faker-js/faker";
+import { PrismaClient } from "@prisma/client";
 
-export async function insertEventos() {
+export async function insertEventos(prisma: PrismaClient) {
   const dataAtual = new Date();
 
   await prisma.evento.createMany({
@@ -160,7 +160,7 @@ export async function insertEventos() {
         sinistro: faker.number.float({ min: 75.5, max: 10000 }),
         coparticipacao: faker.number.float({ min: 75.5, max: 10000 }),
         idCid: 5,
-        idPrestador: 5,
+        idPrestador: 4,
         idPessoa: 5,
         idProcedimento: 5,
       },

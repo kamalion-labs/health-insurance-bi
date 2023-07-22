@@ -1,6 +1,6 @@
-import { prisma } from "@/lib/db/prisma";
+import { PrismaClient } from "@prisma/client";
 
-export async function insertProcedimentos() {
+export async function insertProcedimentos(prisma: PrismaClient) {
   await prisma.procedimento.createMany({
     data: [
       {
@@ -116,6 +116,5 @@ export async function insertProcedimentos() {
         idEspecialidade: 8,
       },
     ],
-    skipDuplicates: true,
   });
 }

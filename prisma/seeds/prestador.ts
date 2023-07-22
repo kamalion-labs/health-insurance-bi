@@ -1,6 +1,6 @@
-import { prisma } from "@/lib/db/prisma";
+import { PrismaClient } from "@prisma/client";
 
-export async function insertPrestadores() {
+export async function insertPrestadores(prisma: PrismaClient) {
   await prisma.prestador.createMany({
     data: [
       {

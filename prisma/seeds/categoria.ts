@@ -1,7 +1,7 @@
-import { prisma } from "@/lib/db/prisma";
+import { PrismaClient } from "@prisma/client";
 
-export async function insertCategorias() {
-  await prisma.especialidade.createMany({
+export async function insertCategorias(prisma: PrismaClient) {
+  await prisma.categoria.createMany({
     data: [
       {
         id: 1,
@@ -28,6 +28,5 @@ export async function insertCategorias() {
         nome: "Consulta em pronto socorro",
       },
     ],
-    skipDuplicates: true,
   });
 }

@@ -1,7 +1,7 @@
-import { prisma } from "@/lib/db/prisma";
 import { faker } from "@faker-js/faker";
+import { PrismaClient } from "@prisma/client";
 
-export async function insertPessoas() {
+export async function insertPessoas(prisma: PrismaClient) {
   await prisma.tipoTitularidade.createMany({
     data: [
       {
@@ -30,6 +30,7 @@ export async function insertPessoas() {
           .int({ min: 10000000000, max: 99999999999 })
           .toString()
           .padStart(11, "0"),
+        sexo: "M",
         idCargo: 1,
         idEmpresa: 1,
         idPlano: 1,
@@ -42,6 +43,7 @@ export async function insertPessoas() {
           .int({ min: 10000000000, max: 99999999999 })
           .toString()
           .padStart(11, "0"),
+        sexo: "F",
         idEmpresa: 1,
         idPlano: 1,
         idTipoTitularidade: 2,
@@ -54,6 +56,7 @@ export async function insertPessoas() {
           .int({ min: 10000000000, max: 99999999999 })
           .toString()
           .padStart(11, "0"),
+        sexo: "M",
         idEmpresa: 1,
         idPlano: 1,
         idTipoTitularidade: 3,
@@ -66,6 +69,7 @@ export async function insertPessoas() {
           .int({ min: 10000000000, max: 99999999999 })
           .toString()
           .padStart(11, "0"),
+        sexo: "F",
         idCargo: 1,
         idEmpresa: 1,
         idPlano: 1,
@@ -78,6 +82,7 @@ export async function insertPessoas() {
           .int({ min: 10000000000, max: 99999999999 })
           .toString()
           .padStart(11, "0"),
+        sexo: "M",
         idCargo: 1,
         idEmpresa: 1,
         idPlano: 2,
@@ -90,6 +95,7 @@ export async function insertPessoas() {
           .int({ min: 10000000000, max: 99999999999 })
           .toString()
           .padStart(11, "0"),
+        sexo: "M",
         idCargo: 1,
         idEmpresa: 2,
         idPlano: 3,

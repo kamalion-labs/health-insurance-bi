@@ -1,6 +1,6 @@
-import { prisma } from "@/lib/db/prisma";
+import { PrismaClient } from "@prisma/client";
 
-export async function insertOperadora() {
+export async function insertOperadora(prisma: PrismaClient) {
   await prisma.operadora.createMany({
     data: [
       {

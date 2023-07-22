@@ -15,20 +15,20 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 async function main() {
-  await insertUsuarios();
+  await insertUsuarios(prisma);
 
-  await insertOperadora();
-  await insertCargos();
-  await insertEmpresa();
-  await insertPlano();
-  await insertPessoas();
+  await insertOperadora(prisma);
+  await insertCargos(prisma);
+  await insertEmpresa(prisma);
+  await insertPlano(prisma);
+  await insertPessoas(prisma);
 
-  await insertEspecialidades();
-  await insertCategorias();
-  await insertProcedimentos();
-  await insertCids();
-  await insertPrestadores();
-  await insertEventos();
+  await insertEspecialidades(prisma);
+  await insertCategorias(prisma);
+  await insertProcedimentos(prisma);
+  await insertCids(prisma);
+  await insertPrestadores(prisma);
+  await insertEventos(prisma);
 }
 
 main()
