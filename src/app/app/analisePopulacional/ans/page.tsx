@@ -55,7 +55,6 @@ export default async function ANSPage() {
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         <Box.Root>
-
           <Box.Content className="h-[300px]">
             <Grafico
               mediaANS={mediaANS.procedimentos}

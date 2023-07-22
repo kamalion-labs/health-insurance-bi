@@ -39,7 +39,7 @@ export function GraficoGastosPorCompetencia({
 
     categorias.forEach((cat) => {
       item[cat.nome] = eventosCompetencia
-        .filter((x) => x.exame.idCategoria === cat.id)
+        .filter((x) => x.procedimento.idCategoria === cat.id)
         .reduce((sum, current) => sum + current.custoTotal, 0);
     });
 
