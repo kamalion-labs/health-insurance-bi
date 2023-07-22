@@ -1,6 +1,5 @@
 model Evento {
     id             Int             @id @default(autoincrement())
-    codigo         Int
     descricao      String
     dataRealizacao DateTime        @db.Date
     dataPagamento  DateTime?       @db.Date
@@ -28,8 +27,8 @@ model Evento {
     pessoa   Pessoa @relation(fields: [idPessoa], references: [id])
     idPessoa Int
 
-    exame   Exame @relation(fields: [idExame], references: [id])
-    idExame Int
+    procedimento   Procedimento @relation(fields: [idProcedimento], references: [id])
+    idProcedimento Int
 }
 
 model Prestador {
@@ -50,14 +49,15 @@ model Cid {
 }
 
 model Especialidade {
-    id     Int     @id @default(autoincrement())
-    nome   String
-    exames Exame[]
+    id            Int            @id @default(autoincrement())
+    nome          String
+    procedimentos Procedimento[]
 }
 
-model Exame {
+model Procedimento {
     id      Int      @id @default(autoincrement())
     nome    String
+    tuss    String
     eventos Evento[]
 
     especialidade   Especialidade @relation(fields: [idEspecialidade], references: [id])
@@ -80,7 +80,7 @@ model Categoria {
     id                Int                @id @default(autoincrement())
     nome              String
     tiposProcedimento TipoProcedimento[]
-    exames            Exame[]
+    procedimentos     Procedimento[]
     subcategorias     SubCategoria[]
 }
 
