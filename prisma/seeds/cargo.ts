@@ -1,24 +1,25 @@
 import { prisma } from "@/lib/db/prisma";
 
 export async function insertCargos() {
-  await prisma.setor.upsert({
-    where: {
+  await prisma.setor.create({
+    data: {
       id: 1,
-    },
-    update: {},
-    create: {
       nome: "Setor 1",
     },
   });
 
-  await prisma.cargo.upsert({
-    where: {
-      id: 1,
-    },
-    update: {},
-    create: {
-      idSetor: 1,
-      nome: "Cargo 1",
-    },
+  await prisma.cargo.createMany({
+    data: [
+      {
+        id: 1,
+        nome: "Cargo 1",
+        idSetor: 1,
+      },
+      {
+        id: 2,
+        nome: "Cargo 2",
+        idSetor: 1,
+      },
+    ],
   });
 }
