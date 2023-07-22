@@ -7,7 +7,7 @@ import { Categoria, Prisma } from "@prisma/client";
 import { format } from "date-fns";
 
 type EventosWithCategorias = Prisma.EventoGetPayload<{
-  include: { exame: { include: { categoria: true } } };
+  include: { procedimento: { include: { categoria: true } } };
 }>;
 
 type DataType = {
@@ -50,6 +50,7 @@ export function GraficoGastosPorCompetencia({
     keys: labels,
     indexBy: "Date",
     data: chartData,
+    label: "",
     margin: { top: 40, right: 230, bottom: 30, left: 120 },
     axisLeft: {
       tickValues: 4,

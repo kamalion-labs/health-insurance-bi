@@ -59,7 +59,10 @@ export function GraficoEventosPorFaixaValor({ data }: { data: Evento[] }) {
     indexBy: "Faixa",
     groupMode: "grouped",
     data: chartData,
-    margin: { top: 10, right: 150, bottom: 30, left: 120 },
+    margin: { top: 10, right: 150, bottom: 130, left: 120 },
+    axisBottom: {
+      tickRotation: -45,
+    },
     axisLeft: {
       tickValues: 4,
       format: (value: number) =>
@@ -83,14 +86,14 @@ export function GraficoEventosPorFaixaValor({ data }: { data: Evento[] }) {
   };
 
   return (
-    <>
-      <div className="h-[300px]">
+    <div className="grid grid-cols-1 md:grid-cols-2">
+      <div className="h-[350px]">
         <Chart.Bar {...options} keys={["Valor Acumulado"]} />
       </div>
 
-      <div className="h-[300px]">
+      <div className="h-[350px]">
         <Chart.Bar {...options2} keys={["Quantidade"]} />
       </div>
-    </>
+    </div>
   );
 }

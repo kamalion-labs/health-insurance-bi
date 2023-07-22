@@ -8,10 +8,10 @@ export const CenteredMoneyMetric = ({ dataWithArc, centerX, centerY }: any) => {
     <g x={centerX} y={centerY} dominantBaseline="central">
       <text
         x={centerX}
-        y={centerY - 10}
+        y={centerY - 5}
         textAnchor="middle"
         style={{
-          fontSize: "20px",
+          fontSize: "16px",
           fontWeight: 600,
         }}
       >
@@ -27,7 +27,7 @@ export const CenteredMoneyMetric = ({ dataWithArc, centerX, centerY }: any) => {
         y={centerY + 10}
         textAnchor="middle"
         style={{
-          fontSize: "16px",
+          fontSize: "12px",
         }}
       >
         Total

@@ -7,7 +7,7 @@ import { Categoria, Prisma } from "@prisma/client";
 import { format } from "date-fns";
 
 type EventosWithCategorias = Prisma.EventoGetPayload<{
-  include: { exame: { include: { categoria: true } } };
+  include: { procedimento: { include: { categoria: true } } };
 }>;
 
 type DataType = {
@@ -39,7 +39,7 @@ export function GraficoServicosPorCompetencia({
 
     categorias.forEach((cat) => {
       item[cat.nome] = eventosCompetencia.filter(
-        (x) => x.exame.idCategoria === cat.id
+        (x) => x.procedimento.idCategoria === cat.id
       ).length;
     });
 
@@ -50,6 +50,7 @@ export function GraficoServicosPorCompetencia({
     keys: labels,
     indexBy: "Date",
     data: chartData,
+    label: "",
     margin: { top: 40, right: 230, bottom: 30, left: 60 },
     axisLeft: {
       tickValues: 4,

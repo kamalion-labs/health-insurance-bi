@@ -5,8 +5,8 @@ import { CenteredMoneyMetric } from "@/lib/util/charts/pie";
 import { PieSvgProps } from "@nivo/pie";
 import { Evento, Prisma } from "@prisma/client";
 
-type EspecialidadeWithExamesEventos = Prisma.EspecialidadeGetPayload<{
-  include: { exames: { include: { eventos: true } } };
+type EspecialidadeWithProcedimentosEventos = Prisma.EspecialidadeGetPayload<{
+  include: { procedimentos: { include: { eventos: true } } };
 }>;
 
 type DataType = {
@@ -18,13 +18,16 @@ type DataType = {
 export function GraficoSinistroEspecialidade({
   data,
 }: {
-  data: EspecialidadeWithExamesEventos[];
+  data: EspecialidadeWithProcedimentosEventos[];
 }) {
   const chartData: DataType[] = [];
 
   for (const especialidade of data) {
-    const eventos = especialidade.exames.reduce<Evento[]>(
-      (listaEventos, exame) => [...listaEventos, ...exame.eventos],
+    const eventos = especialidade.procedimentos.reduce<Evento[]>(
+      (listaEventos, procedimento) => [
+        ...listaEventos,
+        ...procedimento.eventos,
+      ],
       []
     );
 

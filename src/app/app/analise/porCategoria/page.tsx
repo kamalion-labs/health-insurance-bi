@@ -6,15 +6,21 @@ import { GraficoEventosPorFaixaValor } from "./GraficoEventosPorFaixaValor";
 import { GraficoServicosPorCompetencia } from "./GraficoServicosPorCompetencia";
 import { GraficoGastosPorCompetencia } from "./GraficoGastosPorCompetencia";
 import { GraficoSinistroEspecialidade } from "./GraficoSinistroEspecialidade";
+import { GraficoTempoMedioPagamento } from "./GraficoTempoMedioPagamento";
 
 export default async function Page() {
   const eventos = await prisma.evento.findMany({
-    include: { exame: { include: { categoria: true, especialidade: true } } },
+    include: {
+      procedimento: { include: { categoria: true, especialidade: true } },
+    },
+    orderBy: {
+      dataPagamento: "asc",
+    },
   });
 
   const categorias = await prisma.categoria.findMany({
     include: {
-      exames: {
+      procedimentos: {
         include: {
           eventos: true,
         },
@@ -24,7 +30,7 @@ export default async function Page() {
 
   const especialidades = await prisma.especialidade.findMany({
     include: {
-      exames: {
+      procedimentos: {
         include: {
           eventos: true,
         },
@@ -33,7 +39,7 @@ export default async function Page() {
   });
 
   return (
-    <div className="space-y-5 p-4">
+    <div className="space-y-3 p-4">
       <PageInitializer
         title="Por Categoria"
         id="analisePorCategoria"
@@ -60,20 +66,20 @@ export default async function Page() {
         </Card.Root>
       </div>
 
-      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         <Box.Root>
           <Box.Title>Gastos por Categoria de Procedimento</Box.Title>
 
-          <Box.Content className="h-[300px]">
+          <Box.Content className="h-[250px]">
             <GraficoGastosCategoria data={categorias} />
           </Box.Content>
         </Box.Root>
 
         <Box.Root>
-          <Box.Title>Serviços (Qtd)</Box.Title>
+          <Box.Title>Sinistro por Especialidade (R$)</Box.Title>
 
-          <Box.Content className="h-[300px]">
-            <GraficoServicos data={categorias} />
+          <Box.Content className="h-[250px]">
+            <GraficoSinistroEspecialidade data={especialidades} />
           </Box.Content>
         </Box.Root>
       </div>
@@ -88,7 +94,7 @@ export default async function Page() {
         </Box.Root>
       </div>
 
-      <div className="grid grid-cols-1 gap-5">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         <Box.Root>
           <Box.Title>Serviços (Qtd) por competência</Box.Title>
 
@@ -99,9 +105,7 @@ export default async function Page() {
             />
           </Box.Content>
         </Box.Root>
-      </div>
 
-      <div className="grid grid-cols-1 gap-5">
         <Box.Root>
           <Box.Title>Gastos por Categorias e Competência</Box.Title>
 
@@ -116,10 +120,20 @@ export default async function Page() {
 
       <div className="grid grid-cols-1 gap-5">
         <Box.Root>
-          <Box.Title>Sinistro por Especialidade (R$)</Box.Title>
+          <Box.Title>Serviços (Qtd)</Box.Title>
 
-          <Box.Content className="h-[300px]">
-            <GraficoSinistroEspecialidade data={especialidades} />
+          <Box.Content className="h-[350px]">
+            <GraficoServicos data={categorias} />
+          </Box.Content>
+        </Box.Root>
+      </div>
+
+      <div className="grid grid-cols-1 gap-5">
+        <Box.Root>
+          <Box.Title>Tempo médio de pagamento por competência</Box.Title>
+
+          <Box.Content className="h-[350px]">
+            <GraficoTempoMedioPagamento data={eventos} />
           </Box.Content>
         </Box.Root>
       </div>

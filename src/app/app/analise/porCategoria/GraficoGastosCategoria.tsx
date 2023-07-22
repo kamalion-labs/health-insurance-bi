@@ -5,8 +5,8 @@ import { CenteredMoneyMetric } from "@/lib/util/charts/pie";
 import { PieSvgProps } from "@nivo/pie";
 import { Evento, Prisma } from "@prisma/client";
 
-type CategoriaWithExamesEventos = Prisma.CategoriaGetPayload<{
-  include: { exames: { include: { eventos: true } } };
+type CategoriaWithProcedimentosEventos = Prisma.CategoriaGetPayload<{
+  include: { procedimentos: { include: { eventos: true } } };
 }>;
 
 interface DataType {
@@ -17,13 +17,13 @@ interface DataType {
 export function GraficoGastosCategoria({
   data,
 }: {
-  data: CategoriaWithExamesEventos[];
+  data: CategoriaWithProcedimentosEventos[];
 }) {
   const chartData: DataType[] = [];
 
   for (const item of data) {
-    const eventos = item.exames.reduce<Evento[]>(
-      (lista, exame) => [...lista, ...exame.eventos],
+    const eventos = item.procedimentos.reduce<Evento[]>(
+      (lista, procedimento) => [...lista, ...procedimento.eventos],
       []
     );
 
