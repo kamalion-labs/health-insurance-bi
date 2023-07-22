@@ -1,6 +1,6 @@
-import { prisma } from "@/lib/db/prisma";
+import { PrismaClient } from "@prisma/client";
 
-export async function insertPlano() {
+export async function insertPlano(prisma: PrismaClient) {
   await prisma.plano.createMany({
     data: [
       {

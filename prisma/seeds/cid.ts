@@ -1,6 +1,6 @@
-import { prisma } from "@/lib/db/prisma";
+import { PrismaClient } from "@prisma/client";
 
-export async function insertCids() {
+export async function insertCids(prisma: PrismaClient) {
   await prisma.cid.createMany({
     data: [
       {

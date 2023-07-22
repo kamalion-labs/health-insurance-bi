@@ -1,6 +1,6 @@
-import { prisma } from "@/lib/db/prisma";
+import { PrismaClient } from "@prisma/client";
 
-export async function insertEmpresa() {
+export async function insertEmpresa(prisma: PrismaClient) {
   const inicioContrato = new Date();
 
   await prisma.empresa.createMany({
@@ -20,7 +20,7 @@ export async function insertEmpresa() {
       {
         id: 2,
         nome: "Empresa 2",
-        CNPJ: "123456",
+        CNPJ: "2345678",
         inicioContrato,
         fimContrato: new Date(
           inicioContrato.getFullYear() + 1,

@@ -1,6 +1,6 @@
-import { prisma } from "@/lib/db/prisma";
+import { PrismaClient } from "@prisma/client";
 
-export async function insertCargos() {
+export async function insertCargos(prisma: PrismaClient) {
   await prisma.setor.create({
     data: {
       id: 1,

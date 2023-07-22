@@ -1,6 +1,6 @@
-import { prisma } from "@/lib/db/prisma";
+import { PrismaClient } from "@prisma/client";
 
-export async function insertUsuarios() {
+export async function insertUsuarios(prisma: PrismaClient) {
   await prisma.usuario.upsert({
     where: {
       id: 1,

@@ -1,6 +1,6 @@
-import { prisma } from "@/lib/db/prisma";
+import { PrismaClient } from "@prisma/client";
 
-export async function insertEspecialidades() {
+export async function insertEspecialidades(prisma: PrismaClient) {
   await prisma.especialidade.createMany({
     data: [
       {
@@ -36,6 +36,5 @@ export async function insertEspecialidades() {
         nome: "Ginecologia E Obstetrícia",
       },
     ],
-    skipDuplicates: true,
   });
 }
