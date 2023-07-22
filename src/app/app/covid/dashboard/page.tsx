@@ -4,27 +4,6 @@ import { prisma } from "@/lib/db/prisma";
 import { TabelaExamesCovid } from "./TabelaExamesCovid";
 
 export default async function CovidDashboard() {
-  const cids = await prisma.cid.findMany({
-    include: {
-      eventos: true,
-    },
-  });
-
-  const procedimentos = await prisma.procedimento.findMany({
-    include: {
-      eventos: true,
-    },
-  });
-
-  console.log(procedimentos);
-
-  const eventos = await prisma.evento.findMany({
-    include: {
-      CID: true,
-      procedimento: true,
-    },
-  });
-
   const cidsCovid = ["A00", "A01"]; // Preencher com CIDs de covid
 
   const cidsSRAG = ["B34"]; // Preencher com CIDs de SRAG (Síndrome Respiratória Aguda Grave)
@@ -34,10 +13,36 @@ export default async function CovidDashboard() {
 
   const tussSRAG = ["40302016", "40323676", "40404153"];
 
-  // const custoTotal = eventos.reduce((sum, current) => {
+  const cids = await prisma.cid.findMany({
+    include: {
+      eventos: true,
+    },
+  });
 
-  // });
-  // console.log(custoTotal);
+  const procedimentos = await prisma.procedimento.findMany({
+    include: {
+      eventos: {
+        include: {
+          CID: true,
+        },
+      },
+    },
+  });
+
+  const eventos = await prisma.evento.findMany({
+    include: {
+      CID: true,
+      procedimento: true,
+    },
+  });
+
+  const eventosCovid = procedimentos.flatMap((procedimento) =>
+    procedimento.eventos.filter((evento) => {
+      const hasCidCovid = cidsCovid.includes(evento.CID.codigo);
+      const hasTussCovid = tussCovid.includes(procedimento.tuss);
+      return hasCidCovid || hasTussCovid;
+    })
+  );
 
   return (
     <div className="space-y-5 p-4">
@@ -121,10 +126,7 @@ export default async function CovidDashboard() {
       <Card.Root>
         <Card.Title>Impacto Custo Total Covid-19</Card.Title>
         <Card.Value>
-          {/* {
-            eventos.filter((evento) => )
-          } */}
-          .
+          {eventosCovid.reduce((sum, evento) => sum + evento.custoTotal, 0)}
         </Card.Value>
       </Card.Root>
 
