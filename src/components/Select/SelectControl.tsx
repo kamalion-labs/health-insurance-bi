@@ -5,7 +5,6 @@ import {
   ControllerRenderProps,
   FieldValues,
 } from "react-hook-form";
-import clsx from "clsx";
 import * as SelectPrimitive from "@radix-ui/react-select";
 import { FaCheck, FaChevronDown, FaChevronUp } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
@@ -78,7 +77,7 @@ export function SelectControl({
                     <SelectPrimitive.Item
                       key={key}
                       value={key}
-                      className={clsx(
+                      className={twMerge(
                         "relative flex items-center rounded px-8 py-2 text-sm font-medium text-zinc-700 focus:bg-gray-100",
                         "radix-disabled:opacity-50",
                         "select-none focus:outline-none"

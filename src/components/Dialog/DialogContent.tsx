@@ -1,8 +1,8 @@
 import { Fragment, ReactNode } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { Transition } from "@headlessui/react";
-import clsx from "clsx";
 import { FaXmark } from "react-icons/fa6";
+import { twMerge } from "tailwind-merge";
 
 interface Props {
   children: ReactNode;
@@ -33,14 +33,14 @@ export function DialogContent({ children }: Props) {
           leaveTo="opacity-0 scale-95"
         >
           <DialogPrimitive.Content
-            className={clsx(
+            className={twMerge(
               "fixed z-50",
               "h-full w-full",
               "left-0 top-0 flex items-center justify-center"
             )}
           >
             <div
-              className={clsx(
+              className={twMerge(
                 "relative w-[95vw] max-w-md rounded-lg bg-white p-4 md:w-full",
                 "focus:outline-none focus-visible:ring focus-visible:ring-zinc-500 focus-visible:ring-opacity-75"
               )}
@@ -48,7 +48,7 @@ export function DialogContent({ children }: Props) {
               {children}
 
               <DialogPrimitive.Close
-                className={clsx(
+                className={twMerge(
                   "absolute right-3.5 top-3.5 inline-flex items-center justify-center rounded-full p-1",
                   "focus:outline-none focus-visible:ring focus-visible:ring-zinc-500 focus-visible:ring-opacity-75"
                 )}

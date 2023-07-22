@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { RiSunLine, RiMoonClearLine } from "react-icons/ri";
-import clsx from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function DarkToggle() {

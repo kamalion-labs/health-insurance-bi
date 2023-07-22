@@ -1,9 +1,9 @@
 "use client";
 
 import { Button, PageInitializer } from "@/components";
-import clsx from "clsx";
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { FaFileLines } from "react-icons/fa6";
+import { twMerge } from "tailwind-merge";
 // import { ProgressBar } from "@/components/ProgressBar";
 
 export default function ImportacaoPage() {
@@ -83,7 +83,7 @@ export default function ImportacaoPage() {
           <>
             <label
               htmlFor="media"
-              className={clsx(
+              className={twMerge(
                 "flex h-20 flex-col items-center justify-center rounded border border-slate-500 bg-main",
                 "cursor-pointer hover:opacity-70",
                 "transition-opacity"
