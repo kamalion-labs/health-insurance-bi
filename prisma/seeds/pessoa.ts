@@ -11,6 +11,7 @@ export async function insertPessoas() {
       nome: faker.person.fullName(),
       CPF: "123",
       idCargo: 1,
+      idEmpresa: 1,
     },
   });
 }

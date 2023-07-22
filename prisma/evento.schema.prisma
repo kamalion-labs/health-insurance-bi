@@ -14,6 +14,7 @@ model Evento {
     risco          Risco?
     tipoInternacao TipoInternacao?
     tipoParto      TipoParto?
+    reembolso      Boolean?
 
     prestador   Prestador @relation(fields: [idPrestador], references: [id])
     idPrestador Int
