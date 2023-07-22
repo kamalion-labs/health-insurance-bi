@@ -10,11 +10,13 @@ export default async function CovidDashboard() {
     },
   });
 
-  // const exames = await prisma.exame.findMany({
-  //   include: {
-  //     eventos: true,
-  //   },
-  // });
+  const exames = await prisma.exame.findMany({
+    include: {
+      eventos: true,
+    },
+  });
+
+  console.log(exames);
 
   const eventos = await prisma.evento.findMany({
     include: {
@@ -25,6 +27,16 @@ export default async function CovidDashboard() {
   const cidsCovid = ["A00", "A01"]; // Preencher com CIDs de covid
 
   const cidsSRAG = ["B34"]; // Preencher com CIDs de SRAG (Síndrome Respiratória Aguda Grave)
+
+  // TUSS - Terminologia Unificada da Saúde Suplementar
+  const tussCovid = [40304906, 40302687, 28042000];
+
+  const tussSRAG = [40302016, 40323676, 40404153];
+
+  // const custoTotal = eventos.reduce((sum, current) => {
+
+  // });
+  // console.log(custoTotal);
 
   return (
     <div className="space-y-5 p-4">
@@ -37,7 +49,12 @@ export default async function CovidDashboard() {
       <div className="grid grid-cols-3 gap-5">
         <Card.Root>
           <Card.Title>Exames de Coronavírus</Card.Title>
-          <Card.Value>123</Card.Value>
+          <Card.Value>
+            {
+              eventos.filter((evento) => tussCovid.includes(evento.codigo))
+                .length
+            }
+          </Card.Value>
         </Card.Root>
 
         <Card.Root>
@@ -67,7 +84,12 @@ export default async function CovidDashboard() {
       <div className="grid grid-cols-3 gap-5">
         <Card.Root>
           <Card.Title>Exames de Síndrome Respiratória</Card.Title>
-          <Card.Value>123</Card.Value>
+          <Card.Value>
+            {
+              eventos.filter((evento) => tussSRAG.includes(evento.codigo))
+                .length
+            }
+          </Card.Value>
         </Card.Root>
 
         <Card.Root>
@@ -95,7 +117,12 @@ export default async function CovidDashboard() {
 
       <Card.Root>
         <Card.Title>Impacto Custo Total Covid-19</Card.Title>
-        <Card.Value>123</Card.Value>
+        <Card.Value>
+          {/* {
+            eventos.filter((evento) => )
+          } */}
+          .
+        </Card.Value>
       </Card.Root>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
