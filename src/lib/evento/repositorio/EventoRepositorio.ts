@@ -5,7 +5,7 @@ export const EventoRepositorio = {
   listar: async () => {
     const eventos = await prisma.evento.findMany({
       include: {
-        exame: true,
+        procedimento: true,
         pessoa: {
           include: {
             tipoTitularidade: true,

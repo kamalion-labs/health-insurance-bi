@@ -10,17 +10,18 @@ export default async function CovidDashboard() {
     },
   });
 
-  const exames = await prisma.exame.findMany({
+  const procedimentos = await prisma.procedimento.findMany({
     include: {
       eventos: true,
     },
   });
 
-  console.log(exames);
+  console.log(procedimentos);
 
   const eventos = await prisma.evento.findMany({
     include: {
       CID: true,
+      procedimento: true,
     },
   });
 
@@ -29,9 +30,9 @@ export default async function CovidDashboard() {
   const cidsSRAG = ["B34"]; // Preencher com CIDs de SRAG (Síndrome Respiratória Aguda Grave)
 
   // TUSS - Terminologia Unificada da Saúde Suplementar
-  const tussCovid = [40304906, 40302687, 28042000];
+  const tussCovid = ["40304906", "40302687", "28042000"];
 
-  const tussSRAG = [40302016, 40323676, 40404153];
+  const tussSRAG = ["40302016", "40323676", "40404153"];
 
   // const custoTotal = eventos.reduce((sum, current) => {
 
@@ -51,8 +52,9 @@ export default async function CovidDashboard() {
           <Card.Title>Exames de Coronavírus</Card.Title>
           <Card.Value>
             {
-              eventos.filter((evento) => tussCovid.includes(evento.codigo))
-                .length
+              eventos.filter((evento) =>
+                tussCovid.includes(evento.procedimento.tuss)
+              ).length
             }
           </Card.Value>
         </Card.Root>
@@ -86,8 +88,9 @@ export default async function CovidDashboard() {
           <Card.Title>Exames de Síndrome Respiratória</Card.Title>
           <Card.Value>
             {
-              eventos.filter((evento) => tussSRAG.includes(evento.codigo))
-                .length
+              eventos.filter((evento) =>
+                tussSRAG.includes(evento.procedimento.tuss)
+              ).length
             }
           </Card.Value>
         </Card.Root>

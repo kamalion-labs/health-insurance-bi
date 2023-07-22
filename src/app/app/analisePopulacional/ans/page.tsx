@@ -5,7 +5,7 @@ import { prisma } from "@/lib/db/prisma";
 async function calcularMedia(idCategoria: number) {
   const total = await prisma.evento.count({
     where: {
-      exame: {
+      procedimento: {
         idCategoria,
       },
     },
@@ -13,7 +13,7 @@ async function calcularMedia(idCategoria: number) {
 
   const listaConsultasPessoa = await prisma.evento.findMany({
     where: {
-      exame: {
+      procedimento: {
         idCategoria,
       },
     },
@@ -32,7 +32,7 @@ export default async function ANSPage() {
   const mediaConsultas = await calcularMedia(2);
   const mediaConsultasEletivas = await calcularMedia(3);
   const mediaConsultasPS = await calcularMedia(4);
-  const mediaExames = await calcularMedia(5);
+  const mediaProcedimentos = await calcularMedia(5);
   const mediaOutros = await calcularMedia(6);
   const mediaTerapia = await calcularMedia(7);
 
@@ -40,7 +40,7 @@ export default async function ANSPage() {
     consultas: 5.35,
     consultasEletivas: 3.7,
     consultasPS: 1,
-    exames: 16.9,
+    procedimentos: 16.9,
     outros: 3,
     terapias: 0.9,
   };
@@ -55,15 +55,14 @@ export default async function ANSPage() {
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         <Box.Root>
-          <Box.Title>Exames por Beneficiário</Box.Title>
 
           <Box.Content className="h-[300px]">
             <Grafico
-              mediaANS={mediaANS.exames}
+              mediaANS={mediaANS.procedimentos}
               data={[
                 {
                   Item: 1,
-                  Total: mediaExames,
+                  Total: mediaProcedimentos,
                   TotalColor: "#5B93FF",
                 },
               ]}

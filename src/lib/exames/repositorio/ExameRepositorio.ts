@@ -1,9 +1,9 @@
 import { prisma } from "@/lib/db/prisma";
 import { ThenArg } from "@/lib/util/ThenArg";
 
-export const ExameRepositorio = {
+export const ProcedimentoRepositorio = {
   listar: async () => {
-    const exames = await prisma.exame.findMany({
+    const procedimentos = await prisma.procedimento.findMany({
       include: {
         categoria: true,
         eventos: {
@@ -13,24 +13,24 @@ export const ExameRepositorio = {
         },
       },
     });
-    return exames;
+    return procedimentos;
   },
 
   buscarPorId: async (id: number) => {
-    const exame = await prisma.exame.findUnique({
+    const procedimento = await prisma.procedimento.findUnique({
       where: {
         id,
       },
     });
 
-    return exame;
+    return procedimento;
   },
 };
 
-export type ExamesWithCategoriaEventosPessoa = ThenArg<
-  ReturnType<typeof ExameRepositorio.listar>
+export type ProcedimentosWithCategoriaEventosPessoa = ThenArg<
+  ReturnType<typeof ProcedimentoRepositorio.listar>
 >;
 
-export type ExameWithCategoriaEventosPessoa = ThenArg<
-  ReturnType<typeof ExameRepositorio.buscarPorId>
+export type ProcedimentoWithCategoriaEventosPessoa = ThenArg<
+  ReturnType<typeof ProcedimentoRepositorio.buscarPorId>
 >;
