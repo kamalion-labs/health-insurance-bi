@@ -60,13 +60,30 @@ export function TableContent({
             >
               {column.type === "money" || column.type === "percent" ? (
                 <Money
-                  value={+item[column.key]}
+                  value={
+                    column.key.includes(".")
+                      ? +item[column.key.split(".")[0]][
+                          column.key.split(".")[1]
+                        ]
+                      : +item[column.key]
+                  }
                   percent={column.type === "percent"}
                 />
               ) : (
                 <>
                   {column.type === "date"
-                    ? format(new Date(item[column.key]), "dd/MM/yyyy")
+                    ? format(
+                        new Date(
+                          column.key.includes(".")
+                            ? item[column.key.split(".")[0]][
+                                column.key.split(".")[1]
+                              ]
+                            : item[column.key]
+                        ),
+                        "dd/MM/yyyy"
+                      )
+                    : column.key.includes(".")
+                    ? item[column.key.split(".")[0]][column.key.split(".")[1]]
                     : item[column.key]}
                 </>
               )}
