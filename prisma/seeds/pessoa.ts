@@ -83,6 +83,18 @@ export async function insertPessoas() {
         idPlano: 2,
         idTipoTitularidade: 1,
       },
+      {
+        id: 6,
+        nome: faker.person.fullName(),
+        CPF: faker.number
+          .int({ min: 10000000000, max: 99999999999 })
+          .toString()
+          .padStart(11, "0"),
+        idCargo: 1,
+        idEmpresa: 2,
+        idPlano: 3,
+        idTipoTitularidade: 1,
+      },
     ],
   });
 }
