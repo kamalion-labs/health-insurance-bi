@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyJWT } from "./lib/token";
 
+
 interface AuthenticatedRequest extends NextRequest {
   user: {
     id: string;
@@ -26,6 +27,14 @@ export async function middleware(req: NextRequest) {
   const response = NextResponse.next();
 
   try {
+    if (req.nextUrl.pathname.startsWith("/api/usuario")) {
+      const data = await req.json();
+
+      if (data.key === key) {
+        return response;
+      }
+    }
+
     if (token) {
       const { sub } = await verifyJWT<{ sub: string }>(token);
       response.headers.set("X-USER-ID", sub);
@@ -34,6 +43,10 @@ export async function middleware(req: NextRequest) {
       throw new Error();
     }
   } catch (error) {
+    if (req.nextUrl.pathname.startsWith("/api")) {
+      return NextResponse.json({ success: false }, { status: 401 });
+    }
+
     return NextResponse.redirect(
       new URL(
         `/login?${new URLSearchParams({ redirect: req.nextUrl.pathname })}`,
