@@ -34,15 +34,13 @@ model Evento {
     risco          Risco?
     tipoInternacao TipoInternacao?
     tipoParto      TipoParto?
+    reembolso      Boolean?
 
     prestador   Prestador @relation(fields: [idPrestador], references: [id])
     idPrestador Int
 
     CID   Cid @relation(fields: [idCid], references: [id])
     idCid Int
-
-    tipoProcedimento   TipoProcedimento @relation(fields: [idTipoProcedimento], references: [id])
-    idTipoProcedimento Int
 
     pessoa   Pessoa @relation(fields: [idPessoa], references: [id])
     idPessoa Int
@@ -87,19 +85,9 @@ model Procedimento {
     idCategoria Int
 }
 
-model TipoProcedimento {
-    id      Int      @id @default(autoincrement())
-    nome    String
-    eventos Evento[]
-
-    categoria   Categoria @relation(fields: [idCategoria], references: [id])
-    idCategoria Int
-}
-
 model Categoria {
     id                Int                @id @default(autoincrement())
     nome              String
-    tiposProcedimento TipoProcedimento[]
     procedimentos     Procedimento[]
     subcategorias     SubCategoria[]
 }
