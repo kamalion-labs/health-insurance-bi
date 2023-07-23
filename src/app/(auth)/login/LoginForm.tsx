@@ -26,7 +26,7 @@ export function LoginForm() {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: { isSubmitting, errors },
     setError,
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginFormSchema),
@@ -56,7 +56,7 @@ export function LoginForm() {
       }>(response);
 
       if (success) {
-        router.push(redirect);
+        router.push(redirect !== "null" ? redirect : "/app");
       }
     } catch (e: any) {
       setError("root", { message: e.message });
@@ -85,7 +85,7 @@ export function LoginForm() {
 
         <div className="text-red-400">{errors.root?.message}</div>
 
-        <Button.Root submit>
+        <Button.Root submit isLoading={isSubmitting}>
           <Button.Content>Entrar</Button.Content>
           <Button.Icon>
             <FaChevronRight />

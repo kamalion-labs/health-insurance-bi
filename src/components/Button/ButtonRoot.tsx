@@ -1,4 +1,5 @@
 import { ReactNode, forwardRef } from "react";
+import { FaSpinner } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
 
 export type ButtonType =
@@ -14,7 +15,8 @@ interface ButtonRootProps {
   type?: ButtonType;
   className?: string;
   submit?: boolean;
-  onClick?: any;
+  onClick?: () => void | Promise<void>;
+  isLoading?: boolean;
 }
 
 const colors = {
@@ -35,7 +37,17 @@ const colors = {
 };
 
 export const ButtonRoot = forwardRef<HTMLButtonElement, ButtonRootProps>(
-  ({ children, type = "primary", className, submit = false, onClick }, ref) => {
+  (
+    {
+      children,
+      type = "primary",
+      className,
+      submit = false,
+      onClick,
+      isLoading,
+    },
+    ref
+  ) => {
     const color = colors[type];
 
     return (
@@ -44,14 +56,16 @@ export const ButtonRoot = forwardRef<HTMLButtonElement, ButtonRootProps>(
         onClick={onClick}
         ref={ref}
         className={twMerge(
-          "flex h-fit flex-row items-center justify-center space-x-3 rounded px-4 py-2 text-sm",
-          "drop-shadow-md hover:drop-shadow-md",
+          "flex h-fit min-h-[36px] flex-row items-center justify-center space-x-3 rounded px-4 py-2 text-sm",
+          "drop-shadow-md",
           "transition-all hover:opacity-80",
           color.container,
           className
         )}
       >
-        {children}
+        {isLoading && <FaSpinner className="animate-spin" />}
+
+        {!isLoading && <>{children}</>}
       </button>
     );
   }
