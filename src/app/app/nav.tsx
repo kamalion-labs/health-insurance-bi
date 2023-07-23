@@ -30,7 +30,7 @@ export const NavItems: NavItemProps[] = [
       },
       {
         title: "Exames",
-        href: "/covid/exames",
+        href: "/app/covid/exames",
         id: "covidExames",
       },
       {
