@@ -1,3 +1,5 @@
+"use client";
+
 import { Table } from "@/components";
 import { TableColumn } from "@/components/Table/TableHeader";
 import { Evento } from "@prisma/client";
@@ -11,20 +13,20 @@ const cols: TableColumn[] = [
   {
     key: "dataPagamento",
     label: "Data de Pagamento",
-    type: "text",
+    type: "date",
   },
   {
-    key: "nome",
+    key: "pessoa.nome",
     label: "Nome",
     type: "text",
   },
   {
-    key: "nome",
+    key: "pessoa.idTipoTitularidade",
     label: "Titularidade",
     type: "text",
   },
   {
-    key: "codigo",
+    key: "procedimento.tuss",
     label: "Código Procedimento",
     type: "text",
   },

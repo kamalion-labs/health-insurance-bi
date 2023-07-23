@@ -1,3 +1,5 @@
+"use client";
+
 import { Table } from "@/components";
 import { TableColumn } from "@/components/Table/TableHeader";
 import { Evento } from "@prisma/client";
@@ -9,17 +11,17 @@ const cols: TableColumn[] = [
     type: "date",
   },
   {
-    key: "nome",
+    key: "pessoa.nome",
     label: "Nome",
     type: "text",
   },
   {
-    key: "nome",
+    key: "pessoa.idTipoTitularidade",
     label: "Titularidade",
     type: "text",
   },
   {
-    key: "codigo",
+    key: "procedimento.tuss",
     label: "Código Procedimento",
     type: "text",
   },
@@ -46,5 +48,12 @@ const cols: TableColumn[] = [
 ];
 
 export function TabelaExamesCovid({ data }: { data: Evento[] }) {
-  return <Table.Root columns={cols} data={data} />;
+  const eventosAtualizados = data.map((evento) => ({
+    ...evento,
+    teveInternacao: evento.teveInternacao
+      ? "Sim"
+      : ("Não" as unknown as boolean | null),
+  }));
+
+  return <Table.Root columns={cols} data={eventosAtualizados} />;
 }
