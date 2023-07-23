@@ -79,7 +79,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() + 1,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -96,10 +96,10 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() + 1,
           dataAtual.getDate() + 10
         ),
-        quantidade: 1,
+        quantidade: 2,
         custoTotal: faker.number.float({ min: 75.5, max: 15000.69 }),
         descricao: "Consulta geral",
         sinistro: faker.number.float({ min: 75.5, max: 10000 }),
@@ -113,7 +113,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() + 1,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -132,7 +132,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() + 1,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -151,7 +151,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() + 2,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -168,7 +168,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() + 2,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -186,7 +186,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() + 2,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -203,7 +203,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() + 2,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -221,7 +221,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() + 3,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -238,7 +238,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() + 3,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -256,7 +256,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() + 3,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -273,7 +273,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() + 3,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -291,7 +291,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() + 4,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -308,7 +308,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() + 4,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -326,7 +326,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() + 4,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -343,7 +343,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() + 4,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -361,7 +361,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 1,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -378,7 +378,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 1,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -396,7 +396,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 2,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -413,7 +413,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 2,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -431,7 +431,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 2,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -448,7 +448,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 2,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -466,7 +466,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 3,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -483,7 +483,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 3,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -501,7 +501,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 3,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -518,7 +518,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 3,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,
@@ -536,10 +536,10 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 3,
           dataAtual.getDate() + 10
         ),
-        quantidade: 1,
+        quantidade: 3,
         custoTotal: faker.number.float({ min: 75.5, max: 15000.69 }),
         descricao: "Consulta geral",
         sinistro: faker.number.float({ min: 75.5, max: 10000 }),
@@ -553,7 +553,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 3,
           dataAtual.getDate() + 10
         ),
         quantidade: 1,

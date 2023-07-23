@@ -31,6 +31,10 @@ export async function insertPessoas(prisma: PrismaClient) {
           .toString()
           .padStart(11, "0"),
         sexo: "M",
+        dataNascimento: faker.date.betweens({
+          from: "1960-01-01T00:00:00.000Z",
+          to: new Date(),
+        })[0],
         idCargo: 1,
         idEmpresa: 1,
         idPlano: 1,
@@ -44,6 +48,10 @@ export async function insertPessoas(prisma: PrismaClient) {
           .toString()
           .padStart(11, "0"),
         sexo: "F",
+        dataNascimento: faker.date.betweens({
+          from: "1960-01-01T00:00:00.000Z",
+          to: new Date(),
+        })[0],
         idEmpresa: 1,
         idPlano: 1,
         idTipoTitularidade: 2,
@@ -57,6 +65,10 @@ export async function insertPessoas(prisma: PrismaClient) {
           .toString()
           .padStart(11, "0"),
         sexo: "M",
+        dataNascimento: faker.date.betweens({
+          from: "1960-01-01T00:00:00.000Z",
+          to: new Date(),
+        })[0],
         idEmpresa: 1,
         idPlano: 1,
         idTipoTitularidade: 3,
@@ -70,6 +82,10 @@ export async function insertPessoas(prisma: PrismaClient) {
           .toString()
           .padStart(11, "0"),
         sexo: "F",
+        dataNascimento: faker.date.betweens({
+          from: "1960-01-01T00:00:00.000Z",
+          to: new Date(),
+        })[0],
         idCargo: 1,
         idEmpresa: 1,
         idPlano: 1,
@@ -83,6 +99,10 @@ export async function insertPessoas(prisma: PrismaClient) {
           .toString()
           .padStart(11, "0"),
         sexo: "M",
+        dataNascimento: faker.date.betweens({
+          from: "1960-01-01T00:00:00.000Z",
+          to: new Date(),
+        })[0],
         idCargo: 1,
         idEmpresa: 1,
         idPlano: 2,
@@ -96,6 +116,10 @@ export async function insertPessoas(prisma: PrismaClient) {
           .toString()
           .padStart(11, "0"),
         sexo: "M",
+        dataNascimento: faker.date.betweens({
+          from: "1960-01-01T00:00:00.000Z",
+          to: new Date(),
+        })[0],
         idCargo: 1,
         idEmpresa: 2,
         idPlano: 3,
