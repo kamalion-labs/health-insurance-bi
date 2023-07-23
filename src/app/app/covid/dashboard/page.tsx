@@ -1,7 +1,8 @@
-import { Box, Card, PageInitializer } from "@/components";
+import { Box, Card, Money, PageInitializer } from "@/components";
 import { GraficoCustoTotal } from "./GraficoCustoTotal";
 import { prisma } from "@/lib/db/prisma";
 import { TabelaExamesCovid } from "./TabelaExamesCovid";
+import { TabelaExamesSRAG } from "./TabelaExamesSRAG";
 
 export default async function CovidDashboard() {
   const cidsCovid = ["A00", "A01"]; // Preencher com CIDs de covid
@@ -15,7 +16,12 @@ export default async function CovidDashboard() {
 
   const cids = await prisma.cid.findMany({
     include: {
-      eventos: true,
+      eventos: {
+        include: {
+          procedimento: true,
+          pessoa: true,
+        },
+      },
     },
   });
 
@@ -33,6 +39,11 @@ export default async function CovidDashboard() {
     include: {
       CID: true,
       procedimento: true,
+      pessoa: {
+        include: {
+          tipoTitularidade: true,
+        },
+      },
     },
   });
 
@@ -42,6 +53,14 @@ export default async function CovidDashboard() {
       const hasTussCovid = tussCovid.includes(procedimento.tuss);
       return hasCidCovid || hasTussCovid;
     })
+  );
+
+  const examesCovid = eventos.filter((evento) =>
+    tussCovid.includes(evento.procedimento.tuss)
+  );
+
+  const examesSRAG = eventos.filter((evento) =>
+    tussSRAG.includes(evento.procedimento.tuss)
   );
 
   return (
@@ -55,13 +74,7 @@ export default async function CovidDashboard() {
       <div className="grid grid-cols-3 gap-5">
         <Card.Root>
           <Card.Title>Exames de Coronavírus</Card.Title>
-          <Card.Value>
-            {
-              eventos.filter((evento) =>
-                tussCovid.includes(evento.procedimento.tuss)
-              ).length
-            }
-          </Card.Value>
+          <Card.Value>{examesCovid.length}</Card.Value>
         </Card.Root>
 
         <Card.Root>
@@ -91,13 +104,7 @@ export default async function CovidDashboard() {
       <div className="grid grid-cols-3 gap-5">
         <Card.Root>
           <Card.Title>Exames de Síndrome Respiratória</Card.Title>
-          <Card.Value>
-            {
-              eventos.filter((evento) =>
-                tussSRAG.includes(evento.procedimento.tuss)
-              ).length
-            }
-          </Card.Value>
+          <Card.Value>{examesSRAG.length}</Card.Value>
         </Card.Root>
 
         <Card.Root>
@@ -126,7 +133,12 @@ export default async function CovidDashboard() {
       <Card.Root>
         <Card.Title>Impacto Custo Total Covid-19</Card.Title>
         <Card.Value>
-          {eventosCovid.reduce((sum, evento) => sum + evento.custoTotal, 0)}
+          <Money
+            value={eventosCovid.reduce(
+              (sum, evento) => sum + evento.custoTotal,
+              0
+            )}
+          />
         </Card.Value>
       </Card.Root>
 
@@ -154,14 +166,16 @@ export default async function CovidDashboard() {
         <Box.Title>Listagem Exames Covid</Box.Title>
 
         <Box.Content>
-          <TabelaExamesCovid data={eventos} />
+          <TabelaExamesCovid data={examesCovid} />
         </Box.Content>
       </Box.Root>
 
       <Box.Root>
         <Box.Title>Listagem Exames SRAG</Box.Title>
 
-        <Box.Content>.</Box.Content>
+        <Box.Content>
+          <TabelaExamesSRAG data={examesSRAG} />
+        </Box.Content>
       </Box.Root>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
