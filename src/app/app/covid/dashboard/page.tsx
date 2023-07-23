@@ -3,17 +3,9 @@ import { GraficoCustoTotal } from "./GraficoCustoTotal";
 import { prisma } from "@/lib/db/prisma";
 import { TabelaExamesCovid } from "./TabelaExamesCovid";
 import { TabelaExamesSRAG } from "./TabelaExamesSRAG";
+import { cidsCovid, cidsSRAG, tussCovid, tussSRAG } from "@/constants";
 
 export default async function CovidDashboard() {
-  const cidsCovid = ["A00", "A01"]; // Preencher com CIDs de covid
-
-  const cidsSRAG = ["B34"]; // Preencher com CIDs de SRAG (Síndrome Respiratória Aguda Grave)
-
-  // TUSS - Terminologia Unificada da Saúde Suplementar
-  const tussCovid = ["40304906", "40302687", "28042000"];
-
-  const tussSRAG = ["40302016", "40323676", "40404153"];
-
   const cids = await prisma.cid.findMany({
     include: {
       eventos: {
