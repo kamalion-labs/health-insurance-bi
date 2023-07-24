@@ -3,7 +3,6 @@ import { prisma } from "@/lib/db/prisma";
 import { TabelaExamesCovid } from "./TabelaExamesCovid";
 import { Pessoa } from "@prisma/client";
 import { differenceInYears } from "date-fns";
-import { faker } from "@faker-js/faker";
 
 export default async function Exames() {
   const tussCovid = ["40304906", "40302687", "28042000"];
@@ -22,13 +21,6 @@ export default async function Exames() {
   const pessoas = examesCovid.reduce<Pessoa[]>((lista, evento) => {
     return [...lista, evento.pessoa];
   }, []);
-
-  console.log(
-    faker.date.betweens({
-      from: "1960-01-01T00:00:00.000Z",
-      to: new Date(),
-    })[0]
-  );
 
   return (
     <div className="space-y-5 p-4">

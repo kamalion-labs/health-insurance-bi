@@ -3,30 +3,9 @@ import { GraficoCustoTotal } from "./GraficoCustoTotal";
 import { prisma } from "@/lib/db/prisma";
 import { TabelaExamesCovid } from "./TabelaExamesCovid";
 import { TabelaExamesSRAG } from "./TabelaExamesSRAG";
-import { cidsCovid, cidsSRAG, tussCovid, tussSRAG } from "@/constants";
+import { cidsCovid, cidsSRAG, tussCovid, tussSRAG } from "@/lib/consts";
 
 export default async function CovidDashboard() {
-  const cids = await prisma.cid.findMany({
-    include: {
-      eventos: {
-        include: {
-          procedimento: true,
-          pessoa: true,
-        },
-      },
-    },
-  });
-
-  const procedimentos = await prisma.procedimento.findMany({
-    include: {
-      eventos: {
-        include: {
-          CID: true,
-        },
-      },
-    },
-  });
-
   const eventos = await prisma.evento.findMany({
     include: {
       CID: true,
@@ -39,13 +18,11 @@ export default async function CovidDashboard() {
     },
   });
 
-  const eventosCovid = procedimentos.flatMap((procedimento) =>
-    procedimento.eventos.filter((evento) => {
-      const hasCidCovid = cidsCovid.includes(evento.CID.codigo);
-      const hasTussCovid = tussCovid.includes(procedimento.tuss);
-      return hasCidCovid || hasTussCovid;
-    })
-  );
+  const eventosCovid = eventos.filter((evento) => {
+    const hasCidCovid = cidsCovid.includes(evento.CID.codigo);
+    const hasTussCovid = tussCovid.includes(evento.procedimento.tuss);
+    return hasCidCovid || hasTussCovid;
+  });
 
   const examesCovid = eventos.filter((evento) =>
     tussCovid.includes(evento.procedimento.tuss)
@@ -140,7 +117,7 @@ export default async function CovidDashboard() {
           <Box.Title>Impacto Custo Total Covid-19</Box.Title>
 
           <Box.Content className="h-[300px]">
-            <GraficoCustoTotal data={cids} />
+            <GraficoCustoTotal data={eventos} />
           </Box.Content>
         </Box.Root>
 
