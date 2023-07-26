@@ -72,6 +72,11 @@ export const NavItems: NavItemProps[] = [
         href: "/app/analise/porCategoria",
         id: "analisePorCategoria",
       },
+      {
+        title: "Por Cid",
+        href: "/app/analise/porCid",
+        id: "analisePorCid",
+      },
     ],
   },
 ];
