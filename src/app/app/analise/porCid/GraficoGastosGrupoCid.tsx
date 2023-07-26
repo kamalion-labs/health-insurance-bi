@@ -1,6 +1,9 @@
 "use client";
 
+import { Chart } from "@/components";
 import { Cids } from "@/lib/consts";
+import { CenteredMoneyMetric } from "@/lib/util/charts/pie";
+import { PieSvgProps } from "@nivo/pie";
 import { Prisma } from "@prisma/client";
 
 type EventoWithCids = Prisma.EventoGetPayload<{
@@ -43,7 +46,29 @@ export function GraficoGastosGrupoCid({ data }: { data: EventoWithCids[] }) {
     }
   }
 
-  console.log(somaPorGrupoCid); // Funcionou perfeitamente, agr só falta colocar no gráfico
+  for (const grupo in somaPorGrupoCid) {
+    if (somaPorGrupoCid.hasOwnProperty(grupo)) {
+      chartData.push({
+        id: grupo,
+        value: somaPorGrupoCid[grupo],
+      });
+    }
+  }
 
-  return <></>;
+  const options: Omit<PieSvgProps<DataType>, "width" | "height"> = {
+    data: chartData,
+    colors: { scheme: "set2" },
+    enableArcLabels: false,
+    enableArcLinkLabels: false,
+    innerRadius: 0.7,
+    margin: { top: 10, right: 100, bottom: 20, left: 0 },
+    valueFormat: (value: number) =>
+      `R$ ${value.toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`,
+    layers: ["arcs", "legends", CenteredMoneyMetric],
+  };
+
+  return <Chart.Pie {...options} />;
 }

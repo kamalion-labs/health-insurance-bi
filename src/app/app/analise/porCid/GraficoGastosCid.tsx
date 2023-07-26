@@ -1,6 +1,8 @@
 "use client";
 
-import { Cids } from "@/lib/consts";
+import { Chart } from "@/components";
+import { CenteredMoneyMetric } from "@/lib/util/charts/pie";
+import { PieSvgProps } from "@nivo/pie";
 import { Prisma } from "@prisma/client";
 
 type EventoWithCids = Prisma.EventoGetPayload<{
@@ -27,7 +29,29 @@ export function GraficoGastosCid({ data }: { data: EventoWithCids[] }) {
     }
   }
 
-  // console.log(somaPorTipoCid);
+  for (const cid in somaPorTipoCid) {
+    if (somaPorTipoCid.hasOwnProperty(cid)) {
+      chartData.push({
+        id: cid,
+        value: somaPorTipoCid[cid],
+      });
+    }
+  }
 
-  return <></>;
+  const options: Omit<PieSvgProps<DataType>, "width" | "height"> = {
+    data: chartData,
+    colors: { scheme: "set2" },
+    enableArcLabels: false,
+    enableArcLinkLabels: false,
+    innerRadius: 0.7,
+    margin: { top: 10, right: 100, bottom: 20, left: 0 },
+    valueFormat: (value: number) =>
+      `R$ ${value.toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`,
+    layers: ["arcs", "legends", CenteredMoneyMetric],
+  };
+
+  return <Chart.Pie {...options} />;
 }
