@@ -8,8 +8,25 @@ import { GraficoGastosPorCompetencia } from "./GraficoGastosPorCompetencia";
 import { GraficoSinistroEspecialidade } from "./GraficoSinistroEspecialidade";
 import { GraficoTempoMedioPagamento } from "./GraficoTempoMedioPagamento";
 
-export default async function Page() {
+type Props = {
+  params: {
+    idEmpresa: string;
+  };
+};
+
+export async function generateStaticParams() {
+  const empresas = await prisma.empresa.findMany();
+
+  return empresas.map((empresa) => ({ idEmpresa: empresa.id.toString() }));
+}
+
+export default async function Page({ params: { idEmpresa } }: Props) {
   const eventos = await prisma.evento.findMany({
+    where: {
+      pessoa: {
+        idEmpresa: +idEmpresa,
+      },
+    },
     include: {
       procedimento: { include: { categoria: true, especialidade: true } },
     },
@@ -22,7 +39,13 @@ export default async function Page() {
     include: {
       procedimentos: {
         include: {
-          eventos: true,
+          eventos: {
+            where: {
+              pessoa: {
+                idEmpresa: +idEmpresa,
+              },
+            },
+          },
         },
       },
     },
@@ -32,7 +55,13 @@ export default async function Page() {
     include: {
       procedimentos: {
         include: {
-          eventos: true,
+          eventos: {
+            where: {
+              pessoa: {
+                idEmpresa: +idEmpresa,
+              },
+            },
+          },
         },
       },
     },

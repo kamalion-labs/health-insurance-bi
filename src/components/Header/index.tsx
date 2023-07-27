@@ -1,13 +1,9 @@
-"use client";
+import { HeaderRight } from "./HeaderRight";
+import { HeaderRoot } from "./HeaderRoot";
+import { HeaderTitle } from "./HeaderTitle";
 
-import { usePage } from "@/stores";
-
-export function Header() {
-  const { title } = usePage();
-
-  return (
-    <header className="sticky bg-[var(--color-header-bg)] p-5 drop-shadow-md">
-      <div className=" text-3xl font-light">{title}</div>
-    </header>
-  );
-}
+export const Header = {
+  Root: HeaderRoot,
+  Title: HeaderTitle,
+  Right: HeaderRight,
+};

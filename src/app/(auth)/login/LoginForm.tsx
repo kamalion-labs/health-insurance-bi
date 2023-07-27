@@ -56,7 +56,7 @@ export function LoginForm() {
       }>(response);
 
       if (success) {
-        router.push(redirect !== "null" ? redirect : "/app");
+        router.push(redirect !== "null" ? redirect : "/1");
       }
     } catch (e: any) {
       setError("root", { message: e.message });

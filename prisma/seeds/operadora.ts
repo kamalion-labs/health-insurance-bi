@@ -27,8 +27,8 @@ export async function insertOperadora(prisma: PrismaClient) {
   await prisma.colunaArquivo.createMany({
     data: [
       {
-        nome: "nome",
-        coluna: "Nome",
+        nome: "Nome",
+        coluna: "nome",
         tipo: "string",
         posicao: 0,
         idArquivoOperadora: 1,

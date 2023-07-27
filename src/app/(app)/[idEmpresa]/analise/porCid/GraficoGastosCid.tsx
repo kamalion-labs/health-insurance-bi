@@ -1,7 +1,6 @@
 "use client";
 
 import { Chart } from "@/components";
-import { Cids } from "@/lib/consts";
 import { CenteredMoneyMetric } from "@/lib/util/charts/pie";
 import { PieSvgProps } from "@nivo/pie";
 import { Prisma } from "@prisma/client";
@@ -15,42 +14,26 @@ interface DataType {
   value: number;
 }
 
-export function GraficoGastosGrupoCid({ data }: { data: EventoWithCids[] }) {
+export function GraficoGastosCid({ data }: { data: EventoWithCids[] }) {
   const chartData: DataType[] = [];
 
-  const gruposCid: { [codigoCid: string]: string } = {
-    ...Object.fromEntries(
-      Object.entries(Cids).flatMap(([grupo, cidsDoGrupo]) =>
-        cidsDoGrupo.map((codigoCid) => [codigoCid, grupo])
-      )
-    ),
-  };
-
-  for (const grupo in Cids) {
-    Cids[grupo].forEach((codigoCid) => {
-      gruposCid[codigoCid] = grupo;
-    });
-  }
-
-  const somaPorGrupoCid: { [grupo: string]: number } = {};
+  const somaPorTipoCid: { [tipoCid: string]: number } = {};
 
   for (const evento of data) {
-    const codigoCid = evento.CID.codigo;
+    const tipoCid = evento.CID.codigo;
 
-    const grupoCid = gruposCid[codigoCid];
-
-    if (somaPorGrupoCid.hasOwnProperty(grupoCid)) {
-      somaPorGrupoCid[grupoCid] += evento.custoTotal;
+    if (somaPorTipoCid.hasOwnProperty(tipoCid)) {
+      somaPorTipoCid[tipoCid] += evento.custoTotal;
     } else {
-      somaPorGrupoCid[grupoCid] = evento.custoTotal;
+      somaPorTipoCid[tipoCid] = evento.custoTotal;
     }
   }
 
-  for (const grupo in somaPorGrupoCid) {
-    if (somaPorGrupoCid.hasOwnProperty(grupo)) {
+  for (const cid in somaPorTipoCid) {
+    if (somaPorTipoCid.hasOwnProperty(cid)) {
       chartData.push({
-        id: grupo,
-        value: somaPorGrupoCid[grupo],
+        id: cid,
+        value: somaPorTipoCid[cid],
       });
     }
   }

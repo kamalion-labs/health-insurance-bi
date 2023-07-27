@@ -10,7 +10,7 @@ export const NavItems: NavItemProps[] = [
   {
     id: "dashboardGeral",
     title: "Dashboard Geral",
-    href: "/app",
+    href: "/:idEmpresa",
     icon: <FaChartColumn size={24} />,
   },
   {
@@ -20,22 +20,22 @@ export const NavItems: NavItemProps[] = [
     items: [
       {
         title: "Dashboard",
-        href: "/app/covid/dashboard",
+        href: "/:idEmpresa/covid/dashboard",
         id: "covidDashboard",
       },
       {
         title: "Análise Temporal",
-        href: "/app/covid/timeline",
+        href: "/:idEmpresa/covid/timeline",
         id: "covidTimeline",
       },
       {
         title: "Exames",
-        href: "/app/covid/exames",
+        href: "/:idEmpresa/covid/exames",
         id: "covidExames",
       },
       {
         title: "Internação",
-        href: "/app/covid/internacao",
+        href: "/:idEmpresa/covid/internacao",
         id: "covidInternacao",
       },
     ],
@@ -47,17 +47,17 @@ export const NavItems: NavItemProps[] = [
     items: [
       {
         title: "Indicadores Sociodemográficos (IS)",
-        href: "/app/analisePopulacional/is",
+        href: "/:idEmpresa/analisePopulacional/is",
         id: "analisePopulacionalIS",
       },
       {
         title: "Indicadores Comparativos de Utilização (ANS)",
-        href: "/app/analisePopulacional/ans",
+        href: "/:idEmpresa/analisePopulacional/ans",
         id: "analisePopulacionalANS",
       },
       {
         title: "Relatórios de Atestados",
-        href: "/app/analisePopulacional/atestados",
+        href: "/:idEmpresa/analisePopulacional/atestados",
         id: "analisePopulacionalAtestados",
       },
     ],
@@ -69,12 +69,12 @@ export const NavItems: NavItemProps[] = [
     items: [
       {
         title: "Por Categoria",
-        href: "/app/analise/porCategoria",
+        href: "/:idEmpresa/analise/porCategoria",
         id: "analisePorCategoria",
       },
       {
-        title: "Por Cid",
-        href: "/app/analise/porCid",
+        title: "Por CID",
+        href: "/:idEmpresa/analise/porCid",
         id: "analisePorCid",
       },
     ],

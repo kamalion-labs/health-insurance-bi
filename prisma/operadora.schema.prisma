@@ -7,11 +7,12 @@ model Operadora {
 }
 
 model ArquivoOperadora {
-  id        Int                  @id @default(autoincrement())
-  nome      String
-  tipo      TipoArquivoOperadora @default(txt)
-  separador String
-  tabela    String
+  id                 Int                  @id @default(autoincrement())
+  nome               String
+  tipo               TipoArquivoOperadora @default(txt)
+  separador          String
+  tabela             String
+  pularPrimeiraLinha Boolean              @default(true)
 
   operadora   Operadora @relation(fields: [idOperadora], references: [id])
   idOperadora Int

@@ -63,6 +63,7 @@ export function GraficoEventosPorFaixaValor({ data }: { data: Evento[] }) {
     axisBottom: {
       tickRotation: -45,
     },
+    label: "",
     axisLeft: {
       tickValues: 4,
       format: (value: number) =>

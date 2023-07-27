@@ -1,7 +1,8 @@
-import "./globals.css";
 import { Inter, Titillium_Web as Titillium } from "next/font/google";
-import Providers from "./Providers";
 import { ReactNode } from "react";
+import Providers from "./Providers";
+
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const tt = Titillium({
@@ -16,7 +17,11 @@ export const metadata = {
   viewport: "width=device-width, initial-scale=1",
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   return (
     <html lang="pt-br">
       <body

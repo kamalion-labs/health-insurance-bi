@@ -39,8 +39,8 @@ model Evento {
     prestador   Prestador @relation(fields: [idPrestador], references: [id])
     idPrestador Int
 
-    CID   Cid @relation(fields: [idCid], references: [id])
-    idCid Int
+    CID       Cid    @relation(fields: [codigoCID], references: [codigo])
+    codigoCID String
 
     pessoa   Pessoa @relation(fields: [idPessoa], references: [id])
     idPessoa Int
@@ -59,8 +59,7 @@ model Prestador {
 }
 
 model Cid {
-    id                 Int      @id @default(autoincrement())
-    codigo             String   @unique
+    codigo             String   @id @unique
     descricao          String?
     descricaoAbreviada String?
     eventos            Evento[]
@@ -86,10 +85,10 @@ model Procedimento {
 }
 
 model Categoria {
-    id                Int                @id @default(autoincrement())
-    nome              String
-    procedimentos     Procedimento[]
-    subcategorias     SubCategoria[]
+    id            Int            @id @default(autoincrement())
+    nome          String
+    procedimentos Procedimento[]
+    subcategorias SubCategoria[]
 }
 
 model SubCategoria {
@@ -166,11 +165,12 @@ model Operadora {
 }
 
 model ArquivoOperadora {
-  id        Int                  @id @default(autoincrement())
-  nome      String
-  tipo      TipoArquivoOperadora @default(txt)
-  separador String
-  tabela    String
+  id                 Int                  @id @default(autoincrement())
+  nome               String
+  tipo               TipoArquivoOperadora @default(txt)
+  separador          String
+  tabela             String
+  pularPrimeiraLinha Boolean              @default(true)
 
   operadora   Operadora @relation(fields: [idOperadora], references: [id])
   idOperadora Int

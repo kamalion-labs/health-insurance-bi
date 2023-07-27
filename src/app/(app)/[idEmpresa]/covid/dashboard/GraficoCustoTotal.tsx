@@ -1,42 +1,43 @@
 "use client";
 
 import { Chart } from "@/components";
+import { Cids } from "@/lib/consts";
 import { CenteredMoneyMetric } from "@/lib/util/charts/pie";
 import { PieSvgProps } from "@nivo/pie";
-import { Prisma } from "@prisma/client";
+import { Evento, Prisma } from "@prisma/client";
 
 type EventoWithCids = Prisma.EventoGetPayload<{
   include: { CID: true };
 }>;
 
-interface DataType {
+type DataType = {
   id: string;
   value: number;
-}
+  items: Evento[];
+};
 
-export function GraficoGastosCid({ data }: { data: EventoWithCids[] }) {
+export function GraficoCustoTotal({ data }: { data: EventoWithCids[] }) {
   const chartData: DataType[] = [];
 
-  const somaPorTipoCid: { [tipoCid: string]: number } = [];
+  const eventosCovid = data.filter((evento) =>
+    Cids.cidsCovid.includes(evento.CID.codigo)
+  );
 
-  for (const evento of data) {
-    const tipoCid = evento.CID.codigo;
+  const eventosNaoCovid = data.filter(
+    (evento) => !Cids.cidsCovid.includes(evento.CID.codigo)
+  );
 
-    if (somaPorTipoCid.hasOwnProperty(tipoCid)) {
-      somaPorTipoCid[tipoCid] += evento.custoTotal;
-    } else {
-      somaPorTipoCid[tipoCid] = evento.custoTotal;
-    }
-  }
+  chartData.push({
+    id: "Covid",
+    value: eventosCovid.reduce((sum, evento) => sum + evento.custoTotal, 0),
+    items: eventosCovid,
+  });
 
-  for (const cid in somaPorTipoCid) {
-    if (somaPorTipoCid.hasOwnProperty(cid)) {
-      chartData.push({
-        id: cid,
-        value: somaPorTipoCid[cid],
-      });
-    }
-  }
+  chartData.push({
+    id: "Não Covid",
+    value: eventosNaoCovid.reduce((sum, evento) => sum + evento.custoTotal, 0),
+    items: eventosNaoCovid,
+  });
 
   const options: Omit<PieSvgProps<DataType>, "width" | "height"> = {
     data: chartData,
@@ -44,7 +45,7 @@ export function GraficoGastosCid({ data }: { data: EventoWithCids[] }) {
     enableArcLabels: false,
     enableArcLinkLabels: false,
     innerRadius: 0.7,
-    margin: { top: 10, right: 100, bottom: 20, left: 0 },
+    margin: { top: 10, right: 150, bottom: 20, left: 0 },
     valueFormat: (value: number) =>
       `R$ ${value.toLocaleString("pt-BR", {
         minimumFractionDigits: 2,

@@ -3,7 +3,7 @@ import { GraficoCustoTotal } from "./GraficoCustoTotal";
 import { prisma } from "@/lib/db/prisma";
 import { TabelaExamesCovid } from "./TabelaExamesCovid";
 import { TabelaExamesSRAG } from "./TabelaExamesSRAG";
-import { cidsCovid, cidsSRAG, tussCovid, tussSRAG } from "@/lib/consts";
+import { Cids, Tuss } from "@/lib/consts";
 
 export default async function CovidDashboard() {
   const eventos = await prisma.evento.findMany({
@@ -19,17 +19,17 @@ export default async function CovidDashboard() {
   });
 
   const eventosCovid = eventos.filter((evento) => {
-    const hasCidCovid = cidsCovid.includes(evento.CID.codigo);
-    const hasTussCovid = tussCovid.includes(evento.procedimento.tuss);
+    const hasCidCovid = Cids.cidsCovid.includes(evento.CID.codigo);
+    const hasTussCovid = Tuss.tussCovid.includes(evento.procedimento.tuss);
     return hasCidCovid || hasTussCovid;
   });
 
   const examesCovid = eventos.filter((evento) =>
-    tussCovid.includes(evento.procedimento.tuss)
+    Tuss.tussCovid.includes(evento.procedimento.tuss)
   );
 
   const examesSRAG = eventos.filter((evento) =>
-    tussSRAG.includes(evento.procedimento.tuss)
+    Tuss.tussSRAG.includes(evento.procedimento.tuss)
   );
 
   return (
@@ -53,7 +53,7 @@ export default async function CovidDashboard() {
               // Filtra eventos que possuem internação e depois eventos que possuem CID de covid.
               eventos
                 .filter((evento) => evento.teveInternacao)
-                .filter((evento) => cidsCovid.includes(evento.CID.codigo))
+                .filter((evento) => Cids.cidsCovid.includes(evento.CID.codigo))
                 .length
             }
           </Card.Value>
@@ -63,8 +63,9 @@ export default async function CovidDashboard() {
           <Card.Title>Procedimentos com CID de Coronavírus</Card.Title>
           <Card.Value>
             {
-              eventos.filter((evento) => cidsCovid.includes(evento.CID.codigo))
-                .length
+              eventos.filter((evento) =>
+                Cids.cidsCovid.includes(evento.CID.codigo)
+              ).length
             }
           </Card.Value>
         </Card.Root>
@@ -83,7 +84,8 @@ export default async function CovidDashboard() {
               // Filtra eventos que possuem internação e depois eventos que possuem CID de SRAG.
               eventos
                 .filter((evento) => evento.teveInternacao)
-                .filter((evento) => cidsSRAG.includes(evento.CID.codigo)).length
+                .filter((evento) => Cids.cidsSRAG.includes(evento.CID.codigo))
+                .length
             }
           </Card.Value>
         </Card.Root>
@@ -92,8 +94,9 @@ export default async function CovidDashboard() {
           <Card.Title>Procedimentos com CID de SRAG</Card.Title>
           <Card.Value>
             {
-              eventos.filter((evento) => cidsSRAG.includes(evento.CID.codigo))
-                .length
+              eventos.filter((evento) =>
+                Cids.cidsSRAG.includes(evento.CID.codigo)
+              ).length
             }
           </Card.Value>
         </Card.Root>

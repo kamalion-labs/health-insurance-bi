@@ -7,7 +7,7 @@ type Props = {
 
 export function NavRoot({ children }: Props) {
   return (
-    <nav className="sticky z-20 hidden h-full flex-col bg-gradient p-3 text-white md:flex">
+    <nav className="sticky z-30 hidden h-full flex-col bg-gradient p-3 text-white md:flex">
       {children}
 
       <div className="flex flex-row justify-center">
