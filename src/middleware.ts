@@ -20,6 +20,10 @@ export async function middleware(req: NextRequest) {
 
   const response = NextResponse.next();
 
+  if (req.nextUrl.pathname === "/") {
+    return NextResponse.redirect(new URL("/1", req.url));
+  }
+
   if (
     req.nextUrl.pathname.startsWith("/login") ||
     req.nextUrl.pathname.startsWith("/api/auth/login")
