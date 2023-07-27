@@ -2,10 +2,9 @@
 
 import { NavItems } from "@/app/nav";
 import { usePage } from "@/stores";
-import { useSession } from "@/stores/session.store";
 import { Empresa } from "@prisma/client";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { useRouter } from "next/navigation";
+import { useRouter, useParams } from "next/navigation";
 import {
   FaBuilding,
   FaCheck,
@@ -16,18 +15,14 @@ import { twMerge } from "tailwind-merge";
 import { NavItemProps } from "../Navbar/NavItemProps";
 
 export function Empresas({ data }: { data: Empresa[] }) {
-  const { setIdEmpresa, idEmpresa } = useSession();
   const { id, parentId } = usePage();
 
   const router = useRouter();
+  const params = useParams();
 
   if (!data) return null;
 
   function handleChangeEmpresa(val: string) {
-    console.log({ id, parentId });
-
-    setIdEmpresa(Number(val));
-
     const route = parentId
       ? NavItems.filter((x) => x.id === parentId)
           .reduce<NavItemProps[]>(
@@ -43,7 +38,7 @@ export function Empresas({ data }: { data: Empresa[] }) {
   return (
     <SelectPrimitive.Root
       defaultValue={data[0].id.toString()}
-      value={idEmpresa.toString()}
+      value={params.idEmpresa}
       onValueChange={handleChangeEmpresa}
     >
       <SelectPrimitive.Trigger asChild>
