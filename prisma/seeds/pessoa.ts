@@ -125,6 +125,55 @@ export async function insertPessoas(prisma: PrismaClient) {
         idPlano: 3,
         idTipoTitularidade: 1,
       },
+      {
+        id: 7,
+        nome: faker.person.fullName(),
+        CPF: faker.number
+          .int({ min: 10000000000, max: 99999999999 })
+          .toString()
+          .padStart(11, "0"),
+        sexo: "M",
+        dataNascimento: faker.date.betweens({
+          from: "1960-01-01T00:00:00.000Z",
+          to: new Date(),
+        })[0],
+        idCargo: 1,
+        idEmpresa: 2,
+        idPlano: 2,
+        idTipoTitularidade: 2,
+      },
+      {
+        id: 8,
+        nome: faker.person.fullName(),
+        CPF: faker.number
+          .int({ min: 10000000000, max: 99999999999 })
+          .toString()
+          .padStart(11, "0"),
+        sexo: "M",
+        dataNascimento: faker.date.betweens({
+          from: "1960-01-01T00:00:00.000Z",
+          to: new Date(),
+        })[0],
+        idEmpresa: 2,
+        idPlano: 3,
+        idTipoTitularidade: 1,
+      },
+      {
+        id: 9,
+        nome: faker.person.fullName(),
+        CPF: faker.number
+          .int({ min: 10000000000, max: 99999999999 })
+          .toString()
+          .padStart(11, "0"),
+        sexo: "M",
+        dataNascimento: faker.date.betweens({
+          from: "1960-01-01T00:00:00.000Z",
+          to: new Date(),
+        })[0],
+        idEmpresa: 2,
+        idPlano: 1,
+        idTipoTitularidade: 3,
+      },
     ],
   });
 }
