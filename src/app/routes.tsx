@@ -2,11 +2,13 @@ import { NavItemProps } from "@/components/Navbar/NavItemProps";
 import {
   FaChartColumn,
   FaDollarSign,
+  FaLock,
+  FaUser,
   FaUsers,
   FaVirusCovid,
 } from "react-icons/fa6";
 
-export const NavItems: NavItemProps[] = [
+export const Routes: NavItemProps[] = [
   {
     id: "dashboardGeral",
     title: "Dashboard Geral",
@@ -76,6 +78,35 @@ export const NavItems: NavItemProps[] = [
         title: "Por CID",
         href: "/:idEmpresa/analise/porCid",
         id: "analisePorCid",
+      },
+    ],
+  },
+  {
+    title: "Maiores Usuários",
+    id: "maioresUsuarios",
+    icon: <FaUser size={24} />,
+    items: [
+      {
+        title: "Geral",
+        href: "/:idEmpresa/maioresUsuarios/geral",
+        id: "geral",
+      },
+    ],
+  },
+  {
+    title: "Administração",
+    id: "admin",
+    icon: <FaLock size={24} />,
+    items: [
+      {
+        title: "Usuários",
+        href: "/admin/usuarios",
+        id: "usuarios",
+      },
+      {
+        title: "Operadoras",
+        href: "/admin/operadoras",
+        id: "operadoras",
       },
     ],
   },

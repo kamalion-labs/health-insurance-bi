@@ -39,8 +39,8 @@ model Evento {
     prestador   Prestador @relation(fields: [idPrestador], references: [id])
     idPrestador Int
 
-    CID       Cid    @relation(fields: [codigoCID], references: [codigo])
-    codigoCID String
+    CID       Cid?    @relation(fields: [codigoCID], references: [codigo])
+    codigoCID String?
 
     pessoa   Pessoa @relation(fields: [idPessoa], references: [id])
     idPessoa Int
@@ -277,9 +277,10 @@ model Pessoa {
   plano   Plano @relation(fields: [idPlano], references: [id])
   idPlano Int
 
-  titular   Pessoa?  @relation("Titular", fields: [idTitular], references: [id])
+  titular   Pessoa? @relation("Titular", fields: [idTitular], references: [id])
   idTitular Int?
-  pessoas   Pessoa[] @relation("Titular")
+
+  dependentes Pessoa[] @relation("Titular")
 }
 
 model Cargo {

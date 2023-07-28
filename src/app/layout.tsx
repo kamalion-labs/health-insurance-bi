@@ -12,8 +12,8 @@ const tt = Titillium({
 });
 
 export const metadata = {
-  title: "Seguro BI",
-  description: "Seguro BI",
+  title: "Interliga",
+  description: "Interliga",
   viewport: "width=device-width, initial-scale=1",
 };
 

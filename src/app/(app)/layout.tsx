@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 import { prisma } from "@/lib/db/prisma";
 import { Navbar, Header, Page } from "@/components";
 import { Empresas } from "@/components/Empresas";
-import { NavItems } from "../../nav";
+import { Routes } from "../routes";
 
 export default async function RootLayout({
   children,
@@ -22,7 +22,7 @@ export default async function RootLayout({
         <Navbar.Root>
           <Navbar.Header />
 
-          <Navbar.Content items={NavItems} />
+          <Navbar.Content items={Routes} />
         </Navbar.Root>
       </Page.Nav>
 

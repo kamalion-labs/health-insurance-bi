@@ -43,15 +43,15 @@ export function TableHeader({
 
   return (
     <thead>
-      <tr className="bg-slate-200 ">
-        {isSelectable && <th className="w-0"></th>}
+      <tr className="bg-slate-200">
+        {isSelectable && <th className="w-0 first:rounded-l-md"></th>}
 
         {columns.map((col) => (
           <th
             key={col.key}
             onClick={() => handleOnOrder(col.key)}
             className={twMerge(
-              "p-2 text-start text-sm",
+              "p-2 text-start text-sm first:rounded-l-md last:rounded-r-md",
               isSelectable && "cursor-pointer",
               (col.type === "money" || col.type === "percent") && "text-end"
             )}
@@ -63,7 +63,7 @@ export function TableHeader({
           </th>
         ))}
 
-        {isEditable && <th className="w-0"></th>}
+        {isEditable && <th className="w-0 last:rounded-r-md"></th>}
       </tr>
     </thead>
   );

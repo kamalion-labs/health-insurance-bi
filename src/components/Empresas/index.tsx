@@ -1,6 +1,6 @@
 "use client";
 
-import { NavItems } from "@/app/nav";
+import { Routes } from "@/app/routes";
 import { usePage } from "@/stores";
 import { Empresa } from "@prisma/client";
 import * as SelectPrimitive from "@radix-ui/react-select";
@@ -20,17 +20,17 @@ export function Empresas({ data }: { data: Empresa[] }) {
   const router = useRouter();
   const params = useParams();
 
-  if (!data) return null;
+  if (!data || parentId === "admin") return null;
 
   function handleChangeEmpresa(val: string) {
     const route = parentId
-      ? NavItems.filter((x) => x.id === parentId)
+      ? Routes.filter((x) => x.id === parentId)
           .reduce<NavItemProps[]>(
             (prev, current) => [...prev, ...current.items!],
             []
           )
           .find((x) => x.id === id)
-      : NavItems.find((x) => x.id === id);
+      : Routes.find((x) => x.id === id);
 
     router.push(route?.href?.replace(":idEmpresa", val)!);
   }

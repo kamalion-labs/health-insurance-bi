@@ -28,8 +28,8 @@ export function TableRoot({
   onEdit,
 }: TableRootProps) {
   return (
-    <div className="max-w-scren flex overflow-x-auto">
-      <table className="w-full table-auto border-collapse">
+    <div className="max-w-scren flex overflow-x-auto p-2">
+      <table className="w-full table-auto border-separate border-spacing-y-2">
         {!children && (
           <>
             {columns && data && (

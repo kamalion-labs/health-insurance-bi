@@ -25,9 +25,10 @@ model Pessoa {
   plano   Plano @relation(fields: [idPlano], references: [id])
   idPlano Int
 
-  titular   Pessoa?  @relation("Titular", fields: [idTitular], references: [id])
+  titular   Pessoa? @relation("Titular", fields: [idTitular], references: [id])
   idTitular Int?
-  pessoas   Pessoa[] @relation("Titular")
+
+  dependentes Pessoa[] @relation("Titular")
 }
 
 model Cargo {

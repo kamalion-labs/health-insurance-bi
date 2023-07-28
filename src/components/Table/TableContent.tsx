@@ -38,13 +38,13 @@ export function TableContent({
         <tr
           key={idx}
           className={twMerge(
-            "even:bg-slate-100",
-            onSelect && "cursor-pointer hover:bg-alt"
+            "h-[40px] rounded-md bg-slate-100 transition-all",
+            onSelect && "cursor-pointer hover:bg-slate-300"
           )}
           onClick={() => handleOnSelect(item)}
         >
           {typeof onSelect !== "undefined" && (
-            <td className="px-2 py-1">
+            <td className="px-2 pt-0 first:rounded-l-md">
               <input type="checkbox" checked={item === selected} readOnly />
             </td>
           )}
@@ -53,7 +53,7 @@ export function TableContent({
             <td
               key={column.key}
               className={twMerge(
-                "content-center px-2 py-1 text-start text-sm",
+                "content-center px-2 text-start text-sm first:rounded-l-md last:rounded-r-md",
                 (column.type === "money" || column.type === "percent") &&
                   "text-end"
               )}
@@ -91,7 +91,7 @@ export function TableContent({
           ))}
 
           {typeof onEdit !== "undefined" && (
-            <td className="px-2 py-1">
+            <td className="px-2 py-1 last:rounded-r-md">
               <Button.Root onClick={() => handleOnEdit(item)}>
                 <Button.Icon>
                   <FaPencil />
