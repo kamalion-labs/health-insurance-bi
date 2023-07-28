@@ -5,7 +5,19 @@ import { TabelaExamesCovid } from "./TabelaExamesCovid";
 import { TabelaExamesSRAG } from "./TabelaExamesSRAG";
 import { Cids, Tuss } from "@/lib/consts";
 
-export default async function CovidDashboard() {
+type Props = {
+  params: {
+    idEmpresa: string;
+  };
+};
+
+export async function generateStaticParams() {
+  const empresas = await prisma.empresa.findMany();
+
+  return empresas.map((empresa) => ({ idEmpresa: empresa.id.toString() }));
+}
+
+export default async function CovidDashboard({ params: { idEmpresa } }: Props) {
   const eventos = await prisma.evento.findMany({
     include: {
       CID: true,
@@ -14,6 +26,11 @@ export default async function CovidDashboard() {
         include: {
           tipoTitularidade: true,
         },
+      },
+    },
+    where: {
+      pessoa: {
+        idEmpresa: +idEmpresa,
       },
     },
   });

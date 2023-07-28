@@ -2,7 +2,7 @@ import { prisma } from "@/lib/db/prisma";
 import { ThenArg } from "@/lib/util/ThenArg";
 
 export const EventoRepositorio = {
-  listar: async () => {
+  listar: async (idEmpresa: string) => {
     const eventos = await prisma.evento.findMany({
       include: {
         procedimento: true,
@@ -10,6 +10,11 @@ export const EventoRepositorio = {
           include: {
             tipoTitularidade: true,
           },
+        },
+      },
+      where: {
+        pessoa: {
+          idEmpresa: +idEmpresa,
         },
       },
       orderBy: {

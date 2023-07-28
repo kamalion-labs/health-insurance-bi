@@ -7,9 +7,25 @@ import { GraficoSexo } from "./GraficoSexo";
 import { GraficoUsuariosMes } from "./GraficoUsuariosMes";
 import { EventoRepositorio } from "@/lib/evento/repositorio/EventoRepositorio";
 
-export default async function ISPage() {
-  const pessoas = await prisma.pessoa.findMany();
-  const eventos = await EventoRepositorio.listar();
+type Props = {
+  params: {
+    idEmpresa: string;
+  };
+};
+
+export async function generateStaticParams() {
+  const empresas = await prisma.empresa.findMany();
+
+  return empresas.map((empresa) => ({ idEmpresa: empresa.id.toString() }));
+}
+
+export default async function ISPage({ params: { idEmpresa } }: Props) {
+  const pessoas = await prisma.pessoa.findMany({
+    where: {
+      idEmpresa: +idEmpresa,
+    },
+  });
+  const eventos = await EventoRepositorio.listar(idEmpresa);
 
   const masculinos = pessoas.filter((x) => x.sexo === "M");
   const femininos = pessoas.filter((x) => x.sexo === "F");

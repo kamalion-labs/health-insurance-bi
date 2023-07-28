@@ -3,19 +3,35 @@ import { prisma } from "@/lib/db/prisma";
 import { TabelaExamesCovid } from "./TabelaExamesCovid";
 import { Pessoa } from "@prisma/client";
 import { differenceInYears } from "date-fns";
+import { Tuss } from "@/lib/consts";
 
-export default async function Exames() {
-  const tussCovid = ["40304906", "40302687", "28042000"];
+type Props = {
+  params: {
+    idEmpresa: string;
+  };
+};
 
+export async function generateStaticParams() {
+  const empresas = await prisma.empresa.findMany();
+
+  return empresas.map((empresa) => ({ idEmpresa: empresa.id.toString() }));
+}
+
+export default async function Exames({ params: { idEmpresa } }: Props) {
   const eventos = await prisma.evento.findMany({
     include: {
       procedimento: true,
       pessoa: true,
     },
+    where: {
+      pessoa: {
+        idEmpresa: +idEmpresa,
+      },
+    },
   });
 
   const examesCovid = eventos.filter((evento) =>
-    tussCovid.includes(evento.procedimento.tuss)
+    Tuss.tussCovid.includes(evento.procedimento.tuss)
   );
 
   const pessoas = examesCovid.reduce<Pessoa[]>((lista, evento) => {
