@@ -1,6 +1,7 @@
 import { Box, PageInitializer } from "@/components";
 import { prisma } from "@/lib/db/prisma";
 import { GraficoQuantidadeEventosPorCompetencia } from "./GraficoQuantidadeEventosPorCompetencia";
+import { GraficoFaturamentoPorCompetencia } from "./GraficoFaturamentoPorCompetencia";
 
 type Props = {
   params: {
@@ -50,7 +51,9 @@ export default async function Page({ params: { idEmpresa } }: Props) {
             Faturamento de Procedimentos de Covid Por Competência
           </Box.Title>
 
-          <Box.Content className="h-[250px]">.</Box.Content>
+          <Box.Content className="h-[250px]">
+            <GraficoFaturamentoPorCompetencia data={eventos} />
+          </Box.Content>
         </Box.Root>
       </div>
     </div>

@@ -12,13 +12,13 @@ type EventoWithCids = Prisma.EventoGetPayload<{
 
 type DataType = {
   Date: string;
-  Quantidade: number;
-  QuantidadeColor: string;
+  Faturamento: number;
+  FaturamentoColor: string;
 };
 
-const labels = ["Quantidade"];
+const labels = ["Faturamento"];
 
-export function GraficoQuantidadeEventosPorCompetencia({
+export function GraficoFaturamentoPorCompetencia({
   data,
 }: {
   data: EventoWithCids[];
@@ -41,8 +41,11 @@ export function GraficoQuantidadeEventosPorCompetencia({
     if (eventosCompetencia.length !== 0) {
       chartData.push({
         Date: comp,
-        Quantidade: eventosCompetencia.length,
-        QuantidadeColor: "#52CD9F",
+        FaturamentoColor: "#5B93FF",
+        Faturamento: eventosCompetencia.reduce(
+          (sum, evento) => sum + evento.custoTotal,
+          0
+        ),
       });
     }
   });
@@ -53,6 +56,17 @@ export function GraficoQuantidadeEventosPorCompetencia({
     groupMode: "grouped",
     data: chartData,
     label: "",
+    axisLeft: {
+      tickValues: 4,
+      format: (value: number) =>
+        `R$ ${value.toLocaleString("pt-BR", {
+          minimumFractionDigits: 2,
+        })}`,
+    },
+    valueFormat: (value: any) =>
+      `R$ ${value.toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+      })}`,
   };
 
   return <Chart.Bar {...options} />;
