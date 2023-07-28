@@ -1,7 +1,8 @@
 import { Box, PageInitializer } from "@/components";
 import { prisma } from "@/lib/db/prisma";
-import { GraficoGastosCid } from "./GraficoGastosCid";
 import { GraficoGastosGrupoCid } from "./GraficoGastosGrupoCid";
+import { GraficoGastoPorCid } from "./GraficoGastoPorCid";
+import { GraficoGastosCid } from "./GraficoGastosCid";
 
 type Props = {
   params: {
@@ -37,6 +38,16 @@ export default async function Page({ params: { idEmpresa } }: Props) {
 
           <Box.Content className="h-[250px]">
             <GraficoGastosCid data={eventos} />
+          </Box.Content>
+        </Box.Root>
+      </div>
+
+      <div className="grid grid-cols-1 gap-3 md:grid-cols-1">
+        <Box.Root>
+          <Box.Title>Gastos por Cid de Procedimento</Box.Title>
+
+          <Box.Content className="h-[350px]">
+            <GraficoGastoPorCid data={eventos} />
           </Box.Content>
         </Box.Root>
       </div>
