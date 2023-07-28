@@ -57,11 +57,11 @@ export const Routes: NavItemProps[] = [
         href: "/:idEmpresa/analisePopulacional/ans",
         id: "analisePopulacionalANS",
       },
-      {
-        title: "Relatórios de Atestados",
-        href: "/:idEmpresa/analisePopulacional/atestados",
-        id: "analisePopulacionalAtestados",
-      },
+      // {
+      //   title: "Relatórios de Atestados",
+      //   href: "/:idEmpresa/analisePopulacional/atestados",
+      //   id: "analisePopulacionalAtestados",
+      // },
     ],
   },
   {
@@ -78,6 +78,11 @@ export const Routes: NavItemProps[] = [
         title: "Por CID",
         href: "/:idEmpresa/analise/porCid",
         id: "analisePorCid",
+      },
+      {
+        title: "Por Rede e Reembolso",
+        href: "/:idEmpresa/analise/porRedeReembolso",
+        id: "analisePorRedeReembolso",
       },
     ],
   },
