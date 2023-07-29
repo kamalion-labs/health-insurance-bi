@@ -36,7 +36,7 @@ export default async function CovidDashboard({ params: { idEmpresa } }: Props) {
   });
 
   const eventosCovid = eventos.filter((evento) => {
-    const hasCidCovid = Cids.cidsCovid.includes(evento.CID.codigo);
+    const hasCidCovid = Cids.cidsCovid.includes(evento.CID?.codigo!);
     const hasTussCovid = Tuss.tussCovid.includes(evento.procedimento.tuss);
     return hasCidCovid || hasTussCovid;
   });
@@ -70,8 +70,9 @@ export default async function CovidDashboard({ params: { idEmpresa } }: Props) {
               // Filtra eventos que possuem internação e depois eventos que possuem CID de covid.
               eventos
                 .filter((evento) => evento.teveInternacao)
-                .filter((evento) => Cids.cidsCovid.includes(evento.CID.codigo))
-                .length
+                .filter((evento) =>
+                  Cids.cidsCovid.includes(evento.CID?.codigo!)
+                ).length
             }
           </Card.Value>
         </Card.Root>
@@ -81,7 +82,7 @@ export default async function CovidDashboard({ params: { idEmpresa } }: Props) {
           <Card.Value>
             {
               eventos.filter((evento) =>
-                Cids.cidsCovid.includes(evento.CID.codigo)
+                Cids.cidsCovid.includes(evento.CID?.codigo!)
               ).length
             }
           </Card.Value>
@@ -101,7 +102,7 @@ export default async function CovidDashboard({ params: { idEmpresa } }: Props) {
               // Filtra eventos que possuem internação e depois eventos que possuem CID de SRAG.
               eventos
                 .filter((evento) => evento.teveInternacao)
-                .filter((evento) => Cids.cidsSRAG.includes(evento.CID.codigo))
+                .filter((evento) => Cids.cidsSRAG.includes(evento.CID?.codigo!))
                 .length
             }
           </Card.Value>
@@ -112,7 +113,7 @@ export default async function CovidDashboard({ params: { idEmpresa } }: Props) {
           <Card.Value>
             {
               eventos.filter((evento) =>
-                Cids.cidsSRAG.includes(evento.CID.codigo)
+                Cids.cidsSRAG.includes(evento.CID?.codigo!)
               ).length
             }
           </Card.Value>

@@ -28,7 +28,7 @@ export function GraficoQuantidadeEventosPorCompetencia({
   ];
 
   const eventosCovid = data.filter((evento) =>
-    Cids.cidsCovid.includes(evento.CID.codigo)
+    Cids.cidsCovid.includes(evento.CID?.codigo!)
   );
 
   const chartData: DataType[] = [];

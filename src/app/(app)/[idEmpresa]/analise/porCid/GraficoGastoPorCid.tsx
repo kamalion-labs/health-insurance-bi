@@ -18,7 +18,7 @@ const labels = ["Sinistro"];
 
 export function GraficoGastoPorCid({ data }: { data: EventoWithCids[] }) {
   const cids = [...new Set(data.map((evento) => evento.codigoCID))];
-  const nomeCids = [...new Set(data.map((evento) => evento.CID.descricao))];
+  const nomeCids = [...new Set(data.map((evento) => evento.CID?.descricao))];
 
   let chartData: DataType[] = cids.map((cid, i) => {
     return {

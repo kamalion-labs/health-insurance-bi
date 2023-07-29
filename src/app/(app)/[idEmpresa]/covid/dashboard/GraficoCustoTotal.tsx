@@ -20,11 +20,11 @@ export function GraficoCustoTotal({ data }: { data: EventoWithCids[] }) {
   const chartData: DataType[] = [];
 
   const eventosCovid = data.filter((evento) =>
-    Cids.cidsCovid.includes(evento.CID.codigo)
+    Cids.cidsCovid.includes(evento.CID?.codigo!)
   );
 
   const eventosNaoCovid = data.filter(
-    (evento) => !Cids.cidsCovid.includes(evento.CID.codigo)
+    (evento) => !Cids.cidsCovid.includes(evento.CID?.codigo!)
   );
 
   chartData.push({

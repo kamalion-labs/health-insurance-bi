@@ -20,7 +20,7 @@ export function GraficoGastosCid({ data }: { data: EventoWithCids[] }) {
   const somaPorTipoCid: { [tipoCid: string]: number } = {};
 
   for (const evento of data) {
-    const tipoCid = evento.CID.codigo;
+    const tipoCid = evento.CID?.codigo!;
 
     if (somaPorTipoCid.hasOwnProperty(tipoCid)) {
       somaPorTipoCid[tipoCid] += evento.custoTotal;

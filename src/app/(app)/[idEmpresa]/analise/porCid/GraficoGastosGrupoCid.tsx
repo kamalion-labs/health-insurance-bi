@@ -37,7 +37,7 @@ export function GraficoGastosGrupoCid({ data }: { data: EventoWithCids[] }) {
   const somaPorGrupoCid: { [grupo: string]: number } = {};
 
   for (const evento of data) {
-    const codigoCid = evento.CID.codigo;
+    const codigoCid = evento.CID?.codigo!;
 
     const grupoCid = gruposCid[codigoCid];
 
