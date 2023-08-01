@@ -1,6 +1,6 @@
 import { Box, Card, PageInitializer } from "@/components";
 import { prisma } from "@/lib/db/prisma";
-import { TabelaExamesCovid } from "./TabelaExamesCovid";
+import { ExamesTabela, TabelaExamesCovid } from "./TabelaExamesCovid";
 import { Pessoa } from "@prisma/client";
 import { differenceInYears } from "date-fns";
 import { Tuss } from "@/lib/consts";
@@ -21,7 +21,11 @@ export default async function Exames({ params: { idEmpresa } }: Props) {
   const eventos = await prisma.evento.findMany({
     include: {
       procedimento: true,
-      pessoa: true,
+      pessoa: {
+        include: {
+          tipoTitularidade: true,
+        },
+      },
     },
     where: {
       pessoa: {
@@ -37,6 +41,24 @@ export default async function Exames({ params: { idEmpresa } }: Props) {
   const pessoas = examesCovid.reduce<Pessoa[]>((lista, evento) => {
     return [...lista, evento.pessoa];
   }, []);
+
+  const tabelaExames = examesCovid.map<ExamesTabela>((exame) => {
+    const nome = exame.pessoa.nome;
+    const titularidade = exame.pessoa.tipoTitularidade.nome;
+    const codigoProcedimento = exame.procedimento.tuss;
+    const teveInternacao = exame.teveInternacao ? "Sim" : "Não";
+
+    return {
+      nome,
+      dataRealizacao: exame.dataRealizacao,
+      titularidade,
+      codigoProcedimento,
+      descricao: exame.descricao,
+      quantidade: exame.quantidade,
+      teveInternacao,
+      custoTotal: exame.custoTotal,
+    };
+  });
 
   return (
     <div className="space-y-5 p-4">
@@ -54,7 +76,7 @@ export default async function Exames({ params: { idEmpresa } }: Props) {
 
         <Card.Root className="h-30">
           <Card.Title>Beneficiários atendidos Covid-19</Card.Title>
-          <Card.Value>{examesCovid.length}</Card.Value>
+          <Card.Value>{pessoas.length}</Card.Value>
         </Card.Root>
 
         <Card.Root className="h-30">
@@ -86,7 +108,7 @@ export default async function Exames({ params: { idEmpresa } }: Props) {
       <Box.Root>
         <Box.Title>Listagem Exames Covid</Box.Title>
         <Box.Content>
-          <TabelaExamesCovid data={examesCovid} />
+          <TabelaExamesCovid data={tabelaExames} />
         </Box.Content>
       </Box.Root>
     </div>
