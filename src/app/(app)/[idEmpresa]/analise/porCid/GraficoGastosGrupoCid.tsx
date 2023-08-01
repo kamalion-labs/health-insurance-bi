@@ -26,14 +26,6 @@ export function GraficoGastosGrupoCid({ data }: { data: EventoWithCids[] }) {
     ),
   };
 
-  // for (const grupo in Cids) {
-  //   Cids[grupo].forEach((codigoCid) => {
-  //     gruposCid[codigoCid] = grupo;
-  //   });
-  // }
-
-  console.log({ gruposCid, Cids });
-
   const somaPorGrupoCid: { [grupo: string]: number } = {};
 
   for (const evento of data) {

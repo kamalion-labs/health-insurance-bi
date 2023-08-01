@@ -15,28 +15,17 @@ interface DataType {
 }
 
 export function GraficoGastosCid({ data }: { data: EventoWithCids[] }) {
-  const chartData: DataType[] = [];
+  const cids = [...new Set(data.map((evento) => evento.codigoCID))];
+  const nomeCids = [...new Set(data.map((evento) => evento.CID?.descricao))];
 
-  const somaPorTipoCid: { [tipoCid: string]: number } = {};
-
-  for (const evento of data) {
-    const tipoCid = evento.CID?.codigo!;
-
-    if (somaPorTipoCid.hasOwnProperty(tipoCid)) {
-      somaPorTipoCid[tipoCid] += evento.custoTotal;
-    } else {
-      somaPorTipoCid[tipoCid] = evento.custoTotal;
-    }
-  }
-
-  for (const cid in somaPorTipoCid) {
-    if (somaPorTipoCid.hasOwnProperty(cid)) {
-      chartData.push({
-        id: cid,
-        value: somaPorTipoCid[cid],
-      });
-    }
-  }
+  const chartData: DataType[] = cids.map((cid, i) => {
+    return {
+      id: nomeCids[i]!,
+      value: data
+        .filter((evento) => evento.codigoCID === cid)
+        .reduce((sum, evento) => sum + evento.sinistro, 0),
+    };
+  });
 
   const options: Omit<PieSvgProps<DataType>, "width" | "height"> = {
     data: chartData,
