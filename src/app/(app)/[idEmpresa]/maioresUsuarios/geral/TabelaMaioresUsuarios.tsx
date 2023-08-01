@@ -2,7 +2,10 @@
 
 import { Table } from "@/components";
 import { TableColumn } from "@/components/Table/TableHeader";
+import { useFiltro } from "@/stores";
 import { usePessoa } from "@/stores/pessoa.store";
+import { differenceInYears } from "date-fns";
+import { PessoaWithEventosCategoriaPlanoTipoTitularidade } from "./page";
 
 const cols: TableColumn[] = [
   {
@@ -47,10 +50,45 @@ export interface PessoaTabela {
   plano: string;
 }
 
-export function TabelaMaioresUsuarios({ data }: { data: PessoaTabela[] }) {
+export function TabelaMaioresUsuarios({
+  pessoas,
+}: {
+  pessoas: PessoaWithEventosCategoriaPlanoTipoTitularidade[];
+}) {
   const { id, setId } = usePessoa();
+  const { idCategoria } = useFiltro();
 
-  const pessoa = data.find((x) => x.id === id);
+  const filteredData = idCategoria
+    ? pessoas.filter((pessoa) =>
+        pessoa.eventos.some((x) => x.procedimento.idCategoria === idCategoria)
+      )
+    : pessoas;
+
+  let tabelaPessoas = filteredData.map<PessoaTabela>((pessoa) => {
+    const idade = differenceInYears(new Date(), pessoa.dataNascimento!);
+    const sinistroTotal = pessoa.eventos.reduce(
+      (sum, current) => sum + current.custoTotal,
+      0
+    );
+    const titularidade = pessoa.tipoTitularidade.nome;
+    const plano = pessoa.plano.nome;
+
+    return {
+      id: pessoa.id,
+      nome: pessoa.nome,
+      idade,
+      sinistroTotal,
+      titularidade,
+      dependentes: pessoa.dependentes.length,
+      plano,
+    };
+  });
+
+  tabelaPessoas = tabelaPessoas
+    .sort((a, b) => b.sinistroTotal - a.sinistroTotal)
+    .splice(0, 10);
+
+  const pessoa = tabelaPessoas.find((x) => x.id === id);
 
   async function handleSelectPessoa(item: PessoaTabela) {
     setId(item.id);
@@ -59,7 +97,7 @@ export function TabelaMaioresUsuarios({ data }: { data: PessoaTabela[] }) {
   return (
     <Table.Root
       columns={cols}
-      data={data}
+      data={tabelaPessoas}
       onSelect={handleSelectPessoa}
       selected={pessoa}
     />

@@ -60,7 +60,7 @@ export function SelectControl({
               >
                 <SelectPrimitive.Value placeholder="Selecione um item..." />
 
-                <SelectPrimitive.Icon className="ml-2">
+                <SelectPrimitive.Icon className="ml-4">
                   <FaChevronDown />
                 </SelectPrimitive.Icon>
               </button>

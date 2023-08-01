@@ -57,7 +57,7 @@ export const ButtonRoot = forwardRef<HTMLButtonElement, ButtonRootProps>(
         ref={ref}
         className={twMerge(
           "flex h-fit min-h-[36px] flex-row items-center justify-center space-x-3 rounded px-4 py-2 text-sm",
-          "drop-shadow-md",
+          "",
           "transition-all hover:opacity-80",
           color.container,
           className

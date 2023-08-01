@@ -5,5 +5,5 @@ interface ButtonIconProps {
 }
 
 export function ButtonIcon({ children }: ButtonIconProps) {
-  return <div className="drop-shadow-md">{children}</div>;
+  return <div className="">{children}</div>;
 }

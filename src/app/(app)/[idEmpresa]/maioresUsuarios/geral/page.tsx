@@ -1,9 +1,9 @@
 import { Box, PageInitializer } from "@/components";
 import { prisma } from "@/lib/db/prisma";
-import { PessoaTabela, TabelaMaioresUsuarios } from "./TabelaMaioresUsuarios";
-import { differenceInYears } from "date-fns";
+import { TabelaMaioresUsuarios } from "./TabelaMaioresUsuarios";
 import { DetalhesPessoa } from "./DetalhesPessoa";
 import { Prisma } from "@prisma/client";
+import { Filtros } from "./Filtros";
 
 type Props = {
   params: {
@@ -33,6 +33,9 @@ export type PessoaWithEventosCategoriaPlanoTipoTitularidade =
   }>;
 
 export default async function Page({ params: { idEmpresa } }: Props) {
+  const categorias = await prisma.categoria.findMany();
+  const cids = await prisma.cid.findMany();
+
   const pessoas = await prisma.pessoa.findMany({
     where: {
       idEmpresa: +idEmpresa,
@@ -53,30 +56,6 @@ export default async function Page({ params: { idEmpresa } }: Props) {
     },
   });
 
-  let tabelaPessoas = pessoas.map<PessoaTabela>((pessoa) => {
-    const idade = differenceInYears(new Date(), pessoa.dataNascimento!);
-    const sinistroTotal = pessoa.eventos.reduce(
-      (sum, current) => sum + current.custoTotal,
-      0
-    );
-    const titularidade = pessoa.tipoTitularidade.nome;
-    const plano = pessoa.plano.nome;
-
-    return {
-      id: pessoa.id,
-      nome: pessoa.nome,
-      idade,
-      sinistroTotal,
-      titularidade,
-      dependentes: pessoa.dependentes.length,
-      plano,
-    };
-  });
-
-  tabelaPessoas = tabelaPessoas
-    .sort((a, b) => b.sinistroTotal - a.sinistroTotal)
-    .splice(0, 10);
-
   return (
     <div className="space-y-5 p-5">
       <PageInitializer
@@ -86,9 +65,16 @@ export default async function Page({ params: { idEmpresa } }: Props) {
       />
 
       <Box.Root>
+        <Box.Title>Filtros</Box.Title>
+        <Box.Content className="px-4">
+          <Filtros categorias={categorias} cids={cids} />
+        </Box.Content>
+      </Box.Root>
+
+      <Box.Root>
         <Box.Title>Maiores 10 usuários</Box.Title>
         <Box.Content>
-          <TabelaMaioresUsuarios data={tabelaPessoas} />
+          <TabelaMaioresUsuarios pessoas={pessoas} />
         </Box.Content>
       </Box.Root>
 

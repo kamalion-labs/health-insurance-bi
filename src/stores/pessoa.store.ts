@@ -1,12 +1,12 @@
 import { create } from "zustand";
 
 interface PessoaState {
-  id: number;
+  id: number | undefined;
 
-  setId: (id: number) => void;
+  setId: (id: number | undefined) => void;
 }
 
 export const usePessoa = create<PessoaState>((set) => ({
-  id: 0,
-  setId: (id: number) => set(() => ({ id })),
+  id: undefined,
+  setId: (id: number | undefined) => set(() => ({ id })),
 }));

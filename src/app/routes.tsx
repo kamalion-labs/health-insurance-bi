@@ -3,7 +3,7 @@ import {
   FaChartColumn,
   FaDollarSign,
   FaLock,
-  FaUser,
+  FaUserPlus,
   FaUsers,
   FaVirusCovid,
 } from "react-icons/fa6";
@@ -35,11 +35,11 @@ export const Routes: NavItemProps[] = [
         href: "/:idEmpresa/covid/exames",
         id: "covidExames",
       },
-      {
-        title: "Internação",
-        href: "/:idEmpresa/covid/internacao",
-        id: "covidInternacao",
-      },
+      // {
+      //   title: "Internação",
+      //   href: "/:idEmpresa/covid/internacao",
+      //   id: "covidInternacao",
+      // },
     ],
   },
   {
@@ -89,7 +89,7 @@ export const Routes: NavItemProps[] = [
   {
     title: "Maiores Usuários",
     id: "maioresUsuarios",
-    icon: <FaUser size={24} />,
+    icon: <FaUserPlus size={24} />,
     items: [
       {
         title: "Geral",

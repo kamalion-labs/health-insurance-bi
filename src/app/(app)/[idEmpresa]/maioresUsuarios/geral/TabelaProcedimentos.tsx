@@ -5,6 +5,11 @@ import { TableColumn } from "@/components/Table/TableHeader";
 
 const cols: TableColumn[] = [
   {
+    key: "dataRealizacao",
+    label: "Data",
+    type: "date",
+  },
+  {
     key: "tuss",
     label: "Código",
     type: "text",

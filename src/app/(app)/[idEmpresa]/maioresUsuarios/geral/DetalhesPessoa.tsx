@@ -24,6 +24,7 @@ export function DetalhesPessoa({
 
   const tabelaEventos = pessoa.eventos.map<ProcedimentoTabela>((evento) => {
     return {
+      dataRealizacao: evento.dataRealizacao,
       nome: evento.procedimento.nome,
       tuss: evento.procedimento.tuss,
       categoria: evento.procedimento.categoria.nome,
