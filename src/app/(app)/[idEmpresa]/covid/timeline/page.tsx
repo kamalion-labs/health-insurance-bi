@@ -2,6 +2,8 @@ import { Box, PageInitializer } from "@/components";
 import { prisma } from "@/lib/db/prisma";
 import { GraficoQuantidadeEventosPorCompetencia } from "./GraficoQuantidadeEventosPorCompetencia";
 import { GraficoFaturamentoPorCompetencia } from "./GraficoFaturamentoPorCompetencia";
+import { Tuss } from "@/lib/consts";
+import { GraficoExamesPorCompetencia } from "./GraficoExamesPorCompetencia";
 
 type Props = {
   params: {
@@ -19,6 +21,7 @@ export default async function Page({ params: { idEmpresa } }: Props) {
   const eventos = await prisma.evento.findMany({
     include: {
       CID: true,
+      procedimento: true,
     },
     where: {
       pessoa: {
@@ -26,6 +29,10 @@ export default async function Page({ params: { idEmpresa } }: Props) {
       },
     },
   });
+
+  const examesCovid = eventos.filter((evento) =>
+    Tuss.tussCovid.includes(evento.procedimento.tuss)
+  );
 
   return (
     <div className="space-y-3 p-4">
@@ -53,6 +60,14 @@ export default async function Page({ params: { idEmpresa } }: Props) {
 
           <Box.Content className="h-[250px]">
             <GraficoFaturamentoPorCompetencia data={eventos} />
+          </Box.Content>
+        </Box.Root>
+
+        <Box.Root>
+          <Box.Title>Quantidade de Exames de Covid por Competência</Box.Title>
+
+          <Box.Content className="h-[250px]">
+            <GraficoExamesPorCompetencia data={examesCovid} />
           </Box.Content>
         </Box.Root>
       </div>

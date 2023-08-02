@@ -66,7 +66,7 @@ export default async function Internacao({ params: { idEmpresa } }: Props) {
   return (
     <div className="space-y-5 p-4">
       <PageInitializer
-        title="Internação de pessoas por Covid-19"
+        title="Detalhamento de pessoas que foram Internadas Covid-19"
         id="covidInternacao"
         parentId="covid"
       />
@@ -110,6 +110,7 @@ export default async function Internacao({ params: { idEmpresa } }: Props) {
 
       <Box.Root>
         <Box.Title>Listagem de Internações de Covid</Box.Title>
+
         <Box.Content>
           <TabelaInternacoesCovid data={tabelaInternacoes} />
         </Box.Content>
