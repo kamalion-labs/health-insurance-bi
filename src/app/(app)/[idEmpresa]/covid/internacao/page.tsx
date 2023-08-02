@@ -7,6 +7,8 @@ import {
   InternacoesTabela,
   TabelaInternacoesCovid,
 } from "./TabelaInternacoesCovid";
+import { GraficoInternacoesPorSexo } from "./GraficoInternacoesPorSexo";
+import { GraficoInternacoesPorTitularidade } from "./GraficoInternacoesPorTitularidade";
 
 type Props = {
   params: {
@@ -115,6 +117,26 @@ export default async function Internacao({ params: { idEmpresa } }: Props) {
           <TabelaInternacoesCovid data={tabelaInternacoes} />
         </Box.Content>
       </Box.Root>
+
+      <div className="grid grid-cols-2 gap-5">
+        <Box.Root>
+          <Box.Title>Quantidade de Internações de Covid-19 por Sexo</Box.Title>
+
+          <Box.Content className="h-[300px]">
+            <GraficoInternacoesPorSexo data={pessoas} />
+          </Box.Content>
+        </Box.Root>
+
+        <Box.Root>
+          <Box.Title>
+            Quantidade de Internações de Covid-19 por Titularidade
+          </Box.Title>
+
+          <Box.Content className="h-[300px]">
+            <GraficoInternacoesPorTitularidade data={pessoas} />
+          </Box.Content>
+        </Box.Root>
+      </div>
     </div>
   );
 }

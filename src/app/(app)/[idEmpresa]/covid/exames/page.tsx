@@ -4,6 +4,8 @@ import { ExamesTabela, TabelaExamesCovid } from "./TabelaExamesCovid";
 import { Pessoa } from "@prisma/client";
 import { differenceInYears } from "date-fns";
 import { Tuss } from "@/lib/consts";
+import { GraficoExamesPorSexo } from "./GraficoExamesPorSexo";
+import { GraficoExamesPorTitularidade } from "./GraficoExamesPorTitularidade";
 
 type Props = {
   params: {
@@ -111,6 +113,26 @@ export default async function Exames({ params: { idEmpresa } }: Props) {
           <TabelaExamesCovid data={tabelaExames} />
         </Box.Content>
       </Box.Root>
+
+      <div className="grid grid-cols-2 gap-5">
+        <Box.Root>
+          <Box.Title>Quantidade de exames de Covid-19 por Sexo</Box.Title>
+
+          <Box.Content className="h-[300px]">
+            <GraficoExamesPorSexo data={pessoas} />
+          </Box.Content>
+        </Box.Root>
+
+        <Box.Root>
+          <Box.Title>
+            Quantidade de exames de Covid-19 por Titularidade
+          </Box.Title>
+
+          <Box.Content className="h-[300px]">
+            <GraficoExamesPorTitularidade data={pessoas} />
+          </Box.Content>
+        </Box.Root>
+      </div>
     </div>
   );
 }
