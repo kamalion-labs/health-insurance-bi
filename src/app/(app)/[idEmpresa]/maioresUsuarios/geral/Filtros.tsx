@@ -2,17 +2,9 @@
 
 import { Button, Select } from "@/components";
 import { useFiltro, usePessoa } from "@/stores";
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Categoria, Cid } from "@prisma/client";
-import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { FaMagnifyingGlass } from "react-icons/fa6";
-import { z } from "zod";
-
-const formSchema = z.object({
-  idCategoria: z.coerce.number().optional(),
-});
-
-type FormData = z.infer<typeof formSchema>;
 
 export function Filtros({
   categorias,
@@ -24,17 +16,13 @@ export function Filtros({
   const { idCategoria, setIdCategoria } = useFiltro();
   const { setId } = usePessoa();
 
+  const [FilterIdCategoria, setFilterIdCategoria] = useState(idCategoria);
+
   categorias = [{ id: 0, nome: "Todas" }, ...categorias];
 
-  const { control, handleSubmit } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      idCategoria,
-    },
-  });
-
-  function handleFilter(formData: FormData) {
-    setIdCategoria(formData.idCategoria ? +formData.idCategoria : undefined);
+  function handleFilter(e: any) {
+    e.preventDefault();
+    setIdCategoria(FilterIdCategoria ? +FilterIdCategoria : undefined);
   }
 
   function handleLimpar() {
@@ -43,11 +31,12 @@ export function Filtros({
     // setCid(null);
   }
 
+  function handleChangeCategoria(e: any) {
+    setFilterIdCategoria(e);
+  }
+
   return (
-    <form
-      className="flex flex-col space-y-5"
-      onSubmit={handleSubmit(handleFilter)}
-    >
+    <form className="flex flex-col space-y-5" onSubmit={handleFilter}>
       <div className="flex space-x-5">
         <div className="flex">
           <Select.Root className="flex">
@@ -59,8 +48,9 @@ export function Filtros({
                 label: categoria.nome,
               }))}
               name="categoria"
-              control={control}
               defaultValue={"0"}
+              value={FilterIdCategoria}
+              onChange={handleChangeCategoria}
             />
           </Select.Root>
         </div>
@@ -69,7 +59,7 @@ export function Filtros({
           <Select.Root className="flex">
             <Select.Label htmlFor="cid" text="CID:" />
 
-            <Select.Control data={[]} name="cid" control={control} />
+            {/* <Select.Control data={[]} name="cid" control={control} /> */}
           </Select.Root>
         </div>
       </div>
