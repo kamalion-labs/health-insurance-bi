@@ -35,11 +35,11 @@ export const Routes: NavItemProps[] = [
         href: "/:idEmpresa/covid/exames",
         id: "covidExames",
       },
-      // {
-      //   title: "Internação",
-      //   href: "/:idEmpresa/covid/internacao",
-      //   id: "covidInternacao",
-      // },
+      {
+        title: "Internação",
+        href: "/:idEmpresa/covid/internacao",
+        id: "covidInternacao",
+      },
     ],
   },
   {

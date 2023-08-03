@@ -2,8 +2,8 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 interface SessionState {
-  idEmpresa: number;
-  setIdEmpresa: (idEmpresa: number) => void;
+  idEmpresa: number | undefined;
+  setIdEmpresa: (idEmpresa: number | undefined) => void;
 }
 
 export const useSession = create<SessionState>()(

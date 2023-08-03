@@ -10,8 +10,6 @@ export async function POST(
 
   data.idOperadora = params.idOperadora;
 
-  console.log({ data });
-
   await ArquivosRepositorio.criar(data);
 
   return NextResponse.json({ success: true });

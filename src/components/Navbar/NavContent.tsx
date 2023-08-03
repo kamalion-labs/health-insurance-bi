@@ -5,6 +5,7 @@ import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { twMerge } from "tailwind-merge";
 import { NavItemProps } from "./NavItemProps";
 import { useParams } from "next/navigation";
+import { useSession } from "@/stores/session.store";
 
 type Props = {
   items: NavItemProps[];
@@ -12,7 +13,14 @@ type Props = {
 
 export function NavContent({ items }: Props) {
   const { id: currentPageId, parentId, setId } = usePage();
+  const session = useSession();
+
   const params = useParams();
+  let idEmpresa = params.idEmpresa;
+
+  if (!idEmpresa) {
+    idEmpresa = session.idEmpresa?.toString()!;
+  }
 
   return (
     <div className="z-50 flex flex-auto flex-col">
@@ -56,9 +64,7 @@ export function NavContent({ items }: Props) {
                     {item.items.map((sub) => (
                       <NavigationMenu.Link
                         key={sub.id}
-                        href={
-                          sub?.href?.replace(":idEmpresa", params.idEmpresa)!
-                        }
+                        href={sub?.href?.replace(":idEmpresa", idEmpresa)!}
                         className={twMerge(
                           "group flex w-full select-none items-center px-4 py-2 transition-colors hover:bg-slate-100 hover:text-primary",
                           "dark:hover:bg-slate-700 dark:hover:text-white",

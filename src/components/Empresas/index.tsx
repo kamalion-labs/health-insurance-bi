@@ -4,7 +4,7 @@ import { Routes } from "@/app/routes";
 import { usePage } from "@/stores";
 import { Empresa } from "@prisma/client";
 import * as SelectPrimitive from "@radix-ui/react-select";
-import { useRouter, useParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   FaBuilding,
   FaCheck,
@@ -13,14 +13,19 @@ import {
 } from "react-icons/fa6";
 import { twMerge } from "tailwind-merge";
 import { NavItemProps } from "../Navbar/NavItemProps";
+import { useSession } from "@/stores/session.store";
 
 export function Empresas({ data }: { data: Empresa[] }) {
   const { id, parentId } = usePage();
+  const { idEmpresa, setIdEmpresa } = useSession();
 
   const router = useRouter();
-  const params = useParams();
 
   if (!data || parentId === "admin") return null;
+
+  if (!idEmpresa) {
+    setIdEmpresa(data[0].id);
+  }
 
   function handleChangeEmpresa(val: string) {
     const route = parentId
@@ -32,13 +37,15 @@ export function Empresas({ data }: { data: Empresa[] }) {
           .find((x) => x.id === id)
       : Routes.find((x) => x.id === id);
 
+    setIdEmpresa(+val);
+
     router.push(route?.href?.replace(":idEmpresa", val)!);
   }
 
   return (
     <SelectPrimitive.Root
       defaultValue={data[0].id.toString()}
-      value={params.idEmpresa}
+      value={idEmpresa?.toString()}
       onValueChange={handleChangeEmpresa}
     >
       <SelectPrimitive.Trigger asChild>
