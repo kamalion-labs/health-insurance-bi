@@ -47,6 +47,7 @@ model Cid {
 
 model Especialidade {
     id            Int            @id @default(autoincrement())
+    codigo        String         @unique
     nome          String
     procedimentos Procedimento[]
 }
@@ -66,6 +67,7 @@ model Procedimento {
 
 model Categoria {
     id            Int            @id @default(autoincrement())
+    codigo        String         @unique
     nome          String
     procedimentos Procedimento[]
     subcategorias SubCategoria[]
