@@ -84,6 +84,11 @@ export const Routes: NavItemProps[] = [
         href: "/:idEmpresa/analise/porRedeReembolso",
         id: "analisePorRedeReembolso",
       },
+      {
+        title: "De Exames",
+        href: "/:idEmpresa/analise/deExames",
+        id: "analiseDeExames",
+      },
     ],
   },
   {

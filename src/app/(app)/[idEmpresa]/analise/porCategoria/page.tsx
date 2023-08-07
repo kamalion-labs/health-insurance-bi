@@ -125,7 +125,7 @@ export default async function Page({ params: { idEmpresa } }: Props) {
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         <Box.Root>
-          <Box.Title>Serviços (Qtd) por competência</Box.Title>
+          <Box.Title>Serviços (Qtd) por Competência</Box.Title>
 
           <Box.Content className="h-[300px]">
             <GraficoServicosPorCompetencia
