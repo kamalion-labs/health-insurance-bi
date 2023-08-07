@@ -3,42 +3,19 @@ import { hash } from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 import resetarSenha from "@/lib/usuario/dominio/resetarSenha";
 
-export async function GET(req: NextRequest) {
-  const id = Number(req.headers.get("X-USER-ID"));
-
-  if (!id) {
-    return NextResponse.json(
-      {
-        success: false,
-        message: "You are not logged in, please provide token to gain access",
-      },
-      {
-        status: 401,
-        statusText: "Unauthorized",
-      }
-    );
-  }
-
-  const user = await prisma.usuario.findUnique({ where: { id } });
-
-  return NextResponse.json({
-    status: "success",
-    data: { user: { ...user, senha: undefined } },
-  });
-}
-
-export async function POST(req: NextRequest) {
+export async function PATCH(
+  req: NextRequest,
+  { params: { id } }: { params: { id: string } }
+) {
   try {
-    const data = await req.json();
-
     const hashedPassword = await hash("376!cgv6#$3g4b7$ç34", 12);
 
-    const user = await prisma.usuario.create({
+    const user = await prisma.usuario.update({
+      where: {
+        id: +id,
+      },
       data: {
-        nome: data.nome,
-        email: data.email,
         senha: hashedPassword,
-        admin: data.admin,
         ativo: false,
       },
     });
@@ -48,7 +25,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(
       {
         success: true,
-        data: { user: { ...user, senha: undefined } },
       },
       {
         status: 201,

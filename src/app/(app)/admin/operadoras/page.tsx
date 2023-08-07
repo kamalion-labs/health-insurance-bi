@@ -1,15 +1,25 @@
 import { PageInitializer } from "@/components";
-import { OperadoraRepositorio } from "@/lib/operadora/repositorio/OperadoraRepositorio";
 import { OperadoraForm } from "./(components)/OperadoraForm";
+import { prisma } from "@/lib/db/prisma";
 
-export default async function StudioPage() {
-  const data = await OperadoraRepositorio.listar();
+export const revalidate = 0;
+
+export default async function AdminPage() {
+  const operadoras = await prisma.operadora.findMany({
+    include: {
+      arquivos: {
+        include: {
+          colunas: true,
+        },
+      },
+    },
+  });
 
   return (
     <div className="p-4">
-      <PageInitializer id="admin" title="Admin" />
+      <PageInitializer id="operadoras" title="Operadoras" />
 
-      <OperadoraForm data={data} />
+      <OperadoraForm data={operadoras} />
     </div>
   );
 }

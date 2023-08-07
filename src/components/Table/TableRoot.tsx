@@ -15,7 +15,7 @@ interface TableRootProps {
     orderDirection: TableOrderDirection
   ) => any;
   onSelect?: (item: any) => Promise<void>;
-  onEdit?: (item: any) => Promise<void>;
+  onEdit?: (item: any) => any | Promise<any>;
 }
 
 export function TableRoot({

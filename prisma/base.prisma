@@ -17,4 +17,14 @@ model Usuario {
   criadoEm     DateTime? @default(now()) @db.Date
   atualizadoEm DateTime? @updatedAt @db.Date
   admin        Boolean   @default(false)
+
+  resetToken ResetToken[]
+}
+
+model ResetToken {
+  token         String   @id @default(uuid())
+  dataExpiracao DateTime @db.Timestamptz()
+
+  usuario   Usuario @relation(fields: [idUsuario], references: [id])
+  idUsuario Int
 }

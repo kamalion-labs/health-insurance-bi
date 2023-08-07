@@ -64,6 +64,8 @@ export function TabelaMaioresUsuarios({
       )
     : pessoas;
 
+  console.log({ idCategoria, filteredData });
+
   let tabelaPessoas = filteredData.map<PessoaTabela>((pessoa) => {
     const idade = differenceInYears(new Date(), pessoa.dataNascimento!);
     const sinistroTotal = pessoa.eventos.reduce(

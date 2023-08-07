@@ -83,7 +83,7 @@ export function NavContent({ items }: Props) {
             return (
               <NavigationMenu.Item key={item.id} asChild>
                 <NavigationMenu.Link
-                  href={item.href?.replace(":idEmpresa", params.idEmpresa)}
+                  href={item.href?.replace(":idEmpresa", idEmpresa)}
                   className={twMerge(
                     "group flex h-12 w-12 select-none items-center justify-center rounded-md drop-shadow-md transition-colors",
                     "hover:bg-slate-200 hover:text-primary",

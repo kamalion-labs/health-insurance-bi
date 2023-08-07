@@ -32,10 +32,14 @@ export function SelectControl({
   }: {
     field: HookForm.ControllerRenderProps<HookForm.FieldValues, string>;
   }) {
+    function handleOnChange(e: any) {
+      onChange(e);
+    }
+
     return (
       <SelectPrimitive.Root
-        value={value === "" ? undefined : value}
-        onValueChange={onChange}
+        value={value}
+        onValueChange={handleOnChange}
         name={name}
         disabled={disabled}
         defaultValue={defaultValue}
@@ -72,8 +76,8 @@ export function SelectControl({
               <SelectPrimitive.Group>
                 {data.map(({ key, label }) => (
                   <SelectPrimitive.Item
-                    key={key}
-                    value={key}
+                    key={key.toString()}
+                    value={key.toString()}
                     className={twMerge(
                       "relative flex items-center rounded px-8 py-2 text-sm font-medium text-zinc-700 focus:bg-gray-100",
                       "radix-disabled:opacity-50",

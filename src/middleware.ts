@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { verifyJWT } from "./lib/token";
 
-const key = "2e895b2f-127b-4057-bf4d-1a846968cf63";
+// const key = "2e895b2f-127b-4057-bf4d-1a846968cf63";
 
 interface AuthenticatedRequest extends NextRequest {
   user: {
@@ -26,18 +26,19 @@ export async function middleware(req: NextRequest) {
 
   if (
     req.nextUrl.pathname.startsWith("/login") ||
-    req.nextUrl.pathname.startsWith("/api/auth/login")
+    req.nextUrl.pathname.startsWith("/api/auth/login") ||
+    req.nextUrl.pathname.startsWith("/reset")
   ) {
     return response;
   }
 
-  if (req.nextUrl.pathname.startsWith("/api/usuario")) {
-    const data = await req.json();
+  // if (req.nextUrl.pathname.startsWith("/api/usuario")) {
+  //   const data = await req.json();
 
-    if (data.key === key) {
-      return response;
-    }
-  }
+  //   if (data.key === key) {
+  //     return response;
+  //   }
+  // }
 
   if (token) {
     const { sub } = await verifyJWT<{ sub: string }>(token);

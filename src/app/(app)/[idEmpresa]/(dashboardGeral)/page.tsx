@@ -4,17 +4,17 @@ import { GraficoFaturamentoSinistro } from "./GraficoFaturamentoSinistro";
 import { Box, Card, Money, PageInitializer } from "@/components";
 import { prisma } from "@/lib/db/prisma";
 
-type Props = {
-  params: {
-    idEmpresa: string;
-  };
-};
-
 export async function generateStaticParams() {
   const empresas = await prisma.empresa.findMany();
 
   return empresas.map((empresa) => ({ idEmpresa: empresa.id.toString() }));
 }
+
+type Props = {
+  params: {
+    idEmpresa: string;
+  };
+};
 
 export default async function GeralPage({ params: { idEmpresa } }: Props) {
   const eventos = await prisma.evento.findMany({

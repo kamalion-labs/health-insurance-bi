@@ -73,6 +73,8 @@ export default async function ANSPage({ params: { idEmpresa } }: Props) {
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         <Box.Root>
+          <Box.Title>Exames por Beneficiário</Box.Title>
+
           <Box.Content className="h-[300px]">
             <Grafico
               mediaANS={mediaANS.procedimentos}
