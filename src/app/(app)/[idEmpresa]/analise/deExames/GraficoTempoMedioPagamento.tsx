@@ -59,19 +59,17 @@ export function GraficoTempoMedioPagamento({ data }: { data: Evento[] }) {
       value.toLocaleString("pt-BR", { maximumFractionDigits: 2 }),
   };
 
-  const tempoMedio = (totalDiferencaDias / totalEventos);
+  const tempoMedio = totalDiferencaDias / totalEventos;
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3">
       <div className="flex items-center justify-center">
         <Card.Root className="flex w-[300px] flex-col items-center justify-center px-5 py-5">
           <Card.Value className="text-center text-2xl font-bold">
-            {
-              Math.abs(tempoMedio).toLocaleString("pt-BR", { maximumFractionDigits: 0 })
-            }{" "} dias {" "}
-            {
-              tempoMedio < 0 ? "adiantados" : ""
-            }
+            {Math.abs(tempoMedio).toLocaleString("pt-BR", {
+              maximumFractionDigits: 0,
+            })}{" "}
+            dias {tempoMedio < 0 ? "adiantados" : ""}
           </Card.Value>
 
           <Card.Title className="text-center">

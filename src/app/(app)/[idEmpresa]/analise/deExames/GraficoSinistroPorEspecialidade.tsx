@@ -6,8 +6,8 @@ import { PieSvgProps } from "@nivo/pie";
 import { Evento, Prisma } from "@prisma/client";
 
 type EspecidadeWithProcedimentoEvento = Prisma.EspecialidadeGetPayload<{
-  include: { procedimentos: { include: { eventos: true } } }
-}>
+  include: { procedimentos: { include: { eventos: true } } };
+}>;
 
 type DataType = {
   id: string;
@@ -16,26 +16,27 @@ type DataType = {
 };
 
 export function GraficoSinistroEspecialidade({
-  data
+  data,
 }: {
   data: EspecidadeWithProcedimentoEvento[];
 }) {
   const chartData: DataType[] = [];
 
-  for(const especialidade of data) {
+  for (const especialidade of data) {
     const eventos = especialidade.procedimentos.reduce<Evento[]>(
       (listaEventos, procedimento) => [
         ...listaEventos,
         ...procedimento.eventos,
-      ], []
-    )
+      ],
+      []
+    );
 
-    if(eventos.length > 0) {
+    if (eventos.length > 0) {
       chartData.push({
         id: especialidade.nome,
         value: eventos.reduce((sum, evento) => sum + evento.sinistro, 0),
         items: eventos,
-      })
+      });
     }
   }
 

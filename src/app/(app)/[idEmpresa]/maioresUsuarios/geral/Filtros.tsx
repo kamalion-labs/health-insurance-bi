@@ -18,7 +18,7 @@ export function Filtros({
 
   const [FilterIdCategoria, setFilterIdCategoria] = useState(idCategoria);
 
-  categorias = [{ id: 0, nome: "Todas" }, ...categorias];
+  categorias = [{ id: 0, nome: "Todas", codigo: "todas" }, ...categorias];
 
   function handleFilter(e: any) {
     e.preventDefault();

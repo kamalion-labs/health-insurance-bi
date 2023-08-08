@@ -26,13 +26,13 @@ export default async function Page({ params: { idEmpresa } }: Props) {
       },
       procedimento: {
         categoria: {
-          nome: 'Exames'
-        }
-      }
+          nome: "Exames",
+        },
+      },
     },
     include: {
       procedimento: { include: { categoria: true, especialidade: true } },
-    }
+    },
   });
 
   const especialidades = await prisma.especialidade.findMany({
@@ -40,8 +40,8 @@ export default async function Page({ params: { idEmpresa } }: Props) {
       procedimentos: {
         where: {
           categoria: {
-            nome: "Exames"
-          }
+            nome: "Exames",
+          },
         },
         include: {
           eventos: {
@@ -50,7 +50,7 @@ export default async function Page({ params: { idEmpresa } }: Props) {
                 idEmpresa: +idEmpresa,
               },
             },
-          }
+          },
         },
       },
     },
@@ -61,28 +61,25 @@ export default async function Page({ params: { idEmpresa } }: Props) {
       <PageInitializer
         title="De Exames"
         id="analiseDeExames"
-        parentId="analise" />
+        parentId="analise"
+      />
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         <Card.Root>
           <Card.Title>Exames (Qtd)</Card.Title>
-          <Card.Value className="flex flex-col">
-            {
-              exames.length
-            }
-          </Card.Value>
+          <Card.Value className="flex flex-col">{exames.length}</Card.Value>
         </Card.Root>
 
         <Card.Root>
           <Card.Title>Exames (R$)</Card.Title>
           <Card.Value className="flex flex-col">
             R${" "}
-            {
-              exames.reduce((soma, atual) => soma = soma + atual.custoTotal, 0).toLocaleString("pt-BR", {
+            {exames
+              .reduce((soma, atual) => (soma = soma + atual.custoTotal), 0)
+              .toLocaleString("pt-BR", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
-              })
-            }
+              })}
           </Card.Value>
         </Card.Root>
       </div>
@@ -90,10 +87,8 @@ export default async function Page({ params: { idEmpresa } }: Props) {
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         <Box.Root>
           <Box.Title>Sinistro por Especialidade (R$)</Box.Title>
-            {/** Pensando no melhor gráfico pra colocar aq */}
-          <Box.Content className="h-[250px]">
-            ;
-          </Box.Content>
+          {/** Pensando no melhor gráfico pra colocar aq */}
+          <Box.Content className="h-[250px]">;</Box.Content>
         </Box.Root>
 
         <Box.Root>
@@ -131,18 +126,17 @@ export default async function Page({ params: { idEmpresa } }: Props) {
             <GraficoGastosPorCompetencia data={exames} />
           </Box.Content>
         </Box.Root>
-        </div>
-        
-        <div className="grid grid-cols-1 gap-5">
-          <Box.Root>
-            <Box.Title>Tempo médio de pagamento por competência</Box.Title>
+      </div>
 
-            <Box.Content className="h-[350px]">
-              <GraficoTempoMedioPagamento data={exames} />
-            </Box.Content>
-          </Box.Root>
+      <div className="grid grid-cols-1 gap-5">
+        <Box.Root>
+          <Box.Title>Tempo médio de pagamento por competência</Box.Title>
+
+          <Box.Content className="h-[350px]">
+            <GraficoTempoMedioPagamento data={exames} />
+          </Box.Content>
+        </Box.Root>
       </div>
     </div>
-  )
-
+  );
 }

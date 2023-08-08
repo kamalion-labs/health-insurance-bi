@@ -1,7 +1,6 @@
 "use client";
 
 import { Chart } from "@/components";
-import { Cids } from "@/lib/consts";
 import { BarSvgProps } from "@nivo/bar";
 import { Prisma } from "@prisma/client";
 import { format } from "date-fns";

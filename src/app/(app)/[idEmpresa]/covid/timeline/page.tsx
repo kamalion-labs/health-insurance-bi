@@ -23,9 +23,9 @@ export default async function Page({ params: { idEmpresa } }: Props) {
       CID: true,
       procedimento: {
         include: {
-          categoria: true
-        }
-      }
+          categoria: true,
+        },
+      },
     },
     where: {
       pessoa: {
@@ -34,9 +34,9 @@ export default async function Page({ params: { idEmpresa } }: Props) {
     },
   });
 
-  const examesCovid = eventos.filter((evento) =>
-    Tuss.tussCovid.includes(evento.procedimento.tuss)
-  ).filter((evento) => evento.procedimento.categoria.nome === "Exames")
+  const examesCovid = eventos
+    .filter((evento) => Tuss.tussCovid.includes(evento.procedimento.tuss))
+    .filter((evento) => evento.procedimento.categoria.nome === "Exames");
 
   return (
     <div className="space-y-3 p-4">

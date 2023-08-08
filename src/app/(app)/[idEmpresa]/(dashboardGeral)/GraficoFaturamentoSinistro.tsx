@@ -65,6 +65,32 @@ export function GraficoFaturamentoSinistro({ data }: { data: Evento[] }) {
       `R$ ${value.toLocaleString("pt-BR", {
         minimumFractionDigits: 2,
       })}`,
+    margin: { top: 10, right: 10, bottom: 80, left: 100 },
+    legends: [
+      {
+        dataFrom: "keys",
+        anchor: "bottom-left",
+        direction: "row",
+        justify: false,
+        translateX: -80,
+        translateY: 70,
+        itemsSpacing: 2,
+        itemWidth: 100,
+        itemHeight: 20,
+        itemDirection: "left-to-right",
+        itemOpacity: 0.85,
+        symbolSize: 20,
+        symbolShape: "circle",
+        effects: [
+          {
+            on: "hover",
+            style: {
+              itemOpacity: 1,
+            },
+          },
+        ],
+      },
+    ],
   };
 
   return <Chart.Bar {...options} />;

@@ -62,6 +62,7 @@ export function GraficoSinistralidadeTempo({ data }: { data: Evento[] }) {
       min: "auto",
       max: "auto",
     },
+    enableArea: true,
     axisLeft: {
       tickValues: 4,
       format: (value: number) =>

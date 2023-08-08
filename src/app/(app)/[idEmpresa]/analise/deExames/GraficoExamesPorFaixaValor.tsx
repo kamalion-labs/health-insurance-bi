@@ -98,4 +98,3 @@ export function GraficoExamesPorFaixaValor({ data }: { data: Evento[] }) {
     </div>
   );
 }
-
