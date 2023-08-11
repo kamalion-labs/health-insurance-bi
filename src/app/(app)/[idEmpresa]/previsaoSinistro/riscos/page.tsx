@@ -3,6 +3,8 @@ import { prisma } from "@/lib/db/prisma";
 import { TabelaRiscoDM } from "./TabelaRiscoDM";
 import { Prisma } from "@prisma/client";
 import { TabelaRiscoHAS } from "./TabelaRiscoHAS";
+import { GraficoRiscoDM } from "./GraficoRiscoDM";
+import { GraficoRiscoHAS } from "./GraficoRiscoHAS";
 
 type Props = {
   params: {
@@ -124,13 +126,17 @@ export default async function Page({ params: { idEmpresa } }: Props) {
         <Box.Root>
           <Box.Title>Quantidade por Risco DM</Box.Title>
 
-          <Box.Content>{"."}</Box.Content>
+          <Box.Content className="h-[300px]">
+            <GraficoRiscoDM data={pessoas} />
+          </Box.Content>
         </Box.Root>
 
         <Box.Root>
           <Box.Title>Quantidade por Risco HAS</Box.Title>
 
-          <Box.Content>{"."}</Box.Content>
+          <Box.Content className="h-[300px]">
+            <GraficoRiscoHAS data={pessoas} />
+          </Box.Content>
         </Box.Root>
       </div>
 
