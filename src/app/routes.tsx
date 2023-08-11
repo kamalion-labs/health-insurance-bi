@@ -1,6 +1,7 @@
 import { NavItemProps } from "@/components/Navbar/NavItemProps";
 import {
   FaChartColumn,
+  FaChartLine,
   FaDollarSign,
   FaLock,
   FaUserPlus,
@@ -88,6 +89,18 @@ export const Routes: NavItemProps[] = [
         title: "De Exames",
         href: "/:idEmpresa/analise/deExames",
         id: "analiseDeExames",
+      },
+    ],
+  },
+  {
+    title: "Previsão de Sinistro",
+    id: "previsaoSinistro",
+    icon: <FaChartLine size={24} />,
+    items: [
+      {
+        title: "Risco de DM e HAS",
+        href: "/:idEmpresa/previsaoSinistro/riscos",
+        id: "riscos",
       },
     ],
   },
