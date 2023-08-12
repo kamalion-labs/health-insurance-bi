@@ -102,6 +102,11 @@ export const Routes: NavItemProps[] = [
         href: "/:idEmpresa/previsaoSinistro/riscos",
         id: "riscos",
       },
+      {
+        title: "Guias de Liberação",
+        href: "/:idEmpresa/previsaoSinistro/guiasLiberacao",
+        id: "guiasLiberacao",
+      },
     ],
   },
   {
