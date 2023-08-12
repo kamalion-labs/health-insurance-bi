@@ -11,6 +11,7 @@ import { insertCids } from "./cid";
 import { insertPrestadores } from "./prestador";
 import { insertEventos } from "./evento";
 import { PrismaClient } from "@prisma/client";
+import { insertLiberacao } from "./liberacao";
 
 const prisma = new PrismaClient();
 
@@ -29,6 +30,7 @@ async function main() {
   await insertCids(prisma);
   await insertPrestadores(prisma);
   await insertEventos(prisma);
+  await insertLiberacao(prisma);
 }
 
 main()
