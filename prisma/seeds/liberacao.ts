@@ -17,10 +17,14 @@ export async function insertLiberacao(prisma: PrismaClient) {
         situacaoSenha: "LIBERADA",
         possuiLiminar: true,
         regimeInternacao: "HOSPITALAR",
-        dataSolicitacao: dataAtual,
+        dataSolicitacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 1,
+          dataAtual.getDate() + 10
+        ),
         dataInternacao: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 1,
           dataAtual.getDate() + 10
         ),
         idPlano: 1,
@@ -38,11 +42,15 @@ export async function insertLiberacao(prisma: PrismaClient) {
         situacaoSenha: "LIBERADA",
         possuiLiminar: true,
         regimeInternacao: "HOSPITAL_DIA",
-        dataSolicitacao: dataAtual,
+        dataSolicitacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 1,
+          dataAtual.getDate() + 10
+        ),
         dataInternacao: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
-          dataAtual.getDate() + 15
+          dataAtual.getMonth() - 1,
+          dataAtual.getDate() + 20
         ),
         idPlano: 1,
         idPrestador: 1,
@@ -59,7 +67,11 @@ export async function insertLiberacao(prisma: PrismaClient) {
         situacaoSenha: "NEGADA",
         possuiLiminar: true,
         regimeInternacao: "HOSPITALAR",
-        dataSolicitacao: dataAtual,
+        dataSolicitacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 2,
+          dataAtual.getDate() + 10
+        ),
         idPlano: 1,
         idPrestador: 2,
       },
@@ -75,11 +87,15 @@ export async function insertLiberacao(prisma: PrismaClient) {
         situacaoSenha: "LIBERADA",
         possuiLiminar: false,
         regimeInternacao: "HOSPITALAR",
-        dataSolicitacao: dataAtual,
+        dataSolicitacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 2,
+          dataAtual.getDate()
+        ),
         dataInternacao: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
-          dataAtual.getDate() + 15
+          dataAtual.getMonth() - 2,
+          dataAtual.getDate() + 8
         ),
         idPlano: 1,
         idPrestador: 3,
@@ -94,9 +110,13 @@ export async function insertLiberacao(prisma: PrismaClient) {
         diasSolicitacaoSenha: 5,
         diasLiberacaoSenha: 8,
         situacaoSenha: "NEGADA",
-        possuiLiminar: true,
+        possuiLiminar: false,
         regimeInternacao: "HOSPITAL_DIA",
-        dataSolicitacao: dataAtual,
+        dataSolicitacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() + 1,
+          dataAtual.getDate() + 10
+        ),
         idPlano: 1,
         idPrestador: 4,
       },
@@ -110,9 +130,13 @@ export async function insertLiberacao(prisma: PrismaClient) {
         diasSolicitacaoSenha: 4,
         diasLiberacaoSenha: 4,
         situacaoSenha: "LIBERADA",
-        possuiLiminar: true,
+        possuiLiminar: false,
         regimeInternacao: "HOSPITALAR",
-        dataSolicitacao: dataAtual,
+        dataSolicitacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() + 1,
+          dataAtual.getDate() + 20
+        ),
         idPlano: 2,
         idPrestador: 1,
       },
@@ -128,7 +152,11 @@ export async function insertLiberacao(prisma: PrismaClient) {
         situacaoSenha: "NEGADA",
         possuiLiminar: false,
         regimeInternacao: "HOSPITALAR",
-        dataSolicitacao: dataAtual,
+        dataSolicitacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 3,
+          dataAtual.getDate() + 10
+        ),
         idPlano: 2,
         idPrestador: 2,
       },
@@ -144,7 +172,11 @@ export async function insertLiberacao(prisma: PrismaClient) {
         situacaoSenha: "LIBERADA",
         possuiLiminar: true,
         regimeInternacao: "HOSPITAL_DIA",
-        dataSolicitacao: dataAtual,
+        dataSolicitacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 3,
+          dataAtual.getDate() + 4
+        ),
         dataInternacao: new Date(
           dataAtual.getFullYear(),
           dataAtual.getMonth(),
@@ -163,12 +195,16 @@ export async function insertLiberacao(prisma: PrismaClient) {
         diasSolicitacaoSenha: 4,
         diasLiberacaoSenha: 4,
         situacaoSenha: "LIBERADA",
-        possuiLiminar: true,
+        possuiLiminar: false,
         regimeInternacao: "HOSPITAL_DIA",
-        dataSolicitacao: dataAtual,
+        dataSolicitacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 3,
+          dataAtual.getDate()
+        ),
         dataInternacao: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 3,
           dataAtual.getDate() + 4
         ),
         idPlano: 2,
@@ -186,10 +222,14 @@ export async function insertLiberacao(prisma: PrismaClient) {
         situacaoSenha: "LIBERADA",
         possuiLiminar: true,
         regimeInternacao: "HOSPITALAR",
-        dataSolicitacao: dataAtual,
+        dataSolicitacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 2,
+          dataAtual.getDate()
+        ),
         dataInternacao: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 2,
           dataAtual.getDate() + 4
         ),
         idPlano: 2,
@@ -207,7 +247,11 @@ export async function insertLiberacao(prisma: PrismaClient) {
         situacaoSenha: "NEGADA",
         possuiLiminar: true,
         regimeInternacao: "HOSPITAL_DIA",
-        dataSolicitacao: dataAtual,
+        dataSolicitacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 2,
+          dataAtual.getDate()
+        ),
         idPlano: 2,
         idPrestador: 4,
       },
@@ -223,10 +267,14 @@ export async function insertLiberacao(prisma: PrismaClient) {
         situacaoSenha: "LIBERADA",
         possuiLiminar: true,
         regimeInternacao: "HOSPITALAR",
-        dataSolicitacao: dataAtual,
+        dataSolicitacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 2,
+          dataAtual.getDate()
+        ),
         dataInternacao: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 2,
           dataAtual.getDate() + 4
         ),
         idPlano: 3,
@@ -242,12 +290,16 @@ export async function insertLiberacao(prisma: PrismaClient) {
         diasSolicitacaoSenha: 4,
         diasLiberacaoSenha: 4,
         situacaoSenha: "LIBERADA",
-        possuiLiminar: true,
+        possuiLiminar: false,
         regimeInternacao: "HOSPITAL_DIA",
-        dataSolicitacao: dataAtual,
+        dataSolicitacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 2,
+          dataAtual.getDate()
+        ),
         dataInternacao: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 2,
           dataAtual.getDate() + 4
         ),
         idPlano: 3,
@@ -265,10 +317,14 @@ export async function insertLiberacao(prisma: PrismaClient) {
         situacaoSenha: "LIBERADA",
         possuiLiminar: true,
         regimeInternacao: "HOSPITALAR",
-        dataSolicitacao: dataAtual,
+        dataSolicitacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 1,
+          dataAtual.getDate()
+        ),
         dataInternacao: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 1,
           dataAtual.getDate() + 4
         ),
         idPlano: 3,
@@ -284,12 +340,16 @@ export async function insertLiberacao(prisma: PrismaClient) {
         diasSolicitacaoSenha: 4,
         diasLiberacaoSenha: 4,
         situacaoSenha: "LIBERADA",
-        possuiLiminar: true,
+        possuiLiminar: false,
         regimeInternacao: "HOSPITAL_DIA",
-        dataSolicitacao: dataAtual,
+        dataSolicitacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 1,
+          dataAtual.getDate()
+        ),
         dataInternacao: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth(),
+          dataAtual.getMonth() - 1,
           dataAtual.getDate() + 4
         ),
         idPlano: 3,
@@ -307,7 +367,11 @@ export async function insertLiberacao(prisma: PrismaClient) {
         situacaoSenha: "NEGADA",
         possuiLiminar: true,
         regimeInternacao: "HOSPITAL_DIA",
-        dataSolicitacao: dataAtual,
+        dataSolicitacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth(),
+          dataAtual.getDate() + 10
+        ),
         idPlano: 3,
         idPrestador: 1,
       },
@@ -321,7 +385,7 @@ export async function insertLiberacao(prisma: PrismaClient) {
         diasSolicitacaoSenha: 4,
         diasLiberacaoSenha: 4,
         situacaoSenha: "NEGADA",
-        possuiLiminar: true,
+        possuiLiminar: false,
         regimeInternacao: "HOSPITALAR",
         dataSolicitacao: dataAtual,
         idPlano: 3,
