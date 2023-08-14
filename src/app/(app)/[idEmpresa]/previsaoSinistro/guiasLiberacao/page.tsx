@@ -4,6 +4,7 @@ import { GraficoLiminar } from "./GraficoLiminar";
 import { GraficoSituacaoSenha } from "./GraficoSituacaoSenha";
 import { GraficoPorCompetenciaPrestador } from "./GraficoPorCompetenciaPrestador";
 import { GraficoPorCompetenciaPlano } from "./GraficoPorCompetenciaPlano";
+import { TabelaLiberacoes } from "./TabelaLiberacoes";
 
 type Props = {
   params: {
@@ -140,6 +141,14 @@ export default async function Page({ params: { idEmpresa } }: Props) {
           </Box.Content>
         </Box.Root>
       </div>
+
+      <Box.Root>
+        <Box.Title>Liberações</Box.Title>
+
+        <Box.Content>
+          <TabelaLiberacoes liberacoes={liberacoes} />
+        </Box.Content>
+      </Box.Root>
     </div>
   );
 }
