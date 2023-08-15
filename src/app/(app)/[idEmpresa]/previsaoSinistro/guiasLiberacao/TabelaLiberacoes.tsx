@@ -73,17 +73,17 @@ const cols: TableColumn[] = [
 
 export interface LiberacaoTabela {
   certificado: number;
-  dependencia: number;
-  contrato: number;
-  subfatura: number;
-  dataSolicitacao: Date;
-  possuiLiminar: boolean;
-  regimeInternacao: string;
-  dataInternacao: Date;
-  senha: string;
-  situacaoSenha: string;
-  diasSolicitacaoSenha: number;
-  diasLiberacaoSenha: number;
+  dependencia: number | null;
+  contrato: number | null;
+  subfatura: number | null;
+  dataSolicitacao: Date | null;
+  possuiLiminar: string;
+  regimeInternacao: string | null;
+  dataInternacao: Date | null;
+  senha: string | null;
+  situacaoSenha: string | null;
+  diasSolicitacaoSenha: number | null;
+  diasLiberacaoSenha: number | null;
 }
 
 export function TabelaLiberacoes({
@@ -93,6 +93,7 @@ export function TabelaLiberacoes({
 }) {
   let tabelaLiberacoes = liberacoes.map<LiberacaoTabela>((liberacao) => {
     const possuiLiminar = liberacao.possuiLiminar ? "Sim" : "Não";
+
     // verificar o que preencher quando for null.
     // const dataInternacao = liberacao.dataInternacao
     //   ? liberacao.dataInternacao
@@ -118,8 +119,8 @@ export function TabelaLiberacoes({
 
   tabelaLiberacoes = tabelaLiberacoes.sort(
     (a, b) =>
-      new Date(a.dataSolicitacao).getTime() -
-      new Date(b.dataSolicitacao).getTime()
+      new Date(a.dataSolicitacao!).getTime() -
+      new Date(b.dataSolicitacao!).getTime()
   ); // Verificar a adição do splice ou criação da paginação aqui
 
   return <Table.Root columns={cols} data={tabelaLiberacoes} />;
