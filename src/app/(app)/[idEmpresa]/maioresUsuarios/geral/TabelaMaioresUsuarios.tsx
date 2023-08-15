@@ -102,6 +102,7 @@ export function TabelaMaioresUsuarios({
       data={tabelaPessoas}
       onSelect={handleSelectPessoa}
       selected={pessoa}
+      usePagination={false}
     />
   );
 }

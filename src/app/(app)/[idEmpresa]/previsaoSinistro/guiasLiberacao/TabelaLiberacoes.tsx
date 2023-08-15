@@ -99,8 +99,6 @@ export function TabelaLiberacoes({
     //   ? liberacao.dataInternacao
     //   : new Date();
 
-    console.log(liberacao.dataInternacao);
-
     return {
       certificado: liberacao.certificado,
       dependencia: liberacao.dependencia,

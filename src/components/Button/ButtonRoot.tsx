@@ -17,6 +17,7 @@ interface ButtonRootProps {
   submit?: boolean;
   onClick?: () => void | Promise<void>;
   isLoading?: boolean;
+  disabled?: boolean;
 }
 
 const colors = {
@@ -45,6 +46,7 @@ export const ButtonRoot = forwardRef<HTMLButtonElement, ButtonRootProps>(
       submit = false,
       onClick,
       isLoading,
+      disabled,
     },
     ref
   ) => {
@@ -61,6 +63,7 @@ export const ButtonRoot = forwardRef<HTMLButtonElement, ButtonRootProps>(
         type={submit ? "submit" : "button"}
         onClick={handleOnClick}
         ref={ref}
+        disabled={disabled}
         className={twMerge(
           "flex h-fit min-h-[36px] flex-row items-center justify-center space-x-3 rounded px-4 py-2 text-sm",
           "shadow-md",
