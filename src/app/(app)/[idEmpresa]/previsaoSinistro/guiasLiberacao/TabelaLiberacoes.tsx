@@ -119,7 +119,7 @@ export function TabelaLiberacoes({
     (a, b) =>
       new Date(a.dataSolicitacao!).getTime() -
       new Date(b.dataSolicitacao!).getTime()
-  ); // Verificar a adição do splice ou criação da paginação aqui
+  );
 
   return <Table.Root columns={cols} data={tabelaLiberacoes} />;
 }

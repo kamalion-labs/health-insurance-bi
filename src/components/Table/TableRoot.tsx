@@ -31,7 +31,7 @@ export function TableRoot({
   onEdit,
   usePagination = true,
 }: TableRootProps) {
-  const itemsPerPage = 5;
+  const itemsPerPage = 10;
   const totalPages = Math.ceil(data!.length / itemsPerPage); // Arredondamento p/ cima
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -70,9 +70,10 @@ export function TableRoot({
         </table>
       </div>
 
-      {usePagination ? (
+      {usePagination && data!.length > itemsPerPage ? (
         <div className="flex justify-center gap-3">
           <Button.Root
+            type="neutral"
             onClick={() => setCurrentPage(currentPage - 1)}
             disabled={currentPage === 1}
             paginationButton
@@ -83,6 +84,7 @@ export function TableRoot({
           </Button.Root>
 
           <Button.Root
+            type="neutral"
             onClick={() => setCurrentPage(1)}
             disabled={currentPage === 1}
             paginationButton
@@ -96,7 +98,7 @@ export function TableRoot({
             ) : (
               <>...</>
             )}
-            <Button.Root paginationButton>
+            <Button.Root type="neutral" paginationButton>
               <Button.Content>{currentPage}</Button.Content>
             </Button.Root>
             {currentPage === totalPages || currentPage === 1 ? (
@@ -107,6 +109,7 @@ export function TableRoot({
           </div>
 
           <Button.Root
+            type="neutral"
             onClick={() => setCurrentPage(totalPages)}
             disabled={currentPage === totalPages}
             paginationButton
@@ -115,6 +118,7 @@ export function TableRoot({
           </Button.Root>
 
           <Button.Root
+            type="neutral"
             onClick={() => setCurrentPage(currentPage + 1)}
             disabled={
               (currentPage - 1) * itemsPerPage + itemsPerPage >= data!.length

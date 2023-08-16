@@ -8,7 +8,8 @@ export type ButtonType =
   | "danger"
   | "warn"
   | "info"
-  | "success";
+  | "success"
+  | "neutral";
 
 interface ButtonRootProps {
   children: ReactNode;
@@ -36,6 +37,7 @@ const colors = {
   warn: { container: "bg-[#f8d053] text-white", icon: "", inner: "" },
   info: { container: "bg-[#48b0f7] text-white", icon: "", inner: "" },
   success: { container: "bg-[#10cfbd] text-white", icon: "", inner: "" },
+  neutral: { container: "bg-[#9EADBD] text-white", icon: "", inner: "" },
 };
 
 export const ButtonRoot = forwardRef<HTMLButtonElement, ButtonRootProps>(
@@ -72,7 +74,7 @@ export const ButtonRoot = forwardRef<HTMLButtonElement, ButtonRootProps>(
           "transition-all hover:opacity-80",
           color.container,
           disabled ? "cursor-default disabled:opacity-50" : "",
-          paginationButton ? "min-h-[28px] px-2 py-1" : "",
+          paginationButton ? "min-h-[28px] rounded-sm px-2 py-1" : "",
           className
         )}
       >
