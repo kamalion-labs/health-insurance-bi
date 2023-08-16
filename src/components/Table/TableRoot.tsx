@@ -4,7 +4,7 @@ import { ReactNode, useState } from "react";
 import { TableColumn } from "./TableHeader";
 import { Table, TableOrderDirection } from ".";
 import { Button } from "../Button";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
 interface TableRootProps {
   children?: ReactNode;
@@ -31,7 +31,8 @@ export function TableRoot({
   onEdit,
   usePagination = true,
 }: TableRootProps) {
-  const itemPerPage = 10;
+  const itemsPerPage = 5;
+  const totalPages = Math.ceil(data!.length / itemsPerPage); // Arredondamento p/ cima
   const [currentPage, setCurrentPage] = useState(1);
 
   return (
@@ -52,8 +53,8 @@ export function TableRoot({
                     data={
                       usePagination
                         ? data.slice(
-                            (currentPage - 1) * itemPerPage,
-                            currentPage * itemPerPage
+                            (currentPage - 1) * itemsPerPage,
+                            currentPage * itemsPerPage
                           )
                         : data
                     }
@@ -76,18 +77,40 @@ export function TableRoot({
             disabled={currentPage === 1}
           >
             <Button.Icon>
-              <FaArrowLeft />
+              <FaChevronLeft />
             </Button.Icon>
+          </Button.Root>
+
+          <Button.Root
+            onClick={() => setCurrentPage(1)}
+            disabled={currentPage === 1}
+          >
+            <Button.Content>1</Button.Content>
+          </Button.Root>
+
+          <div className="flex justify-center gap-3">
+            ...
+            <Button.Root onClick={() => setCurrentPage(1)} disabled>
+              <Button.Content>{currentPage}</Button.Content>
+            </Button.Root>
+            ...
+          </div>
+
+          <Button.Root
+            onClick={() => setCurrentPage(totalPages)}
+            disabled={currentPage === totalPages}
+          >
+            <Button.Content>{totalPages}</Button.Content>
           </Button.Root>
 
           <Button.Root
             onClick={() => setCurrentPage(currentPage + 1)}
             disabled={
-              (currentPage - 1) * itemPerPage + itemPerPage >= data.length
+              (currentPage - 1) * itemsPerPage + itemsPerPage >= data!.length
             }
           >
             <Button.Icon>
-              <FaArrowRight />
+              <FaChevronRight />
             </Button.Icon>
           </Button.Root>
         </div>
