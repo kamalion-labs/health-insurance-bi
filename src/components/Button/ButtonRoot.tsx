@@ -18,6 +18,7 @@ interface ButtonRootProps {
   onClick?: () => void | Promise<void>;
   isLoading?: boolean;
   disabled?: boolean;
+  paginationButton?: boolean;
 }
 
 const colors = {
@@ -47,6 +48,7 @@ export const ButtonRoot = forwardRef<HTMLButtonElement, ButtonRootProps>(
       onClick,
       isLoading,
       disabled,
+      paginationButton,
     },
     ref
   ) => {
@@ -69,6 +71,8 @@ export const ButtonRoot = forwardRef<HTMLButtonElement, ButtonRootProps>(
           "shadow-md",
           "transition-all hover:opacity-80",
           color.container,
+          disabled ? "cursor-default disabled:opacity-50" : "",
+          paginationButton ? "min-h-[28px] px-2 py-1" : "",
           className
         )}
       >

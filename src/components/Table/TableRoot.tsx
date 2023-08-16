@@ -75,6 +75,7 @@ export function TableRoot({
           <Button.Root
             onClick={() => setCurrentPage(currentPage - 1)}
             disabled={currentPage === 1}
+            paginationButton
           >
             <Button.Icon>
               <FaChevronLeft />
@@ -84,21 +85,31 @@ export function TableRoot({
           <Button.Root
             onClick={() => setCurrentPage(1)}
             disabled={currentPage === 1}
+            paginationButton
           >
             <Button.Content>1</Button.Content>
           </Button.Root>
 
           <div className="flex justify-center gap-3">
-            ...
-            <Button.Root onClick={() => setCurrentPage(1)} disabled>
+            {currentPage === totalPages || currentPage === 1 ? (
+              <div className="w-4"></div>
+            ) : (
+              <>...</>
+            )}
+            <Button.Root paginationButton>
               <Button.Content>{currentPage}</Button.Content>
             </Button.Root>
-            ...
+            {currentPage === totalPages || currentPage === 1 ? (
+              <div className="w-4"></div>
+            ) : (
+              <>...</>
+            )}
           </div>
 
           <Button.Root
             onClick={() => setCurrentPage(totalPages)}
             disabled={currentPage === totalPages}
+            paginationButton
           >
             <Button.Content>{totalPages}</Button.Content>
           </Button.Root>
@@ -108,6 +119,7 @@ export function TableRoot({
             disabled={
               (currentPage - 1) * itemsPerPage + itemsPerPage >= data!.length
             }
+            paginationButton
           >
             <Button.Icon>
               <FaChevronRight />
