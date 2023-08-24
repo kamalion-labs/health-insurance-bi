@@ -51,4 +51,9 @@ export const tussScreening = [
   "40808289",
   "40808297",
   "40808300",
+  "40601137",
 ];
+
+export const tussPapanicolau = "40601137";
+
+export const tussMamografia = "40808041";
