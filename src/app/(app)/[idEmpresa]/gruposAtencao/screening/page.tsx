@@ -11,7 +11,7 @@ type Props = {
   };
 };
 
-export async function generateStatiParams() {
+export async function generateStaticParams() {
   const empresas = await prisma.empresa.findMany();
 
   return empresas.map((empresa) => ({ idEmpresa: empresa.id.toString() }));
@@ -74,7 +74,6 @@ export default async function Page({ params: { idEmpresa } }: Props) {
         <Card.Root>
           <Card.Title>Quantidade de Mamografias realizadas</Card.Title>
           <Card.Value>
-            {" "}
             {
               procedimentos.find(
                 (procedimento) => procedimento.tuss === Tuss.tussMamografia
