@@ -30,7 +30,7 @@ export async function insertPessoas(prisma: PrismaClient) {
           .int({ min: 10000000000, max: 99999999999 })
           .toString()
           .padStart(11, "0"),
-        sexo: "M",
+        sexo: "F",
         dataNascimento: faker.date.betweens({
           from: "1960-01-01T00:00:00.000Z",
           to: new Date(),

@@ -1,7 +1,8 @@
 import { NavItemProps } from "@/components/Navbar/NavItemProps";
 import {
+  FaBinoculars,
   FaChartColumn,
-  FaChartLine,
+  FaCircleExclamation,
   FaDollarSign,
   FaLock,
   FaUserPlus,
@@ -93,9 +94,26 @@ export const Routes: NavItemProps[] = [
     ],
   },
   {
+    title: "Grupos de Atenção",
+    id: "gruposAtencao",
+    icon: <FaCircleExclamation size={24} />,
+    items: [
+      {
+        title: "Exames de Rastreamento (Screening)",
+        href: "/:idEmpresa/gruposAtencao/screening",
+        id: "screening",
+      },
+      {
+        title: "Prováveis Gestantes",
+        href: "/:idEmpresa/gruposAtencao/gestantes",
+        id: "gestantes",
+      },
+    ],
+  },
+  {
     title: "Previsão de Sinistro",
     id: "previsaoSinistro",
-    icon: <FaChartLine size={24} />,
+    icon: <FaBinoculars size={24} />,
     items: [
       {
         title: "Risco de DM e HAS",
