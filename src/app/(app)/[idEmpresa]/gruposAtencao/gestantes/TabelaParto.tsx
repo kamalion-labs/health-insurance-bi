@@ -75,7 +75,7 @@ export function TabelaParto({
 
     if (partosPessoa.length > 0) {
       partosPessoa.forEach((evento) => {
-        let tipoInternacao = "";
+        let tipoInternacao = "SEM INTERNAÇÃO";
 
         if (evento.teveInternacao && evento.tipoInternacao) {
           tipoInternacao = evento.tipoInternacao;

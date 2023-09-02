@@ -3,6 +3,7 @@ import { Tuss } from "@/lib/consts";
 import { prisma } from "@/lib/db/prisma";
 import { TabelaGravidez } from "./TabelaGravidez";
 import { TabelaParto } from "./TabelaParto";
+import { GraficoRisco } from "./GraficoRisco";
 
 type Props = {
   params: {
@@ -34,6 +35,17 @@ export default async function Page({ params: { idEmpresa } }: Props) {
     },
   });
 
+  const eventos = await prisma.evento.findMany({
+    include: {
+      procedimento: true,
+    },
+    where: {
+      pessoa: {
+        idEmpresa: +idEmpresa,
+      },
+    },
+  });
+
   const mulheres = pessoas.filter((pessoa) => pessoa.sexo === "F");
 
   const mulheresGravidas = mulheres.filter((pessoa) => {
@@ -42,6 +54,10 @@ export default async function Page({ params: { idEmpresa } }: Props) {
     );
     return eventosDeGravidez.length > 0;
   });
+
+  const eventosDeGravidez = eventos.filter((evento) =>
+    Tuss.tussGravidez.includes(evento.procedimento.tuss)
+  );
 
   return (
     <div className="space-y-5 p-4">
@@ -75,6 +91,25 @@ export default async function Page({ params: { idEmpresa } }: Props) {
           </Card.Value>
         </Card.Root>
       </div>
+
+      <div className="grid grid-cols-2 gap-5">
+        <Box.Root>
+          <Box.Title>
+            Quantidade de Procedimentos de Gravidez por Risco
+          </Box.Title>
+
+          <Box.Content className="h-[250px]">
+            <GraficoRisco data={eventosDeGravidez} />
+          </Box.Content>
+        </Box.Root>
+
+        <Box.Root>
+          <Box.Title>Quantidade de Partos realizados por Risco</Box.Title>
+
+          <Box.Content className="h-[250px]">;</Box.Content>
+        </Box.Root>
+      </div>
+
       <Box.Root>
         <Box.Title>
           Mulheres que realizaram procedimentos de gravidez nos últimos 9 meses

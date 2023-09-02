@@ -1058,7 +1058,7 @@ export async function insertEventos(prisma: PrismaClient) {
         reembolso: false,
         codigoCID: "A00",
         idPrestador: 1,
-        idPessoa: 5,
+        idPessoa: 1,
         idProcedimento: 17,
       },
       {
@@ -1124,7 +1124,7 @@ export async function insertEventos(prisma: PrismaClient) {
         reembolso: false,
         codigoCID: "A00",
         idPrestador: 2,
-        idPessoa: 3,
+        idPessoa: 4,
         idProcedimento: 20,
       },
     ],
