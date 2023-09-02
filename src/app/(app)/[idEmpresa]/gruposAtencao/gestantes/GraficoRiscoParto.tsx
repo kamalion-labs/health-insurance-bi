@@ -5,7 +5,7 @@ import { PieSvgProps } from "@nivo/pie";
 import { Prisma } from "@prisma/client";
 
 type EventoWithProcedimentoPessoa = Prisma.EventoGetPayload<{
-  include: { procedimento: true };
+  include: { procedimento: true; pessoa: true };
 }>;
 
 type DataType = {
@@ -14,12 +14,15 @@ type DataType = {
   color: string;
 };
 
-export function GraficoRisco({
+export function GraficoRiscoParto({
   data,
 }: {
   data: EventoWithProcedimentoPessoa[];
 }) {
   const chartData: DataType[] = [];
+  data = data
+    .filter((evento) => evento.tipoParto !== null)
+    .filter((evento) => evento.pessoa.sexo === "F");
 
   chartData.push({
     id: "Baixo",

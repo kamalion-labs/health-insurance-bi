@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db/prisma";
 import { TabelaGravidez } from "./TabelaGravidez";
 import { TabelaParto } from "./TabelaParto";
 import { GraficoRisco } from "./GraficoRisco";
+import { GraficoRiscoParto } from "./GraficoRiscoParto";
 
 type Props = {
   params: {
@@ -38,6 +39,7 @@ export default async function Page({ params: { idEmpresa } }: Props) {
   const eventos = await prisma.evento.findMany({
     include: {
       procedimento: true,
+      pessoa: true,
     },
     where: {
       pessoa: {
@@ -48,10 +50,13 @@ export default async function Page({ params: { idEmpresa } }: Props) {
 
   const mulheres = pessoas.filter((pessoa) => pessoa.sexo === "F");
 
+  const data10MesesAtras = new Date();
+  data10MesesAtras.setMonth(data10MesesAtras.getMonth() - 10);
+
   const mulheresGravidas = mulheres.filter((pessoa) => {
-    const eventosDeGravidez = pessoa.eventos.filter((evento) =>
-      Tuss.tussGravidez.includes(evento.procedimento.tuss)
-    );
+    const eventosDeGravidez = pessoa.eventos
+      .filter((evento) => Tuss.tussGravidez.includes(evento.procedimento.tuss))
+      .filter((evento) => evento.dataRealizacao! >= data10MesesAtras);
     return eventosDeGravidez.length > 0;
   });
 
@@ -106,7 +111,9 @@ export default async function Page({ params: { idEmpresa } }: Props) {
         <Box.Root>
           <Box.Title>Quantidade de Partos realizados por Risco</Box.Title>
 
-          <Box.Content className="h-[250px]">;</Box.Content>
+          <Box.Content className="h-[250px]">
+            <GraficoRiscoParto data={eventos} />
+          </Box.Content>
         </Box.Root>
       </div>
 
