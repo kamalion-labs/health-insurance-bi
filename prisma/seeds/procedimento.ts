@@ -1,6 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+import { hrtime } from "process";
 
 export async function insertProcedimentos(prisma: PrismaClient) {
+  const start = hrtime.bigint();
+  
   await prisma.procedimento.createMany({
     data: [
       {
@@ -180,4 +183,7 @@ export async function insertProcedimentos(prisma: PrismaClient) {
       },
     ],
   });
+
+  const end = hrtime.bigint();
+  console.info(`Procedimentos importados em: ${(end - start) / BigInt(10 ** 6)}ms`);
 }

@@ -1,6 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+import { hrtime } from "process";
 
 export async function insertCategorias(prisma: PrismaClient) {
+  const start = hrtime.bigint();
+  
   await prisma.categoria.createMany({
     data: [
       {
@@ -35,4 +38,7 @@ export async function insertCategorias(prisma: PrismaClient) {
       },
     ],
   });
+
+  const end = hrtime.bigint();
+  console.info(`Categorias importadas em: ${(end - start) / BigInt(10 ** 6)}ms`);
 }

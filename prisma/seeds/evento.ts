@@ -1,7 +1,10 @@
 import { faker } from "@faker-js/faker";
 import { PrismaClient } from "@prisma/client";
+import { hrtime } from "process";
 
 export async function insertEventos(prisma: PrismaClient) {
+  const start = hrtime.bigint();
+  
   const dataAtual = new Date();
 
   await prisma.evento.createMany({
@@ -1246,4 +1249,7 @@ export async function insertEventos(prisma: PrismaClient) {
       },
     ],
   });
+
+  const end = hrtime.bigint();
+  console.info(`Eventos importados em: ${(end - start) / BigInt(10 ** 6)}ms`);
 }

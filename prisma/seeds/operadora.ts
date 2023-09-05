@@ -1,6 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+import { hrtime } from "process";
 
 export async function insertOperadora(prisma: PrismaClient) {
+  const start = hrtime.bigint();
+  
   await prisma.operadora.createMany({
     data: [
       {
@@ -70,4 +73,7 @@ export async function insertOperadora(prisma: PrismaClient) {
       },
     ],
   });
+
+  const end = hrtime.bigint();
+  console.info(`Operadoras importadas em: ${(end - start) / BigInt(10 ** 6)}ms`);
 }

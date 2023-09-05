@@ -9,12 +9,13 @@
     "lint": "next lint --fix",
     "postinstall": "prisma generate",
     "email": "email dev",
-    "restart-database": "npx prisma db push --force-reset && npx prisma db seed"
+    "restart-database": "npx prisma db push --force-reset && cd ./prisma/seeds/ && node -r ts-node/register ./index.ts && cd ../../"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.15",
     "@hookform/resolvers": "^3.1.1",
     "@nivo/bar": "^0.83.0",
+    "@nivo/colors": "^0.83.0",
     "@nivo/core": "^0.83.0",
     "@nivo/line": "^0.83.0",
     "@nivo/pie": "^0.83.0",

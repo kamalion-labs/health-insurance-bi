@@ -1,6 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+import { hrtime } from "process";
 
 export async function insertLiberacao(prisma: PrismaClient) {
+  const start = hrtime.bigint();
+  
   const dataAtual = new Date();
 
   await prisma.liberacao.createMany({
@@ -393,4 +396,7 @@ export async function insertLiberacao(prisma: PrismaClient) {
       },
     ],
   });
+
+  const end = hrtime.bigint();
+  console.info(`Liberações importadas em: ${(end - start) / BigInt(10 ** 6)}ms`);
 }

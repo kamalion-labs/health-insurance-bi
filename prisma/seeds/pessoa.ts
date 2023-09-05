@@ -1,7 +1,10 @@
 import { faker } from "@faker-js/faker";
 import { PrismaClient } from "@prisma/client";
+import { hrtime } from "process";
 
 export async function insertPessoas(prisma: PrismaClient) {
+  const start = hrtime.bigint();
+  
   await prisma.tipoTitularidade.createMany({
     data: [
       {
@@ -232,4 +235,7 @@ export async function insertPessoas(prisma: PrismaClient) {
       },
     ],
   });
+
+  const end = hrtime.bigint();
+  console.info(`Pessoas importadas em: ${(end - start) / BigInt(10 ** 6)}ms`);
 }
