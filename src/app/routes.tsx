@@ -103,6 +103,11 @@ export const Routes: NavItemProps[] = [
         href: "/:idEmpresa/gruposAtencao/screening",
         id: "screening",
       },
+      {
+        title: "Ortorpedia",
+        href: "/:idEmpresa/gruposAtencao/ortopedia",
+        id: "ortopedia",
+      },
     ],
   },
   {

@@ -43,6 +43,11 @@ export async function insertEspecialidades(prisma: PrismaClient) {
         codigo: "ginecologia",
         nome: "Ginecologia E Obstetrícia",
       },
+      {
+        id: 9,
+        codigo: "ortopedia",
+        nome: "Ortopedia",
+      },
     ],
   });
 }

@@ -171,6 +171,13 @@ export async function insertProcedimentos(prisma: PrismaClient) {
         idCategoria: 2,
         idEspecialidade: 2,
       },
+      {
+        id: 25,
+        nome: "Fraturas e/ou luxações e/ou avulsões – redução incruenta",
+        tuss: "30717094",
+        idCategoria: 2,
+        idEspecialidade: 9,
+      },
     ],
   });
 }
