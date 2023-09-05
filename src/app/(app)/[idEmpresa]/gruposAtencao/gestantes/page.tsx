@@ -5,6 +5,8 @@ import { TabelaGravidez } from "./TabelaGravidez";
 import { TabelaParto } from "./TabelaParto";
 import { GraficoRisco } from "./GraficoRisco";
 import { GraficoRiscoParto } from "./GraficoRiscoParto";
+import { GraficoQuantidadePorCompetencia } from "./GraficoQuantidadePorCompetencia";
+import { GraficoGastosPorCompetencia } from "./GraficoGastosPorCompetencia";
 
 type Props = {
   params: {
@@ -72,7 +74,20 @@ export default async function Page({ params: { idEmpresa } }: Props) {
         parentId="gruposAtencao"
       />
 
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-4 gap-5">
+        <Card.Root>
+          <Card.Title>Gasto Total com Procedimentos de Gravidez</Card.Title>
+          <Card.Value>
+            R$
+            {eventosDeGravidez
+              .reduce((sum, curr) => sum + curr.custoTotal * curr.quantidade, 0)
+              .toLocaleString("pt-BR", {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+              })}
+          </Card.Value>
+        </Card.Root>
+
         <Card.Root>
           <Card.Title>Quantidade total de mulheres</Card.Title>
           <Card.Value>
@@ -81,7 +96,7 @@ export default async function Page({ params: { idEmpresa } }: Props) {
         </Card.Root>
 
         <Card.Root>
-          <Card.Title>Quantidade total de mulheres grávidas</Card.Title>
+          <Card.Title>Quantidade mulheres grávidas</Card.Title>
           <Card.Value>{mulheresGravidas.length}</Card.Value>
         </Card.Root>
 
@@ -90,11 +105,33 @@ export default async function Page({ params: { idEmpresa } }: Props) {
           <Card.Value>
             {((mulheresGravidas.length / mulheres.length) * 100).toLocaleString(
               "pt-BR",
-              { minimumFractionDigits: 2 }
+              { minimumFractionDigits: 2, maximumFractionDigits: 2 }
             )}
             %
           </Card.Value>
         </Card.Root>
+      </div>
+
+      <div className="grid grid-cols-2 gap-5">
+        <Box.Root>
+          <Box.Title>
+            Quantidade de Procedimentos de Gravidez por Competência
+          </Box.Title>
+
+          <Box.Content className="h-[300px]">
+            <GraficoQuantidadePorCompetencia data={eventosDeGravidez} />
+          </Box.Content>
+        </Box.Root>
+
+        <Box.Root>
+          <Box.Title>
+            Gastos de Procedimentos de Gravidez por Competência
+          </Box.Title>
+
+          <Box.Content className="h-[300px]">
+            <GraficoGastosPorCompetencia data={eventosDeGravidez} />
+          </Box.Content>
+        </Box.Root>
       </div>
 
       <div className="grid grid-cols-2 gap-5">
