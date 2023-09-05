@@ -130,7 +130,7 @@ export async function insertEventos(prisma: PrismaClient) {
         reembolso: false,
         codigoCID: "A00",
         idPrestador: 4,
-        idPessoa: 4,
+        idPessoa: 10,
         idProcedimento: 4,
         teveInternacao: true,
       },
@@ -213,11 +213,15 @@ export async function insertEventos(prisma: PrismaClient) {
         reembolso: true,
         codigoCID: "B34",
         idPrestador: 2,
-        idPessoa: 1,
+        idPessoa: 10,
         idProcedimento: 6,
       },
       {
-        dataRealizacao: dataAtual,
+        dataRealizacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 2,
+          dataAtual.getDate() + 10
+        ),
         dataPagamento: new Date(
           dataAtual.getFullYear(),
           dataAtual.getMonth() + 2,
@@ -242,7 +246,11 @@ export async function insertEventos(prisma: PrismaClient) {
         teveInternacao: true,
       },
       {
-        dataRealizacao: dataAtual,
+        dataRealizacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 25,
+          dataAtual.getDate() + 10
+        ),
         dataPagamento: new Date(
           dataAtual.getFullYear(),
           dataAtual.getMonth() + 3,
@@ -255,7 +263,7 @@ export async function insertEventos(prisma: PrismaClient) {
         coparticipacao: faker.number.float({ min: 75.5, max: 10000 }),
         risco: "MEDIO",
         UTI: true,
-        tipoParto: "VAGINAL",
+        tipoParto: "CESAREO",
         situacao: "CANCELADA",
         reembolso: true,
         codigoCID: "J80",
@@ -400,7 +408,11 @@ export async function insertEventos(prisma: PrismaClient) {
         idProcedimento: 10,
       },
       {
-        dataRealizacao: dataAtual,
+        dataRealizacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 11,
+          dataAtual.getDate()
+        ),
         dataPagamento: new Date(
           dataAtual.getFullYear(),
           dataAtual.getMonth() + 4,
@@ -447,7 +459,11 @@ export async function insertEventos(prisma: PrismaClient) {
         idProcedimento: 11,
       },
       {
-        dataRealizacao: dataAtual,
+        dataRealizacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 11,
+          dataAtual.getDate()
+        ),
         dataPagamento: new Date(
           dataAtual.getFullYear(),
           dataAtual.getMonth() + 1,
@@ -494,7 +510,11 @@ export async function insertEventos(prisma: PrismaClient) {
         idProcedimento: 12,
       },
       {
-        dataRealizacao: dataAtual,
+        dataRealizacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 1,
+          dataAtual.getDate() + 10
+        ),
         dataPagamento: new Date(
           dataAtual.getFullYear(),
           dataAtual.getMonth() + 2,
@@ -632,7 +652,11 @@ export async function insertEventos(prisma: PrismaClient) {
         idProcedimento: 14,
       },
       {
-        dataRealizacao: dataAtual,
+        dataRealizacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 6,
+          dataAtual.getDate() + 10
+        ),
         dataPagamento: new Date(
           dataAtual.getFullYear(),
           dataAtual.getMonth() + 3,
@@ -660,7 +684,7 @@ export async function insertEventos(prisma: PrismaClient) {
         dataRealizacao: dataAtual,
         dataPagamento: new Date(
           dataAtual.getFullYear(),
-          dataAtual.getMonth() + 3,
+          dataAtual.getMonth() - 2,
           dataAtual.getDate() + 10
         ),
         quantidade: 3,
@@ -680,7 +704,11 @@ export async function insertEventos(prisma: PrismaClient) {
         idProcedimento: 15,
       },
       {
-        dataRealizacao: dataAtual,
+        dataRealizacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 1,
+          dataAtual.getDate() + 10
+        ),
         dataPagamento: new Date(
           dataAtual.getFullYear(),
           dataAtual.getMonth() + 3,
@@ -705,7 +733,11 @@ export async function insertEventos(prisma: PrismaClient) {
         teveInternacao: true,
       },
       {
-        dataRealizacao: dataAtual,
+        dataRealizacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 30,
+          dataAtual.getDate() + 10
+        ),
         dataPagamento: new Date(
           dataAtual.getFullYear(),
           dataAtual.getMonth(),
@@ -1058,7 +1090,7 @@ export async function insertEventos(prisma: PrismaClient) {
         reembolso: false,
         codigoCID: "A00",
         idPrestador: 1,
-        idPessoa: 5,
+        idPessoa: 1,
         idProcedimento: 17,
       },
       {
@@ -1124,8 +1156,51 @@ export async function insertEventos(prisma: PrismaClient) {
         reembolso: false,
         codigoCID: "A00",
         idPrestador: 2,
-        idPessoa: 3,
+        idPessoa: 4,
         idProcedimento: 20,
+      },
+      {
+        dataRealizacao: dataAtual,
+        dataPagamento: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth(),
+          dataAtual.getDate() + 12
+        ),
+        quantidade: 1,
+        custoTotal: faker.number.float({ min: 20, max: 700 }),
+        descricao: "Consulta Clínico Geral",
+        sinistro: faker.number.float({ min: 10, max: 600 }),
+        coparticipacao: faker.number.float({ min: 10, max: 600 }),
+        risco: "BAIXO",
+        prontoSocorro: false,
+        UTI: false,
+        situacao: "LIBERADA",
+        reembolso: false,
+        codigoCID: "B34",
+        idPrestador: 2,
+        idPessoa: 10,
+        idProcedimento: 15,
+      },
+      {
+        dataRealizacao: dataAtual,
+        dataPagamento: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth(),
+          dataAtual.getDate() + 12
+        ),
+        quantidade: 1,
+        custoTotal: faker.number.float({ min: 20, max: 700 }),
+        descricao: "Atendimento Acidente Trabalho",
+        sinistro: faker.number.float({ min: 10, max: 600 }),
+        coparticipacao: faker.number.float({ min: 10, max: 600 }),
+        risco: "MEDIO",
+        prontoSocorro: true,
+        UTI: false,
+        situacao: "LIBERADA",
+        reembolso: false,
+        idPrestador: 3,
+        idPessoa: 10,
+        idProcedimento: 10,
       },
       {
         dataRealizacao: dataAtual,

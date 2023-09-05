@@ -104,6 +104,11 @@ export const Routes: NavItemProps[] = [
         id: "screening",
       },
       {
+        title: "Prováveis Gestantes",
+        href: "/:idEmpresa/gruposAtencao/gestantes",
+        id: "gestantes",
+      },
+      {
         title: "Ortorpedia",
         href: "/:idEmpresa/gruposAtencao/ortopedia",
         id: "ortopedia",
