@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint --fix",
     "postinstall": "prisma generate",
-    "email": "email dev"
+    "email": "email dev",
+    "restart-database": "npx prisma db push --force-reset && npx prisma db seed"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.15",

@@ -1127,6 +1127,48 @@ export async function insertEventos(prisma: PrismaClient) {
         idPessoa: 3,
         idProcedimento: 20,
       },
+      {
+        dataRealizacao: dataAtual,
+        dataPagamento: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth(),
+          dataAtual.getDate() + 12
+        ),
+        quantidade: 1,
+        custoTotal: faker.number.float({ min: 20, max: 700 }),
+        descricao: "Ortopedia",
+        sinistro: faker.number.float({ min: 10, max: 600 }),
+        coparticipacao: faker.number.float({ min: 10, max: 600 }),
+        risco: "BAIXO",
+        prontoSocorro: false,
+        UTI: false,
+        situacao: "LIBERADA",
+        reembolso: false,
+        idPrestador: 2,
+        idPessoa: 3,
+        idProcedimento: 25,
+      },
+      {
+        dataRealizacao: dataAtual,
+        dataPagamento: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth(),
+          dataAtual.getDate() + 12
+        ),
+        quantidade: 1,
+        custoTotal: faker.number.float({ min: 20, max: 700 }),
+        descricao: "Ortopedia",
+        sinistro: faker.number.float({ min: 10, max: 600 }),
+        coparticipacao: faker.number.float({ min: 10, max: 600 }),
+        risco: "BAIXO",
+        prontoSocorro: false,
+        UTI: false,
+        situacao: "LIBERADA",
+        reembolso: false,
+        idPrestador: 2,
+        idPessoa: 2,
+        idProcedimento: 25,
+      },
     ],
   });
 }
