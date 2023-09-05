@@ -25,12 +25,12 @@ export function GraficoServicosPorCompetencia({
   const labels = categorias.map((cat) => cat.nome);
 
   const competencias = [
-    ...new Set(data.map((x) => format(x.dataPagamento!, "MM/yyyy"))),
+    ...new Set(data.map((x) => format(x.dataRealizacao!, "MM/yyyy"))),
   ];
 
   const chartData: DataType[] = competencias.map((comp) => {
     const eventosCompetencia = data.filter(
-      (x) => format(x.dataPagamento!, "MM/yyyy") === comp
+      (x) => format(x.dataRealizacao!, "MM/yyyy") === comp
     );
 
     const item: DataType = {

@@ -35,11 +35,13 @@ export default async function CovidDashboard({ params: { idEmpresa } }: Props) {
     },
   });
 
-  const eventosCovid = eventos.filter((evento) => {
-    const hasCidCovid = Cids.cidsCovid.includes(evento.CID?.codigo!);
-    const hasTussCovid = Tuss.tussCovid.includes(evento.procedimento.tuss);
-    return hasCidCovid || hasTussCovid;
-  });
+  const eventosCovid = eventos.filter((evento) =>
+    Cids.cidsCovid.includes(evento.CID?.codigo!)
+  );
+
+  const eventosSRAG = eventos.filter((evento) =>
+    Cids.cidsSRAG.includes(evento.CID?.codigo!)
+  );
 
   const examesCovid = eventos.filter((evento) =>
     Tuss.tussCovid.includes(evento.procedimento.tuss)
@@ -120,17 +122,31 @@ export default async function CovidDashboard({ params: { idEmpresa } }: Props) {
         </Card.Root>
       </div>
 
-      <Card.Root>
-        <Card.Title>Impacto Custo Total Covid-19</Card.Title>
-        <Card.Value>
-          <Money
-            value={eventosCovid.reduce(
-              (sum, evento) => sum + evento.custoTotal,
-              0
-            )}
-          />
-        </Card.Value>
-      </Card.Root>
+      <div className="grid grid-cols-2 gap-5">
+        <Card.Root>
+          <Card.Title>Impacto Custo Total Covid-19</Card.Title>
+          <Card.Value>
+            <Money
+              value={eventosCovid.reduce(
+                (sum, evento) => sum + evento.custoTotal * evento.quantidade,
+                0
+              )}
+            />
+          </Card.Value>
+        </Card.Root>
+
+        <Card.Root>
+          <Card.Title>Impacto Custo Total SRAG</Card.Title>
+          <Card.Value>
+            <Money
+              value={eventosSRAG.reduce(
+                (sum, evento) => sum + evento.custoTotal * evento.quantidade,
+                0
+              )}
+            />
+          </Card.Value>
+        </Card.Root>
+      </div>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         {/* Gráfico 1 */}

@@ -35,6 +35,7 @@ export const BarTotalMoneyLayer = (props: any) => {
         R${" "}
         {totals[indexValue].toLocaleString("pt-BR", {
           minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
         })}
       </text>
     );

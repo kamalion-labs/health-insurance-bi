@@ -29,13 +29,19 @@ export function GraficoCustoTotal({ data }: { data: EventoWithCids[] }) {
 
   chartData.push({
     id: "Covid",
-    value: eventosCovid.reduce((sum, evento) => sum + evento.custoTotal, 0),
+    value: eventosCovid.reduce(
+      (sum, evento) => sum + evento.custoTotal * evento.quantidade,
+      0
+    ),
     items: eventosCovid,
   });
 
   chartData.push({
     id: "Não Covid",
-    value: eventosNaoCovid.reduce((sum, evento) => sum + evento.custoTotal, 0),
+    value: eventosNaoCovid.reduce(
+      (sum, evento) => sum + evento.custoTotal * evento.quantidade,
+      0
+    ),
     items: eventosNaoCovid,
   });
 
