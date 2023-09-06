@@ -1,6 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+import { hrtime } from "process";
 
 export async function insertEspecialidades(prisma: PrismaClient) {
+  const start = hrtime.bigint();
+
   await prisma.especialidade.createMany({
     data: [
       {
@@ -48,6 +51,16 @@ export async function insertEspecialidades(prisma: PrismaClient) {
         codigo: "ortopedia",
         nome: "Ortopedia",
       },
+      {
+        id: 10,
+        codigo: "psicologia",
+        nome: "Psicologia",
+      },
     ],
   });
+
+  const end = hrtime.bigint();
+  console.info(
+    `Especialidades importadas em: ${(end - start) / BigInt(10 ** 6)}ms`
+  );
 }

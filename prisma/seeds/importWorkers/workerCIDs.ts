@@ -1,12 +1,14 @@
+require('ts-node').register();
+
 import { PrismaClient } from "@prisma/client";
-import fs from "fs/promises";
+import { parentPort } from "worker_threads";
 
-export async function importacaoCID(csvPath: string, prisma: PrismaClient) {
-  const content = await fs.readFile(csvPath, { encoding: "utf-8" });
-  const lines = content.split("\n");
+const sleep = () => new Promise((resolve) => setTimeout(resolve, 1000));
 
-  // Começa no 1 pq pula o cabeçalho
-  for (let i = 1; i < lines.length; i++) {
+const prisma = new PrismaClient();
+
+parentPort?.on("message", async lines => {
+  for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
     if (line === "") {
@@ -22,5 +24,9 @@ export async function importacaoCID(csvPath: string, prisma: PrismaClient) {
         descricaoAbreviada: cols[3].replace(cols[0], "").trim(),
       },
     });
+
+    parentPort?.postMessage(cols[0]);
   }
-}
+
+  parentPort?.close();
+});

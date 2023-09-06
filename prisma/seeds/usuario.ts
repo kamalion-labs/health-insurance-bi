@@ -1,6 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+import { hrtime } from "process";
 
 export async function insertUsuarios(prisma: PrismaClient) {
+  const start = hrtime.bigint();
+  
   await prisma.usuario.upsert({
     where: {
       id: 1,
@@ -13,4 +16,7 @@ export async function insertUsuarios(prisma: PrismaClient) {
       admin: true,
     },
   });
+
+  const end = hrtime.bigint();
+  console.info(`Usuários importados em: ${(end - start) / BigInt(10 ** 6)}ms`);
 }

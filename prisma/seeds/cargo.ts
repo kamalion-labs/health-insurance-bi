@@ -1,6 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+import { hrtime } from "process";
 
 export async function insertCargos(prisma: PrismaClient) {
+  const start = hrtime.bigint();
+  
   await prisma.setor.create({
     data: {
       id: 1,
@@ -22,4 +25,7 @@ export async function insertCargos(prisma: PrismaClient) {
       },
     ],
   });
+
+  const end = hrtime.bigint();
+  console.info(`Cargos importados em: ${(end - start) / BigInt(10 ** 6)}ms`);
 }

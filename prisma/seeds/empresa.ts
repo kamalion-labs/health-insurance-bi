@@ -1,6 +1,9 @@
 import { PrismaClient } from "@prisma/client";
+import { hrtime } from "process";
 
 export async function insertEmpresa(prisma: PrismaClient) {
+  const start = hrtime.bigint();
+
   const inicioContrato = new Date();
 
   await prisma.empresa.createMany({
@@ -31,4 +34,7 @@ export async function insertEmpresa(prisma: PrismaClient) {
       },
     ],
   });
+
+  const end = hrtime.bigint();
+  console.info(`Empresas importadas em: ${(end - start) / BigInt(10 ** 6)}ms`);
 }

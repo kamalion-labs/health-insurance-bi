@@ -27,7 +27,7 @@ async function main() {
   await insertEspecialidades(prisma);
   await insertCategorias(prisma);
   await insertProcedimentos(prisma);
-  await insertCids(prisma);
+  await insertCids();
   await insertPrestadores(prisma);
   await insertEventos(prisma);
   await insertLiberacao(prisma);
