@@ -3,7 +3,7 @@ import { hrtime } from "process";
 
 export async function insertProcedimentos(prisma: PrismaClient) {
   const start = hrtime.bigint();
-  
+
   await prisma.procedimento.createMany({
     data: [
       {
@@ -181,9 +181,32 @@ export async function insertProcedimentos(prisma: PrismaClient) {
         idCategoria: 2,
         idEspecialidade: 9,
       },
+      {
+        id: 26,
+        nome: "Sessão de psicoterapia de casal",
+        tuss: "20104197",
+        idCategoria: 3,
+        idEspecialidade: 10,
+      },
+      {
+        id: 27,
+        nome: "Consulta em psicologia",
+        tuss: "50000462",
+        idCategoria: 3,
+        idEspecialidade: 10,
+      },
+      {
+        id: 28,
+        nome: "Acompanhamento e reabilitação profissional por psicólogo",
+        tuss: "50000519",
+        idCategoria: 3,
+        idEspecialidade: 10,
+      },
     ],
   });
 
   const end = hrtime.bigint();
-  console.info(`Procedimentos importados em: ${(end - start) / BigInt(10 ** 6)}ms`);
+  console.info(
+    `Procedimentos importados em: ${(end - start) / BigInt(10 ** 6)}ms`
+  );
 }

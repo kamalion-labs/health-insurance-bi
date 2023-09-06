@@ -4,7 +4,7 @@ import { hrtime } from "process";
 
 export async function insertEventos(prisma: PrismaClient) {
   const start = hrtime.bigint();
-  
+
   const dataAtual = new Date();
 
   await prisma.evento.createMany({
@@ -1246,6 +1246,131 @@ export async function insertEventos(prisma: PrismaClient) {
         idPrestador: 2,
         idPessoa: 2,
         idProcedimento: 25,
+      },
+      {
+        dataRealizacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 1,
+          dataAtual.getDate() + 12
+        ),
+        dataPagamento: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth(),
+          dataAtual.getDate() + 12
+        ),
+        quantidade: 1,
+        custoTotal: faker.number.float({ min: 20, max: 700 }),
+        descricao: "Atendimento Psicologia",
+        sinistro: faker.number.float({ min: 10, max: 600 }),
+        coparticipacao: faker.number.float({ min: 10, max: 600 }),
+        risco: "BAIXO",
+        prontoSocorro: false,
+        UTI: false,
+        situacao: "LIBERADA",
+        reembolso: false,
+        idPrestador: 1,
+        idPessoa: 1,
+        idProcedimento: 26,
+      },
+      {
+        dataRealizacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 1,
+          dataAtual.getDate() + 12
+        ),
+        dataPagamento: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth(),
+          dataAtual.getDate() + 12
+        ),
+        quantidade: 1,
+        custoTotal: faker.number.float({ min: 20, max: 700 }),
+        descricao: "Sessão de Terapia",
+        sinistro: faker.number.float({ min: 10, max: 600 }),
+        coparticipacao: faker.number.float({ min: 10, max: 600 }),
+        risco: "BAIXO",
+        prontoSocorro: false,
+        UTI: false,
+        situacao: "LIBERADA",
+        reembolso: false,
+        idPrestador: 2,
+        idPessoa: 2,
+        idProcedimento: 27,
+      },
+      {
+        dataRealizacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 1,
+          dataAtual.getDate() + 12
+        ),
+        dataPagamento: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth(),
+          dataAtual.getDate() + 12
+        ),
+        quantidade: 1,
+        custoTotal: faker.number.float({ min: 20, max: 700 }),
+        descricao: "Sessão de Terapia",
+        sinistro: faker.number.float({ min: 10, max: 600 }),
+        coparticipacao: faker.number.float({ min: 10, max: 600 }),
+        risco: "BAIXO",
+        prontoSocorro: false,
+        UTI: false,
+        situacao: "LIBERADA",
+        reembolso: false,
+        idPrestador: 3,
+        idPessoa: 3,
+        idProcedimento: 27,
+      },
+      {
+        dataRealizacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 2,
+          dataAtual.getDate() + 12
+        ),
+        dataPagamento: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth(),
+          dataAtual.getDate() + 12
+        ),
+        quantidade: 1,
+        custoTotal: faker.number.float({ min: 20, max: 700 }),
+        descricao: "Sessão de Terapia",
+        sinistro: faker.number.float({ min: 10, max: 600 }),
+        coparticipacao: faker.number.float({ min: 10, max: 600 }),
+        risco: "BAIXO",
+        prontoSocorro: false,
+        UTI: false,
+        situacao: "LIBERADA",
+        reembolso: false,
+        idPrestador: 3,
+        idPessoa: 3,
+        idProcedimento: 28,
+      },
+      {
+        dataRealizacao: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth() - 2,
+          dataAtual.getDate() + 12
+        ),
+        dataPagamento: new Date(
+          dataAtual.getFullYear(),
+          dataAtual.getMonth(),
+          dataAtual.getDate() + 12
+        ),
+        quantidade: 1,
+        custoTotal: faker.number.float({ min: 20, max: 700 }),
+        descricao: "Sessão de Terapia",
+        sinistro: faker.number.float({ min: 10, max: 600 }),
+        coparticipacao: faker.number.float({ min: 10, max: 600 }),
+        risco: "BAIXO",
+        prontoSocorro: false,
+        UTI: false,
+        situacao: "LIBERADA",
+        reembolso: false,
+        idPrestador: 1,
+        idPessoa: 4,
+        idProcedimento: 26,
       },
     ],
   });
