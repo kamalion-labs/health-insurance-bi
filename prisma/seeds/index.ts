@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client";
 import { insertUsuarios } from "./usuario";
 import { insertCargos } from "./cargo";
 import { insertPessoas } from "./pessoa";
@@ -10,7 +11,6 @@ import { insertProcedimentos } from "./procedimento";
 import { insertCids } from "./cid";
 import { insertPrestadores } from "./prestador";
 import { insertEventos } from "./evento";
-import { PrismaClient } from "@prisma/client";
 import { insertLiberacao } from "./liberacao";
 
 const prisma = new PrismaClient();
