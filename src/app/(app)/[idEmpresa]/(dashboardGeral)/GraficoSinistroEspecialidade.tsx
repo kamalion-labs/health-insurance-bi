@@ -6,7 +6,7 @@ import { Evento, Prisma } from "@prisma/client";
 import { colorSchemes } from "@nivo/colors";
 import { CenteredMoneyMetric } from "@/lib/util/charts/pie";
 
-const colors = colorSchemes.set2;
+const customColors: string[] = [...colorSchemes.set2, "#b26dbc", "#f75b5b"];
 
 type EspecialidadeWithProcedimentosEventos = Prisma.EspecialidadeGetPayload<{
   include: { procedimentos: { include: { eventos: true } } };
@@ -43,7 +43,7 @@ export function GraficoSinistroEspecialidade({
 
   const options: Omit<PieSvgProps<DataType>, "width" | "height"> = {
     data: chartData,
-    colors: { scheme: "set2" },
+    colors: customColors,
     enableArcLabels: false,
     enableArcLinkLabels: false,
     innerRadius: 0.7,
@@ -80,7 +80,7 @@ export function GraficoSinistroEspecialidade({
         data: chartData.map((cur, index) => ({
           id: cur.id,
           label: cur.id.substring(0, 25) + (cur.id.length > 25 ? "..." : ""),
-          color: colors[index],
+          color: customColors[index],
         })),
       },
     ],
