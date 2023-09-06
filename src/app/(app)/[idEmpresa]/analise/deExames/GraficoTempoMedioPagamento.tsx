@@ -16,6 +16,10 @@ export function GraficoTempoMedioPagamento({ data }: { data: Evento[] }) {
     ...new Set(data.map((x) => format(x.dataPagamento!, "MM/yyyy"))),
   ];
 
+  if (competencias.length > 12) {
+    competencias.splice(0, competencias.length - 12);
+  }
+
   let totalDiferencaDias = 0;
   let totalEventos = 0;
 

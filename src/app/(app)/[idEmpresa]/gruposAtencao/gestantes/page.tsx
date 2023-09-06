@@ -168,7 +168,7 @@ export default async function Page({ params: { idEmpresa } }: Props) {
         <Box.Title>Histórico de Partos realizados</Box.Title>
 
         <Box.Content>
-          <TabelaParto data={mulheresGravidas} />
+          <TabelaParto data={mulheres} />
         </Box.Content>
       </Box.Root>
     </div>

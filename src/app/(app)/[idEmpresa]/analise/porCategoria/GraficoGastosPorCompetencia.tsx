@@ -28,6 +28,10 @@ export function GraficoGastosPorCompetencia({
     ...new Set(data.map((x) => format(x.dataPagamento!, "MM/yyyy"))),
   ];
 
+  if (competencias.length > 12) {
+    competencias.splice(0, competencias.length - 12);
+  }
+
   const chartData: DataType[] = competencias.map((comp) => {
     const eventosCompetencia = data.filter(
       (x) => format(x.dataPagamento!, "MM/yyyy") === comp

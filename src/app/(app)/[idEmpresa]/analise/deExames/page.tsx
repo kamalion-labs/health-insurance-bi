@@ -110,23 +110,21 @@ export default async function Page({ params: { idEmpresa } }: Props) {
         </Box.Root>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        <Box.Root>
-          <Box.Title>Exames (Qtd) por Competência</Box.Title>
+      <Box.Root>
+        <Box.Title>Exames (Qtd) por Competência</Box.Title>
 
-          <Box.Content className="h-[300px]">
-            <GraficoExamesPorCompetencia data={exames} />
-          </Box.Content>
-        </Box.Root>
+        <Box.Content className="h-[300px]">
+          <GraficoExamesPorCompetencia data={exames} />
+        </Box.Content>
+      </Box.Root>
 
-        <Box.Root>
-          <Box.Title>Gastos de Exames por Competência</Box.Title>
+      <Box.Root>
+        <Box.Title>Gastos de Exames por Competência</Box.Title>
 
-          <Box.Content className="h-[300px]">
-            <GraficoGastosPorCompetencia data={exames} />
-          </Box.Content>
-        </Box.Root>
-      </div>
+        <Box.Content className="h-[300px]">
+          <GraficoGastosPorCompetencia data={exames} />
+        </Box.Content>
+      </Box.Root>
 
       <div className="grid grid-cols-1 gap-5">
         <Box.Root>

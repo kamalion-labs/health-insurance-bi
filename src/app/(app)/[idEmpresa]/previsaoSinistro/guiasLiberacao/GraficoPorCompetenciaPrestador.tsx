@@ -28,6 +28,10 @@ export function GraficoPorCompetenciaPrestador({
     ...new Set(data.map((lib) => format(lib.dataSolicitacao!, "MM/yyyy"))),
   ];
 
+  if (competencias.length > 12) {
+    competencias.splice(0, competencias.length - 12);
+  }
+
   const chartData: DataType[] = competencias.map((comp) => {
     const liberacoesCompetencia = data.filter(
       (liberacao) => format(liberacao.dataSolicitacao!, "MM/yyyy") === comp

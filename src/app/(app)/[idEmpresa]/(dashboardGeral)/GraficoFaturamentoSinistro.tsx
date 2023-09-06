@@ -22,6 +22,10 @@ export function GraficoFaturamentoSinistro({ data }: { data: Evento[] }) {
     ...new Set(data.map((x) => format(x.dataPagamento!, "MM/yyyy"))),
   ];
 
+  if (competencias.length > 8) {
+    competencias.splice(0, competencias.length - 8);
+  }
+
   const chartData: DataType[] = competencias.map((comp) => {
     const eventosCompetencia = data.filter(
       (x) => format(x.dataPagamento!, "MM/yyyy") === comp

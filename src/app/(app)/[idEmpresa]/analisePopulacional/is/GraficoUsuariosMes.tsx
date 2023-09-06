@@ -25,6 +25,10 @@ export function GraficoUsuariosMes({ data }: { data: EventoWithPessoa[] }) {
     ...new Set(data.map((x) => format(x?.dataPagamento!, "MM/yyyy"))),
   ];
 
+  if (competencias.length > 12) {
+    competencias.splice(0, competencias.length - 12);
+  }
+
   const chartData = competencias.map<DataType>((comp) => ({
     Date: comp,
     Titulares: data.filter(

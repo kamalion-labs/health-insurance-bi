@@ -18,6 +18,10 @@ export function GraficoServicosPorCompetencia({ data }: { data: Evento[] }) {
     ...new Set(data.map((x) => format(x.dataRealizacao!, "MM/yyyy"))),
   ];
 
+  if (competencias.length > 12) {
+    competencias.splice(0, competencias.length - 12);
+  }
+
   const chartData: DataType[] = competencias.map((comp) => {
     const eventosCompetencia = data.filter(
       (x) => format(x.dataRealizacao!, "MM/yyyy") === comp

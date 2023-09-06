@@ -31,6 +31,10 @@ export function GraficoSinistralidadeTempo({ data }: { data: Evento[] }) {
     ...new Set(data.map((x) => format(x.dataPagamento!, "MM/yyyy"))),
   ];
 
+  if (competencias.length > 12) {
+    competencias.splice(0, competencias.length - 12);
+  }
+
   chartData[0].data = competencias.map((comp) => {
     return { x: comp, y: META };
   });

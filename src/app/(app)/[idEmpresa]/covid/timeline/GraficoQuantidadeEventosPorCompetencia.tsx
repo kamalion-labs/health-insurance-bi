@@ -27,6 +27,10 @@ export function GraficoQuantidadeEventosPorCompetencia({
     ...new Set(data.map((x) => format(x.dataPagamento!, "MM/yyyy"))),
   ];
 
+  if (competencias.length > 12) {
+    competencias.splice(0, competencias.length - 12);
+  }
+
   const eventosCovid = data.filter((evento) =>
     Cids.cidsCovid.includes(evento.CID?.codigo!)
   );
