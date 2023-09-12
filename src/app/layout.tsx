@@ -2,6 +2,7 @@ import { Inter, Titillium_Web as Titillium } from "next/font/google";
 import { ReactNode } from "react";
 import Providers from "./Providers";
 
+import "@kamalion/ui/dist/styles.css";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
