@@ -25,16 +25,24 @@ export function GraficoGastosCategoria({
 }) {
   const { idCategoria, dataInicio, dataFim } = useFiltro();
 
-  if(idCategoria) {
-    data = data.filter(x => x.id === idCategoria);
+  if (idCategoria) {
+    data = data.filter((x) => x.id === idCategoria);
   }
 
-  if(dataInicio) {
-    data = data.filter(x => x.procedimentos.some(x2 => x2.eventos.some(x3 => x3.dataRealizacao >= dataInicio)));
+  if (dataInicio) {
+    data = data.filter((x) =>
+      x.procedimentos.some((x2) =>
+        x2.eventos.some((x3) => x3.dataRealizacao >= dataInicio)
+      )
+    );
   }
 
-  if(dataFim) {
-    data = data.filter(x => x.procedimentos.some(x2 => x2.eventos.some(x3 => x3.dataRealizacao <= dataFim)));
+  if (dataFim) {
+    data = data.filter((x) =>
+      x.procedimentos.some((x2) =>
+        x2.eventos.some((x3) => x3.dataRealizacao <= dataFim)
+      )
+    );
   }
 
   const chartData: DataType[] = [];

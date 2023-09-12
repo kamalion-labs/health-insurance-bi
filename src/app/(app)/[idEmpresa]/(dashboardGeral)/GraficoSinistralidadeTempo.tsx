@@ -14,21 +14,25 @@ type DataType = {
 
 const META = 70;
 
-export function GraficoSinistralidadeTempo({ data }: { data: EventoWithChilds[] }) {
+export function GraficoSinistralidadeTempo({
+  data,
+}: {
+  data: EventoWithChilds[];
+}) {
   const { idCategoria, dataInicio, dataFim } = useFiltro();
 
-  if(idCategoria) {
-    data = data.filter(x => x.procedimento.idCategoria === idCategoria);
+  if (idCategoria) {
+    data = data.filter((x) => x.procedimento.idCategoria === idCategoria);
   }
 
-  if(dataInicio) {
-    data = data.filter(x => x.dataRealizacao >= dataInicio);
+  if (dataInicio) {
+    data = data.filter((x) => x.dataRealizacao >= dataInicio);
   }
 
-  if(dataFim) {
-    data = data.filter(x => x.dataRealizacao <= dataFim);
+  if (dataFim) {
+    data = data.filter((x) => x.dataRealizacao <= dataFim);
   }
-  
+
   const chartData: DataType[] = [
     {
       id: "Meta",

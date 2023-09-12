@@ -80,7 +80,9 @@ export const ArquivosForm = forwardRef<HTMLButtonElement, Props>(
 
                 <Input.Select {...form.register("tipo")}>
                   {listaTipoArquivoOperadora.map((tipo, idx) => (
-                    <Input.SelectItem key={idx} value={tipo}>{tipo}</Input.SelectItem>
+                    <Input.SelectItem key={idx} value={tipo}>
+                      {tipo}
+                    </Input.SelectItem>
                   ))}
                 </Input.Select>
               </Input.Root>

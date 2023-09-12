@@ -26,10 +26,13 @@ export function FiltersForm({
 }) {
   const { setIdCategoria, setDataInicio, setDataFim } = useFiltro();
 
-  const form = useForm<FormData>({ resolver: zodResolver(formSchema), defaultValues: {
-    dataFim: new Date(),
-    dataInicio: subMonths(new Date(), 6),
-  } });
+  const form = useForm<FormData>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      dataFim: new Date(),
+      dataInicio: subMonths(new Date(), 6),
+    },
+  });
   const categoria = form.watch("categoria");
   const dataInicio = form.watch("dataInicio");
   const dataFim = form.watch("dataFim");
@@ -67,12 +70,21 @@ export function FiltersForm({
 
             <Input.Root>
               <Input.Label htmlFor="dataInicio">Data Início:</Input.Label>
-              <Input.DatePicker defaultMonth={dataInicio} toDate={dataFim} {...form.register("dataInicio")} />
+              <Input.DatePicker
+                defaultMonth={dataInicio}
+                toDate={dataFim}
+                {...form.register("dataInicio")}
+              />
             </Input.Root>
 
             <Input.Root>
               <Input.Label htmlFor="dataFim">Data Fim:</Input.Label>
-              <Input.DatePicker defaultMonth={dataFim} fromDate={dataInicio} toDate={new Date()} {...form.register("dataFim")} />
+              <Input.DatePicker
+                defaultMonth={dataFim}
+                fromDate={dataInicio}
+                toDate={new Date()}
+                {...form.register("dataFim")}
+              />
             </Input.Root>
           </div>
         </div>

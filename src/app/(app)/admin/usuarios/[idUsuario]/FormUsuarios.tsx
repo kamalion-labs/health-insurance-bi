@@ -22,7 +22,11 @@ export function FormUsuarios({
 }) {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: { ...usuario, admin: usuario?.admin.toString() } ?? { nome: "", email: "", admin: "false" },
+    defaultValues: { ...usuario, admin: usuario?.admin.toString() } ?? {
+      nome: "",
+      email: "",
+      admin: "false",
+    },
   });
 
   async function handleSave(formData: FormData) {
@@ -69,60 +73,60 @@ export function FormUsuarios({
 
       <Box.Content>
         <FormProvider {...form}>
-        <Form.Root
-          onSubmit={form.handleSubmit(handleSave)}
-          className="flex flex-col space-y-3"
-        >
-          <Input.Root>
-            <Input.Label htmlFor="nome">Nome:</Input.Label>
-            <Input.Text {...form.register("nome")} />
-          </Input.Root>
+          <Form.Root
+            onSubmit={form.handleSubmit(handleSave)}
+            className="flex flex-col space-y-3"
+          >
+            <Input.Root>
+              <Input.Label htmlFor="nome">Nome:</Input.Label>
+              <Input.Text {...form.register("nome")} />
+            </Input.Root>
 
-          <Input.Root>
-            <Input.Label htmlFor="email">E-mail:</Input.Label>
-            <Input.Text {...form.register("email")} />
-          </Input.Root>
+            <Input.Root>
+              <Input.Label htmlFor="email">E-mail:</Input.Label>
+              <Input.Text {...form.register("email")} />
+            </Input.Root>
 
-          <Input.Root>
-            <Input.Label htmlFor="admin">Administrador:</Input.Label>
-            <Input.Select {...form.register("admin")}>
-              <Input.SelectItem value="false">Não</Input.SelectItem>
-              <Input.SelectItem value="true">Sim</Input.SelectItem>
-            </Input.Select>
-          </Input.Root>
+            <Input.Root>
+              <Input.Label htmlFor="admin">Administrador:</Input.Label>
+              <Input.Select {...form.register("admin")}>
+                <Input.SelectItem value="false">Não</Input.SelectItem>
+                <Input.SelectItem value="true">Sim</Input.SelectItem>
+              </Input.Select>
+            </Input.Root>
 
-          <Form.Error />
+            <Form.Error />
 
-          <div className="flex space-x-3">
-            <Button.Root variant="success" type="submit">
-              <Button.Icon>
-                <FaFloppyDisk />
-              </Button.Icon>
+            <div className="flex space-x-3">
+              <Button.Root variant="success" type="submit">
+                <Button.Icon>
+                  <FaFloppyDisk />
+                </Button.Icon>
 
-              <Button.Content>Salvar</Button.Content>
-            </Button.Root>
+                <Button.Content>Salvar</Button.Content>
+              </Button.Root>
 
-            {usuario && (
-              <>
-                <Button.Root variant="danger" onClick={handleDelete}>
-                  <Button.Icon>
-                    <FaTrash />
-                  </Button.Icon>
+              {usuario && (
+                <>
+                  <Button.Root variant="danger" onClick={handleDelete}>
+                    <Button.Icon>
+                      <FaTrash />
+                    </Button.Icon>
 
-                  <Button.Content>Deletar</Button.Content>
-                </Button.Root>
+                    <Button.Content>Deletar</Button.Content>
+                  </Button.Root>
 
-                <Button.Root onClick={handleNovaSenha}>
-                  <Button.Icon>
-                    <FaKey />
-                  </Button.Icon>
+                  <Button.Root onClick={handleNovaSenha}>
+                    <Button.Icon>
+                      <FaKey />
+                    </Button.Icon>
 
-                  <Button.Content>Enviar Nova Senha</Button.Content>
-                </Button.Root>
-              </>
-            )}
-          </div>
-        </Form.Root>
+                    <Button.Content>Enviar Nova Senha</Button.Content>
+                  </Button.Root>
+                </>
+              )}
+            </div>
+          </Form.Root>
         </FormProvider>
       </Box.Content>
     </Box.Root>

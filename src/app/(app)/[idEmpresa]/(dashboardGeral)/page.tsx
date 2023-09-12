@@ -2,7 +2,7 @@ import { TabelaFaturamentoSinistro } from "./TabelaFaturamentoSinistro";
 import { GraficoSinistralidadeTempo } from "./GraficoSinistralidadeTempo";
 import { GraficoFaturamentoSinistro } from "./GraficoFaturamentoSinistro";
 import { GraficoSinistroEspecialidade } from "./GraficoSinistroEspecialidade";
-import { Box, Card, Money, PageInitializer } from "@/components";
+import { Box, PageInitializer } from "@/components";
 import { prisma } from "@/lib/db/prisma";
 import { format } from "date-fns";
 import { GraficoGastosCategoria } from "./GraficoGastosCategoria";
@@ -10,7 +10,9 @@ import { Filters } from "@/components/Filters";
 import { Prisma } from "@prisma/client";
 import { Header } from "./Header";
 
-export type EventoWithChilds = Prisma.EventoGetPayload<{ include: { procedimento: true; } }>;
+export type EventoWithChilds = Prisma.EventoGetPayload<{
+  include: { procedimento: true };
+}>;
 
 export async function generateStaticParams() {
   const empresas = await prisma.empresa.findMany();
@@ -24,9 +26,7 @@ type Props = {
   };
 };
 
-export default async function GeralPage({
-  params: { idEmpresa },
-}: Props) {
+export default async function GeralPage({ params: { idEmpresa } }: Props) {
   const eventos = await prisma.evento.findMany({
     where: {
       pessoa: {
@@ -37,8 +37,8 @@ export default async function GeralPage({
       dataPagamento: "asc",
     },
     include: {
-      procedimento: true
-    }
+      procedimento: true,
+    },
   });
 
   const categorias = await prisma.categoria.findMany({

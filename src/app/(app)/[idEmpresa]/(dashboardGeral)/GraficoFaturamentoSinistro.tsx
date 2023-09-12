@@ -3,7 +3,6 @@
 import { Chart } from "@/components";
 import { useFiltro } from "@/stores";
 import { BarSvgProps } from "@nivo/bar";
-import { Evento, Prisma } from "@prisma/client";
 import { format } from "date-fns";
 import { EventoWithChilds } from "./page";
 
@@ -19,19 +18,23 @@ type DataType = {
 
 const labels = ["Faturamento", "Sinistro", "Coparticipacao"];
 
-export function GraficoFaturamentoSinistro({ data }: { data: EventoWithChilds[] }) {
+export function GraficoFaturamentoSinistro({
+  data,
+}: {
+  data: EventoWithChilds[];
+}) {
   const { idCategoria, dataInicio, dataFim } = useFiltro();
 
-  if(idCategoria) {
-    data = data.filter(x => x.procedimento.idCategoria === idCategoria);
+  if (idCategoria) {
+    data = data.filter((x) => x.procedimento.idCategoria === idCategoria);
   }
 
-  if(dataInicio) {
-    data = data.filter(x => x.dataRealizacao >= dataInicio);
+  if (dataInicio) {
+    data = data.filter((x) => x.dataRealizacao >= dataInicio);
   }
 
-  if(dataFim) {
-    data = data.filter(x => x.dataRealizacao <= dataFim);
+  if (dataFim) {
+    data = data.filter((x) => x.dataRealizacao <= dataFim);
   }
 
   const competencias = [

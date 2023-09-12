@@ -7,18 +7,18 @@ import { EventoWithChilds } from "./page";
 export function Header({ eventos }: { eventos: EventoWithChilds[] }) {
   const { idCategoria, dataInicio, dataFim } = useFiltro();
 
-  if(idCategoria) {
-    eventos = eventos.filter(x => x.procedimento.idCategoria === idCategoria);
+  if (idCategoria) {
+    eventos = eventos.filter((x) => x.procedimento.idCategoria === idCategoria);
   }
 
-  if(dataInicio) {
-    eventos = eventos.filter(x => x.dataRealizacao >= dataInicio);
+  if (dataInicio) {
+    eventos = eventos.filter((x) => x.dataRealizacao >= dataInicio);
   }
 
-  if(dataFim) {
-    eventos = eventos.filter(x => x.dataRealizacao <= dataFim);
+  if (dataFim) {
+    eventos = eventos.filter((x) => x.dataRealizacao <= dataFim);
   }
-  
+
   return (
     <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
       <Card.Root className="bg-emerald-400 text-white">
@@ -36,10 +36,8 @@ export function Header({ eventos }: { eventos: EventoWithChilds[] }) {
 
             <Money
               value={
-                eventos.reduce(
-                  (sum, current) => sum + +current.custoTotal,
-                  0
-                ) / eventos.length
+                eventos.reduce((sum, current) => sum + +current.custoTotal, 0) /
+                eventos.length
               }
             />
           </div>
@@ -50,10 +48,7 @@ export function Header({ eventos }: { eventos: EventoWithChilds[] }) {
         <Card.Title>Sinistro Acumulado</Card.Title>
         <Card.Value>
           <Money
-            value={eventos.reduce(
-              (sum, current) => sum + +current.sinistro,
-              0
-            )}
+            value={eventos.reduce((sum, current) => sum + +current.sinistro, 0)}
           />
 
           <div className="space-x-3 text-lg font-light">
@@ -61,10 +56,8 @@ export function Header({ eventos }: { eventos: EventoWithChilds[] }) {
 
             <Money
               value={
-                eventos.reduce(
-                  (sum, current) => sum + +current.sinistro,
-                  0
-                ) / eventos.length
+                eventos.reduce((sum, current) => sum + +current.sinistro, 0) /
+                eventos.length
               }
             />
           </div>
@@ -96,5 +89,5 @@ export function Header({ eventos }: { eventos: EventoWithChilds[] }) {
         </Card.Value>
       </Card.Root>
     </div>
-  )
+  );
 }

@@ -97,7 +97,11 @@ export function ColunasForm({
                 <Input.Label htmlFor="tipo">Tipo:</Input.Label>
 
                 <Input.Select {...form.register("tipo")}>
-                  {listaTipoColuna.map((tipo, idx) => (<Input.SelectItem key={idx} value={tipo}>{tipo}</Input.SelectItem>))}
+                  {listaTipoColuna.map((tipo, idx) => (
+                    <Input.SelectItem key={idx} value={tipo}>
+                      {tipo}
+                    </Input.SelectItem>
+                  ))}
                 </Input.Select>
               </Input.Root>
             </div>
@@ -118,12 +122,16 @@ export function ColunasForm({
             </Input.Root>
 
             <Input.Root>
-              <Input.Label htmlFor="referenciaTabela">Tabela Referência:</Input.Label>
+              <Input.Label htmlFor="referenciaTabela">
+                Tabela Referência:
+              </Input.Label>
               <Input.Text {...form.register("referenciaTabela")} />
             </Input.Root>
 
             <Input.Root>
-              <Input.Label htmlFor="referenciaColuna">Coluna Referência:</Input.Label>
+              <Input.Label htmlFor="referenciaColuna">
+                Coluna Referência:
+              </Input.Label>
               <Input.Text {...form.register("referenciaColuna")} />
             </Input.Root>
 

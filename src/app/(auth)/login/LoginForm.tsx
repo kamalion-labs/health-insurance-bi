@@ -81,7 +81,11 @@ export function LoginForm() {
 
           <Form.Error />
 
-          <Button.Root variant="accent" type="submit" isLoading={form.formState.isSubmitting}>
+          <Button.Root
+            variant="accent"
+            type="submit"
+            isLoading={form.formState.isSubmitting}
+          >
             <Button.Content>Entrar</Button.Content>
             <Button.Icon>
               <FaChevronRight />

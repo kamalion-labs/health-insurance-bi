@@ -3,7 +3,7 @@
 import { Table } from "@/components";
 import { TableColumn } from "@/components/Table/TableHeader";
 import { Box, Button } from "@kamalion/ui";
-import { Empresa, Usuario } from "@prisma/client";
+import { Empresa } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { FaPlus } from "react-icons/fa6";
@@ -15,21 +15,21 @@ const columns: TableColumn[] = [
   },
   {
     key: "CNPJ",
-    label: "CNPJ"
+    label: "CNPJ",
   },
   {
     key: "numeroContrato",
-    label: "Numero Contrato"
+    label: "Numero Contrato",
   },
   {
     key: "inicioContrato",
     label: "Inicio Contrato",
-    type: "date"
+    type: "date",
   },
   {
     key: "fimContrato",
     label: "Fim Contrato",
-    type: "date"
+    type: "date",
   },
 ];
 

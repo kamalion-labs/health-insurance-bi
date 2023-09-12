@@ -56,7 +56,7 @@ export function TabelaMaioresUsuarios({
   pessoas: PessoaWithEventosCategoriaPlanoTipoTitularidade[];
 }) {
   const { id, setId } = usePessoa();
-  const { idCategoria, dataInicio, dataFim } = useFiltro();
+  const { idCategoria } = useFiltro();
 
   const filteredData = idCategoria
     ? pessoas.filter((pessoa) =>

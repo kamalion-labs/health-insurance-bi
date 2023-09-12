@@ -29,21 +29,25 @@ const cols: TableColumn[] = [
   },
 ];
 
-export function TabelaFaturamentoSinistro({ data }: { data: EventoWithChilds[] }) {
+export function TabelaFaturamentoSinistro({
+  data,
+}: {
+  data: EventoWithChilds[];
+}) {
   const { idCategoria, dataInicio, dataFim } = useFiltro();
 
-  if(idCategoria) {
-    data = data.filter(x => x.procedimento.idCategoria === idCategoria);
+  if (idCategoria) {
+    data = data.filter((x) => x.procedimento.idCategoria === idCategoria);
   }
 
-  if(dataInicio) {
-    data = data.filter(x => x.dataRealizacao >= dataInicio);
+  if (dataInicio) {
+    data = data.filter((x) => x.dataRealizacao >= dataInicio);
   }
 
-  if(dataFim) {
-    data = data.filter(x => x.dataRealizacao <= dataFim);
+  if (dataFim) {
+    data = data.filter((x) => x.dataRealizacao <= dataFim);
   }
-  
+
   data = data.sort(
     (a, b) => b.dataPagamento!.getTime() - a.dataPagamento!.getTime()
   );
