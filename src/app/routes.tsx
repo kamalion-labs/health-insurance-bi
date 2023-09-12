@@ -169,6 +169,11 @@ export const Routes: NavItemProps[] = [
         href: "/admin/operadoras",
         id: "operadoras",
       },
+      {
+        title: "Empresas",
+        href: "/admin/empresas",
+        id: "empresas",
+      },
     ],
   },
 ];
