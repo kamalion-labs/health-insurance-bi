@@ -51,50 +51,40 @@ export function TableContent({
             </td>
           )}
 
-          {columns.map((column) => (
-            <td
-              key={column.key}
-              className={twMerge(
-                "content-center px-2 text-start text-sm first:rounded-l-md last:rounded-r-md",
-                (column.type === "money" || column.type === "percent") &&
-                  "text-end"
-              )}
-            >
-              {column.type === "money" || column.type === "percent" ? (
-                <Money
-                  value={
-                    column.key.includes(".")
-                      ? +item[column.key.split(".")[0]][
-                          column.key.split(".")[1]
-                        ]
-                      : +item[column.key]
-                  }
-                  percent={column.type === "percent"}
-                />
-              ) : (
-                <>
-                  {column.type === "date"
-                    ? format(
-                        new Date(
-                          column.key.includes(".")
-                            ? item[column.key.split(".")[0]][
-                                column.key.split(".")[1]
-                              ]
-                            : item[column.key]
-                        ),
-                        "dd/MM/yyyy"
-                      )
-                    : column.key.includes(".")
-                    ? item[column.key.split(".")[0]][column.key.split(".")[1]]
-                    : item[column.key]}
-                </>
-              )}
-            </td>
-          ))}
+          {columns.map((column) => {
+            const val = column.key.includes(".")
+              ? item[column.key.split(".")[0]][column.key.split(".")[1]]
+              : item[column.key];
+
+            return (
+              <td
+                key={column.key}
+                className={twMerge(
+                  "content-center px-2 text-start text-sm first:rounded-l-md last:rounded-r-md",
+                  (column.type === "money" || column.type === "percent") &&
+                    "text-end"
+                )}
+              >
+                {column.type === "money" || column.type === "percent" ? (
+                  <Money value={+val} percent={column.type === "percent"} />
+                ) : (
+                  <>
+                    {column.type === "date" && val
+                      ? format(new Date(val), "dd/MM/yyyy")
+                      : val}
+                  </>
+                )}
+              </td>
+            );
+          })}
 
           {typeof onEdit !== "undefined" && (
             <td className="px-2 py-1 last:rounded-r-md">
-              <Button.Root variant="accent" size="icon" onClick={() => handleOnEdit(item)}>
+              <Button.Root
+                variant="accent"
+                size="icon"
+                onClick={() => handleOnEdit(item)}
+              >
                 <Button.Icon>
                   <FaPencil />
                 </Button.Icon>
