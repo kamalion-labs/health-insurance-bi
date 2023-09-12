@@ -1,7 +1,10 @@
+"use client";
+
 import { Table } from "@/components";
 import { TableColumn } from "@/components/Table/TableHeader";
-import { Evento } from "@prisma/client";
+import { useFiltro } from "@/stores";
 import { format } from "date-fns";
+import { EventoWithChilds } from "./page";
 
 const cols: TableColumn[] = [
   {
@@ -26,7 +29,21 @@ const cols: TableColumn[] = [
   },
 ];
 
-export function TabelaFaturamentoSinistro({ data }: { data: Evento[] }) {
+export function TabelaFaturamentoSinistro({ data }: { data: EventoWithChilds[] }) {
+  const { idCategoria, dataInicio, dataFim } = useFiltro();
+
+  if(idCategoria) {
+    data = data.filter(x => x.procedimento.idCategoria === idCategoria);
+  }
+
+  if(dataInicio) {
+    data = data.filter(x => x.dataRealizacao >= dataInicio);
+  }
+
+  if(dataFim) {
+    data = data.filter(x => x.dataRealizacao <= dataFim);
+  }
+  
   data = data.sort(
     (a, b) => b.dataPagamento!.getTime() - a.dataPagamento!.getTime()
   );

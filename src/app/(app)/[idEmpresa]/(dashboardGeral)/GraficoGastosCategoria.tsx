@@ -5,6 +5,7 @@ import { CenteredMoneyMetric } from "@/lib/util/charts/pie";
 import { PieSvgProps } from "@nivo/pie";
 import { Evento, Prisma } from "@prisma/client";
 import { colorSchemes } from "@nivo/colors";
+import { useFiltro } from "@/stores";
 
 const colors = colorSchemes.set2;
 
@@ -22,6 +23,20 @@ export function GraficoGastosCategoria({
 }: {
   data: CategoriaWithProcedimentosEventos[];
 }) {
+  const { idCategoria, dataInicio, dataFim } = useFiltro();
+
+  if(idCategoria) {
+    data = data.filter(x => x.id === idCategoria);
+  }
+
+  if(dataInicio) {
+    data = data.filter(x => x.procedimentos.some(x2 => x2.eventos.some(x3 => x3.dataRealizacao >= dataInicio)));
+  }
+
+  if(dataFim) {
+    data = data.filter(x => x.procedimentos.some(x2 => x2.eventos.some(x3 => x3.dataRealizacao <= dataFim)));
+  }
+
   const chartData: DataType[] = [];
 
   for (const item of data) {

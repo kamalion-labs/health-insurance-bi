@@ -1,9 +1,11 @@
 "use client";
 
 import { Chart } from "@/components";
+import { useFiltro } from "@/stores";
 import { BarSvgProps } from "@nivo/bar";
-import { Evento } from "@prisma/client";
+import { Evento, Prisma } from "@prisma/client";
 import { format } from "date-fns";
+import { EventoWithChilds } from "./page";
 
 type DataType = {
   Date: string;
@@ -17,7 +19,21 @@ type DataType = {
 
 const labels = ["Faturamento", "Sinistro", "Coparticipacao"];
 
-export function GraficoFaturamentoSinistro({ data }: { data: Evento[] }) {
+export function GraficoFaturamentoSinistro({ data }: { data: EventoWithChilds[] }) {
+  const { idCategoria, dataInicio, dataFim } = useFiltro();
+
+  if(idCategoria) {
+    data = data.filter(x => x.procedimento.idCategoria === idCategoria);
+  }
+
+  if(dataInicio) {
+    data = data.filter(x => x.dataRealizacao >= dataInicio);
+  }
+
+  if(dataFim) {
+    data = data.filter(x => x.dataRealizacao <= dataFim);
+  }
+
   const competencias = [
     ...new Set(data.map((x) => format(x.dataPagamento!, "MM/yyyy"))),
   ];

@@ -6,6 +6,11 @@ import { Box, Card, Money, PageInitializer } from "@/components";
 import { prisma } from "@/lib/db/prisma";
 import { format } from "date-fns";
 import { GraficoGastosCategoria } from "./GraficoGastosCategoria";
+import { Filters } from "@/components/Filters";
+import { Prisma } from "@prisma/client";
+import { Header } from "./Header";
+
+export type EventoWithChilds = Prisma.EventoGetPayload<{ include: { procedimento: true; } }>;
 
 export async function generateStaticParams() {
   const empresas = await prisma.empresa.findMany();
@@ -19,7 +24,9 @@ type Props = {
   };
 };
 
-export default async function GeralPage({ params: { idEmpresa } }: Props) {
+export default async function GeralPage({
+  params: { idEmpresa },
+}: Props) {
   const eventos = await prisma.evento.findMany({
     where: {
       pessoa: {
@@ -29,6 +36,9 @@ export default async function GeralPage({ params: { idEmpresa } }: Props) {
     orderBy: {
       dataPagamento: "asc",
     },
+    include: {
+      procedimento: true
+    }
   });
 
   const categorias = await prisma.categoria.findMany({
@@ -81,83 +91,9 @@ export default async function GeralPage({ params: { idEmpresa } }: Props) {
 
       {eventos.length > 0 && (
         <>
-          {/* Header */}
-          <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-            <Card.Root className="bg-emerald-400 text-white">
-              <Card.Title>Faturamento acumulado</Card.Title>
-              <Card.Value className="flex flex-col">
-                <Money
-                  value={eventos.reduce(
-                    (sum, current) => sum + +current.custoTotal,
-                    0
-                  )}
-                />
+          <Filters />
 
-                <div className="space-x-3 text-lg font-light">
-                  <span>Média:</span>
-
-                  <Money
-                    value={
-                      eventos.reduce(
-                        (sum, current) => sum + +current.custoTotal,
-                        0
-                      ) / eventos.length
-                    }
-                  />
-                </div>
-              </Card.Value>
-            </Card.Root>
-
-            <Card.Root className="bg-red-400 text-white">
-              <Card.Title>Sinistro Acumulado</Card.Title>
-              <Card.Value>
-                <Money
-                  value={eventos.reduce(
-                    (sum, current) => sum + +current.sinistro,
-                    0
-                  )}
-                />
-
-                <div className="space-x-3 text-lg font-light">
-                  <span>Média:</span>
-
-                  <Money
-                    value={
-                      eventos.reduce(
-                        (sum, current) => sum + +current.sinistro,
-                        0
-                      ) / eventos.length
-                    }
-                  />
-                </div>
-              </Card.Value>
-            </Card.Root>
-
-            <Card.Root className="bg-indigo-400 text-white">
-              <Card.Title>Coparticipação Acumulada</Card.Title>
-              <Card.Value>
-                <Money
-                  value={eventos.reduce(
-                    (sum, current) => sum + +current.coparticipacao,
-                    0
-                  )}
-                />
-
-                <div className="space-x-3 text-lg font-light">
-                  <span>Média:</span>
-
-                  <Money
-                    value={
-                      eventos.reduce(
-                        (sum, current) => sum + +current.coparticipacao,
-                        0
-                      ) / eventos.length
-                    }
-                  />
-                </div>
-              </Card.Value>
-            </Card.Root>
-          </div>
+          <Header eventos={eventos} />
 
           <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
             {/* Gráfico 1 */}
