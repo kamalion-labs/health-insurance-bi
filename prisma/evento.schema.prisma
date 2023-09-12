@@ -16,6 +16,9 @@ model Evento {
     tipoParto      TipoParto?
     reembolso      Boolean?
 
+    liberacao      Liberacao? @relation(fields: [idLiberacao], references: [id])
+    idLiberacao    Int @unique
+
     prestador   Prestador @relation(fields: [idPrestador], references: [id])
     idPrestador Int
 
@@ -95,6 +98,7 @@ model Liberacao {
     regimeInternacao     RegimeInternacao?
     dataSolicitacao      DateTime?         @db.Date
     dataInternacao       DateTime?         @db.Date
+    evento               Evento?
 
     plano   Plano @relation(fields: [idPlano], references: [id])
     idPlano Int

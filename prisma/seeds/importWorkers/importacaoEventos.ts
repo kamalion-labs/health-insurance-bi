@@ -1,5 +1,4 @@
 import { PrismaClient } from "@prisma/client";
-import { readFile } from "fs/promises";
 import { hrtime } from "process";
 import { Worker } from "worker_threads";
 
@@ -14,23 +13,31 @@ export async function importacaoEventos(prisma: PrismaClient) {
     const pessoas = await prisma.pessoa.findMany();
     const procedimentos = await prisma.procedimento.findMany();
 
-    const tiposInternacao = ["CLINICA", "CIRURGICA", "OBSTETRICA", "PSIQUIATRICA", "PEDIATRICA"];
+    const tiposInternacao = [
+      "CLINICA",
+      "CIRURGICA",
+      "OBSTETRICA",
+      "PSIQUIATRICA",
+      "PEDIATRICA",
+    ];
     const riscos = ["BAIXO", "MEDIO", "ALTO"];
     const situacoes = ["PENDENTE", "LIBERADA", "NEGADA", "CANCELADA"];
     const tipoParto = ["CESAREO", "VAGINAL"];
     const situacaoSenha = ["LIBERADA", "NEGADA"];
 
-    let poolSize = 10;
-    let pool = new Set();
+    const poolSize = 10;
+    const pool = new Set();
 
-    let chunkSize = amount / poolSize;
+    const chunkSize = amount / poolSize;
 
-    for(let i = 0; i < poolSize; i++) {
-      let worker = new Worker('./importWorkers/workerEventos.ts', { name: i.toString() });
+    for (let i = 0; i < poolSize; i++) {
+      const worker = new Worker("./importWorkers/workerEventos.ts", {
+        name: i.toString(),
+      });
 
       worker.postMessage({
-        amount: chunkSize, 
-        cids, 
+        amount: chunkSize,
+        cids,
         prestadores,
         pessoas,
         procedimentos,
@@ -38,28 +45,31 @@ export async function importacaoEventos(prisma: PrismaClient) {
         riscos,
         situacoes,
         tipoParto,
-        situacaoSenha
+        situacaoSenha,
+        threadId: i,
       });
 
       // worker.on('message', (result) => {
       //   console.log(result);
       // });
 
-      worker.on("error", error => {
+      worker.on("error", (error) => {
         console.error(error);
         reject(error);
-      })
+      });
 
-      worker.on('exit', result => {
+      worker.on("exit", (result) => {
         /* Execution time end */
         pool.delete(worker);
-    
-        if(pool.size === 0) {
+
+        if (pool.size === 0) {
           resolve(null);
           const end = hrtime.bigint();
-          console.info(`Eventos importados em: ${(end - start) / BigInt(10 ** 6)}ms`);
+          console.info(
+            `Eventos importados em: ${(end - start) / BigInt(10 ** 6)}ms`
+          );
         }
-      })
+      });
 
       pool.add(worker);
     }

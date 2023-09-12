@@ -3,39 +3,41 @@ import { Worker } from "worker_threads";
 
 async function doIt() {
   /* Execution time start */
-  const start = hrtime.bigint()
+  const start = hrtime.bigint();
 
   const items = Array.from({ length: 20 }, (value, index) => index);
 
-  let poolSize = 3;
-  let pool = new Set();
+  const poolSize = 3;
+  const pool = new Set();
 
-  let chunkSize = items.length / poolSize;
+  const chunkSize = items.length / poolSize;
 
-  for(let i = 0; i < poolSize; i++) {
-    let worker = new Worker(__dirname + '/worker1.ts', { name: i.toString() });
-    let startPosition = i * chunkSize;
-    let endPosition = i * chunkSize + chunkSize;
+  for (let i = 0; i < poolSize; i++) {
+    const worker = new Worker(__dirname + "/worker1.ts", {
+      name: i.toString(),
+    });
+    const startPosition = i * chunkSize;
+    const endPosition = i * chunkSize + chunkSize;
 
     worker.postMessage(items.slice(startPosition, endPosition));
 
-    worker.on('message', (result) => {
-      //console.log(result);
+    worker.on("message", (result) => {
+      // console.log(result);
     });
 
-    worker.on("error", error => {
+    worker.on("error", (error) => {
       console.error(error);
-    })
+    });
 
-    worker.on('exit', result => {
+    worker.on("exit", (result) => {
       /* Execution time end */
       pool.delete(worker);
-  
-      if(pool.size === 0) {
+
+      if (pool.size === 0) {
         const end = hrtime.bigint();
         console.info(`Execution time: ${(end - start) / BigInt(10 ** 6)}ms`);
       }
-    })
+    });
 
     pool.add(worker);
   }

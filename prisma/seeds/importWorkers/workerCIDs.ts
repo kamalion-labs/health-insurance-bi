@@ -1,13 +1,13 @@
-require('ts-node').register();
-
 import { PrismaClient } from "@prisma/client";
 import { parentPort } from "worker_threads";
+
+require("ts-node").register();
 
 const sleep = () => new Promise((resolve) => setTimeout(resolve, 1000));
 
 const prisma = new PrismaClient();
 
-parentPort?.on("message", async lines => {
+parentPort?.on("message", async (lines) => {
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
 
