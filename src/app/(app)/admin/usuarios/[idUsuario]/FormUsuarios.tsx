@@ -1,16 +1,16 @@
 "use client";
 
-import { Box, Button, Input, Select } from "@/components";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Box, Button, Form, Input } from "@kamalion/ui";
 import { Usuario } from "@prisma/client";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { FaFloppyDisk, FaKey, FaTrash } from "react-icons/fa6";
 import { z } from "zod";
 
 const formSchema = z.object({
   nome: z.string().nonempty("Campo obrigatório"),
   email: z.string().nonempty("Campo obrigatório").email("E-mail inválido"),
-  admin: z.enum(["true", "false"]).transform((val) => val === "true"),
+  admin: z.string().nonempty("Campo obrigatório"),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -20,13 +20,9 @@ export function FormUsuarios({
 }: {
   usuario: Omit<Usuario, "senha"> | undefined;
 }) {
-  const {
-    handleSubmit,
-    control,
-    formState: { errors },
-  } = useForm<FormData>({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: usuario ?? { nome: "", email: "", admin: false },
+    defaultValues: { ...usuario, admin: usuario?.admin.toString() } ?? { nome: "", email: "", admin: "false" },
   });
 
   async function handleSave(formData: FormData) {
@@ -69,39 +65,36 @@ export function FormUsuarios({
 
   return (
     <Box.Root>
-      <Box.Title>Dados do Usuário</Box.Title>
+      <Box.Header>Dados do Usuário</Box.Header>
 
       <Box.Content>
-        <form
-          onSubmit={handleSubmit(handleSave)}
-          className="flex flex-col space-y-3 px-4"
+        <FormProvider {...form}>
+        <Form.Root
+          onSubmit={form.handleSubmit(handleSave)}
+          className="flex flex-col space-y-3"
         >
           <Input.Root>
-            <Input.Label htmlFor="nome" text="Nome:" />
-            <Input.Control control={control} name="nome" />
+            <Input.Label htmlFor="nome">Nome:</Input.Label>
+            <Input.Text {...form.register("nome")} />
           </Input.Root>
 
           <Input.Root>
-            <Input.Label htmlFor="email" text="E-mail:" />
-            <Input.Control control={control} name="email" />
+            <Input.Label htmlFor="email">E-mail:</Input.Label>
+            <Input.Text {...form.register("email")} />
           </Input.Root>
 
-          <Select.Root>
-            <Select.Label htmlFor="admin" text="Administrador:" />
-            <Select.Control
-              control={control}
-              name="admin"
-              data={[
-                { key: false, label: "Não" },
-                { key: true, label: "Sim" },
-              ]}
-            />
-          </Select.Root>
+          <Input.Root>
+            <Input.Label htmlFor="admin">Administrador:</Input.Label>
+            <Input.Select {...form.register("admin")}>
+              <Input.SelectItem value="false">Não</Input.SelectItem>
+              <Input.SelectItem value="true">Sim</Input.SelectItem>
+            </Input.Select>
+          </Input.Root>
 
-          {errors.root?.message}
+          <Form.Error />
 
           <div className="flex space-x-3">
-            <Button.Root type="success" submit>
+            <Button.Root variant="success" type="submit">
               <Button.Icon>
                 <FaFloppyDisk />
               </Button.Icon>
@@ -111,7 +104,7 @@ export function FormUsuarios({
 
             {usuario && (
               <>
-                <Button.Root type="danger" onClick={handleDelete}>
+                <Button.Root variant="danger" onClick={handleDelete}>
                   <Button.Icon>
                     <FaTrash />
                   </Button.Icon>
@@ -119,7 +112,7 @@ export function FormUsuarios({
                   <Button.Content>Deletar</Button.Content>
                 </Button.Root>
 
-                <Button.Root type="info" onClick={handleNovaSenha}>
+                <Button.Root onClick={handleNovaSenha}>
                   <Button.Icon>
                     <FaKey />
                   </Button.Icon>
@@ -129,7 +122,8 @@ export function FormUsuarios({
               </>
             )}
           </div>
-        </form>
+        </Form.Root>
+        </FormProvider>
       </Box.Content>
     </Box.Root>
   );

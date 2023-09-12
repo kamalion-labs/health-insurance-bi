@@ -1,14 +1,14 @@
 "use client";
 
-import { Button, Input, Select } from "@/components";
 import { OperadoraWithArquivos } from "@/lib/operadora/repositorio/OperadoraRepositorio";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArquivoOperadora, TipoArquivoOperadora } from "@prisma/client";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { FaFloppyDisk, FaPlus } from "react-icons/fa6";
 import { z } from "zod";
 import { Dialog } from "@/components/Dialog";
 import { Dispatch, SetStateAction, forwardRef } from "react";
+import { Button, Form, Input } from "@kamalion/ui";
 
 const formSchema = z.object({
   nome: z.string().nonempty("Campo obrigatório"),
@@ -29,7 +29,7 @@ interface Props {
 
 export const ArquivosForm = forwardRef<HTMLButtonElement, Props>(
   ({ operadora, arquivo, setIdArquivo }, ref) => {
-    const { control, handleSubmit } = useForm<FormData>({
+    const form = useForm<FormData>({
       resolver: zodResolver(formSchema),
       values: {
         nome: arquivo?.nome ?? "",
@@ -53,7 +53,7 @@ export const ArquivosForm = forwardRef<HTMLButtonElement, Props>(
     return (
       <Dialog.Root>
         <Dialog.Trigger>
-          <Button.Root type="success" ref={ref}>
+          <Button.Root variant="success" ref={ref}>
             <Button.Icon>
               <FaPlus />
             </Button.Icon>
@@ -65,47 +65,46 @@ export const ArquivosForm = forwardRef<HTMLButtonElement, Props>(
         <Dialog.Content>
           <Dialog.Title>Incluir Arquivo</Dialog.Title>
 
-          <form
-            className="flex flex-col space-y-5"
-            onSubmit={handleSubmit(handleSave)}
-          >
-            <Input.Root>
-              <Input.Label htmlFor="nome" text="Nome:" />
-              <Input.Control control={control} name="nome" />
-            </Input.Root>
+          <FormProvider {...form}>
+            <Form.Root
+              className="flex flex-col space-y-5"
+              onSubmit={form.handleSubmit(handleSave)}
+            >
+              <Input.Root>
+                <Input.Label htmlFor="nome">Nome:</Input.Label>
+                <Input.Text {...form.register("nome")} />
+              </Input.Root>
 
-            <Select.Root className="">
-              <Select.Label htmlFor="tipo" text="Tipo de Arquivo:" />
+              <Input.Root>
+                <Input.Label htmlFor="tipo">Tipo de Arquivo:</Input.Label>
 
-              <Select.Control
-                data={listaTipoArquivoOperadora.map((tipo) => ({
-                  key: tipo,
-                  label: tipo,
-                }))}
-                name="tipo"
-                control={control}
-              />
-            </Select.Root>
+                <Input.Select {...form.register("tipo")}>
+                  {listaTipoArquivoOperadora.map((tipo, idx) => (
+                    <Input.SelectItem key={idx} value={tipo}>{tipo}</Input.SelectItem>
+                  ))}
+                </Input.Select>
+              </Input.Root>
 
-            <Input.Root>
-              <Input.Label htmlFor="separador" text="Separador:" />
-              <Input.Control control={control} name="separador" />
-            </Input.Root>
+              <Input.Root>
+                <Input.Label htmlFor="separador">Separador:</Input.Label>
+                <Input.Text {...form.register("separador")} />
+              </Input.Root>
 
-            <Input.Root>
-              <Input.Label htmlFor="tabela" text="Tabela:" />
-              <Input.Control control={control} name="tabela" />
-            </Input.Root>
+              <Input.Root>
+                <Input.Label htmlFor="tabela">Tabela:</Input.Label>
+                <Input.Text {...form.register("tabela")} />
+              </Input.Root>
 
-            <div>
-              <Button.Root submit>
-                <Button.Content>Salvar</Button.Content>
-                <Button.Icon>
-                  <FaFloppyDisk />
-                </Button.Icon>
-              </Button.Root>
-            </div>
-          </form>
+              <div>
+                <Button.Root type="submit" variant="accent">
+                  <Button.Content>Salvar</Button.Content>
+                  <Button.Icon>
+                    <FaFloppyDisk />
+                  </Button.Icon>
+                </Button.Root>
+              </div>
+            </Form.Root>
+          </FormProvider>
         </Dialog.Content>
       </Dialog.Root>
     );

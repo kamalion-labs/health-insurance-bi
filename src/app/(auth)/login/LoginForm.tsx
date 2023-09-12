@@ -2,15 +2,15 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import Image from "next/image";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { FaChevronRight } from "react-icons/fa6";
 import { z } from "zod";
 import { useSearchParams, useRouter } from "next/navigation";
 
-import { Button, Input } from "@/components";
 import { handleResponse } from "@/lib/api/handleResponse";
 
 import logo from "../../../assets/interliga.png";
+import { Button, Form, Input } from "@kamalion/ui";
 
 const loginFormSchema = z.object({
   email: z.string().nonempty("Campo obrigatório").default(""),
@@ -23,12 +23,7 @@ export function LoginForm() {
   const { get } = useSearchParams();
   const router = useRouter();
 
-  const {
-    control,
-    handleSubmit,
-    formState: { isSubmitting, errors },
-    setError,
-  } = useForm<LoginFormData>({
+  const form = useForm<LoginFormData>({
     resolver: zodResolver(loginFormSchema),
   });
 
@@ -59,39 +54,41 @@ export function LoginForm() {
         router.push(redirect !== "null" ? redirect : "/1");
       }
     } catch (e: any) {
-      setError("root", { message: e.message });
+      form.setError("root", { message: e.message });
     }
   }
 
   return (
-    <div className="flex h-full w-full max-w-md flex-col space-y-10 bg-white p-5 dark:bg-slate-700 md:h-fit md:w-full md:rounded-md">
+    <div className="flex w-full max-w-md flex-col space-y-10 bg-white p-5 dark:bg-slate-700 md:h-fit md:w-full md:rounded-md">
       <div className="flex w-full justify-center">
         <Image alt="Interliga" src={logo} className="w-full md:w-[200px]" />
       </div>
 
-      <form
-        onSubmit={handleSubmit(handleLogin)}
-        className="flex flex-col space-y-5"
-      >
-        <Input.Root>
-          <Input.Label htmlFor="email" text="E-mail:" />
-          <Input.Control control={control} name="email" />
-        </Input.Root>
+      <FormProvider {...form}>
+        <Form.Root
+          onSubmit={form.handleSubmit(handleLogin)}
+          className="flex flex-col space-y-5"
+        >
+          <Input.Root>
+            <Input.Label htmlFor="email">E-mail:</Input.Label>
+            <Input.Text {...form.register("email")} />
+          </Input.Root>
 
-        <Input.Root>
-          <Input.Label htmlFor="senha" text="Senha:" />
-          <Input.Control control={control} name="senha" type="password" />
-        </Input.Root>
+          <Input.Root>
+            <Input.Label htmlFor="senha">Senha:</Input.Label>
+            <Input.Text type="password" {...form.register("senha")} />
+          </Input.Root>
 
-        <div className="text-red-400">{errors.root?.message}</div>
+          <Form.Error />
 
-        <Button.Root submit isLoading={isSubmitting}>
-          <Button.Content>Entrar</Button.Content>
-          <Button.Icon>
-            <FaChevronRight />
-          </Button.Icon>
-        </Button.Root>
-      </form>
+          <Button.Root variant="accent" type="submit" isLoading={form.formState.isSubmitting}>
+            <Button.Content>Entrar</Button.Content>
+            <Button.Icon>
+              <FaChevronRight />
+            </Button.Icon>
+          </Button.Root>
+        </Form.Root>
+      </FormProvider>
     </div>
   );
 }

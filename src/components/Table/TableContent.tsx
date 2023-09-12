@@ -1,9 +1,11 @@
+"use client";
+
 import { TableColumn } from "./TableHeader";
 import { FaPencil } from "react-icons/fa6";
-import { Button } from "../Button";
 import { twMerge } from "tailwind-merge";
 import { Money } from "../Money";
 import { format } from "date-fns";
+import { Button } from "@kamalion/ui";
 
 interface TableContentProps {
   columns: TableColumn[];
@@ -92,7 +94,7 @@ export function TableContent({
 
           {typeof onEdit !== "undefined" && (
             <td className="px-2 py-1 last:rounded-r-md">
-              <Button.Root onClick={() => handleOnEdit(item)}>
+              <Button.Root variant="accent" size="icon" onClick={() => handleOnEdit(item)}>
                 <Button.Icon>
                   <FaPencil />
                 </Button.Icon>

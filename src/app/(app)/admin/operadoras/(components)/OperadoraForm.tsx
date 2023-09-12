@@ -1,14 +1,15 @@
 "use client";
 
-import { Table, Input, Box } from "@/components";
+import { Table } from "@/components";
 import { ArquivoOperadora, ColunaArquivo, Operadora } from "@prisma/client";
 import { useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { OperadorasWithArquivos } from "@/lib/operadora/repositorio/OperadoraRepositorio";
 import { ArquivosForm } from "./ArquivosForm";
 import { ColunasForm } from "./ColunasForm";
+import { Box, Form, Input } from "@kamalion/ui";
 
 const columns = [
   {
@@ -92,7 +93,7 @@ export function OperadoraForm({ data }: { data: OperadorasWithArquivos }) {
   const arquivo = operadora?.arquivos.find((x) => x.id === IdArquivo);
   const coluna = arquivo?.colunas.find((x) => x.id === IdColuna);
 
-  const { control } = useForm<FormData>({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     values: {
       nome: operadora?.nome ?? "",
@@ -119,7 +120,7 @@ export function OperadoraForm({ data }: { data: OperadorasWithArquivos }) {
   return (
     <div className="space-y-5">
       <Box.Root className="space-y-5">
-        <Box.Title>Operadoras</Box.Title>
+        <Box.Header>Operadoras</Box.Header>
 
         <Box.Content>
           <Table.Root
@@ -134,32 +135,32 @@ export function OperadoraForm({ data }: { data: OperadorasWithArquivos }) {
       {operadora && (
         <>
           <Box.Root>
-            <Box.Title>Dados da Operadora</Box.Title>
+            <Box.Header>Dados da Operadora</Box.Header>
 
             <Box.Content>
-              <form className="flex flex-col space-y-3 px-4">
-                <Input.Root>
-                  <Input.Label htmlFor="nome" text="Nome:" />
-                  <Input.Control control={control} name="nome" />
-                </Input.Root>
-              </form>
+              <FormProvider {...form}>
+                <Form.Root>
+                  <Input.Root>
+                    <Input.Label htmlFor="nome">Nome:</Input.Label>
+                    <Input.Text {...form.register("nome")} />
+                  </Input.Root>
+                </Form.Root>
+              </FormProvider>
             </Box.Content>
           </Box.Root>
 
           {operadora && (
             <>
               <Box.Root>
-                <Box.Title>Arquivos</Box.Title>
+                <Box.Header>Arquivos</Box.Header>
 
                 <Box.Content>
-                  <div className="p-4">
-                    <ArquivosForm
-                      ref={formArquivosRef}
-                      operadora={operadora}
-                      arquivo={arquivo}
-                      setIdArquivo={setIdArquivo}
-                    />
-                  </div>
+                  <ArquivosForm
+                    ref={formArquivosRef}
+                    operadora={operadora}
+                    arquivo={arquivo}
+                    setIdArquivo={setIdArquivo}
+                  />
 
                   <Table.Root
                     columns={arquivoColumns}
@@ -173,16 +174,14 @@ export function OperadoraForm({ data }: { data: OperadorasWithArquivos }) {
 
               {arquivo && (
                 <Box.Root>
-                  <Box.Title>Colunas</Box.Title>
+                  <Box.Header>Colunas</Box.Header>
 
                   <Box.Content>
-                    <div className="p-4">
-                      <ColunasForm
-                        operadora={operadora}
-                        arquivo={arquivo}
-                        coluna={coluna}
-                      />
-                    </div>
+                    <ColunasForm
+                      operadora={operadora}
+                      arquivo={arquivo}
+                      coluna={coluna}
+                    />
 
                     <Table.Root
                       columns={colunasTableColumns}

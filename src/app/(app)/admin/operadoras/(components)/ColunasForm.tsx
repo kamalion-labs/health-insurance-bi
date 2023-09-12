@@ -1,12 +1,12 @@
 "use client";
 
-import { Button, Input, Select } from "@/components";
+import { Button, Form, Input } from "@kamalion/ui";
 import { Dialog } from "@/components/Dialog";
 import { ArquivoWithColunas } from "@/lib/operadora/repositorio/ArquivosRepositorio";
 import { OperadoraWithArquivos } from "@/lib/operadora/repositorio/OperadoraRepositorio";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ColunaArquivo, TipoColuna } from "@prisma/client";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { FaFloppyDisk, FaPlus } from "react-icons/fa6";
 import { z } from "zod";
 
@@ -34,7 +34,7 @@ export function ColunasForm({
   arquivo?: ArquivoWithColunas;
   coluna?: ColunaArquivo;
 }) {
-  const { control, handleSubmit } = useForm<FormData>({
+  const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     values: {
       nome: coluna?.nome ?? "",
@@ -65,7 +65,7 @@ export function ColunasForm({
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button.Root type="success">
+        <Button.Root variant="success">
           <Button.Icon>
             <FaPlus />
           </Button.Icon>
@@ -77,69 +77,66 @@ export function ColunasForm({
       <Dialog.Content>
         <Dialog.Title>Incluir Coluna</Dialog.Title>
 
-        <form
-          className="flex flex-col space-y-5"
-          onSubmit={handleSubmit(handleSave)}
-        >
-          <Input.Root>
-            <Input.Label htmlFor="nome" text="Nome:" />
-            <Input.Control control={control} name="nome" />
-          </Input.Root>
+        <FormProvider {...form}>
+          <Form.Root
+            className="flex flex-col space-y-5"
+            onSubmit={form.handleSubmit(handleSave)}
+          >
+            <Input.Root>
+              <Input.Label htmlFor="nome">Nome:</Input.Label>
+              <Input.Text {...form.register("nome")} />
+            </Input.Root>
 
-          <Input.Root>
-            <Input.Label htmlFor="coluna" text="Coluna:" />
-            <Input.Control control={control} name="coluna" />
-          </Input.Root>
+            <Input.Root>
+              <Input.Label htmlFor="coluna">Coluna:</Input.Label>
+              <Input.Text {...form.register("coluna")} />
+            </Input.Root>
 
-          <div className="flex">
-            <Select.Root className="">
-              <Select.Label htmlFor="tipo" text="Tipo:" />
+            <div className="flex">
+              <Input.Root>
+                <Input.Label htmlFor="tipo">Tipo:</Input.Label>
 
-              <Select.Control
-                data={listaTipoColuna.map((tipo) => ({
-                  key: tipo,
-                  label: tipo,
-                }))}
-                name="tipo"
-                control={control}
-              />
-            </Select.Root>
-          </div>
+                <Input.Select {...form.register("tipo")}>
+                  {listaTipoColuna.map((tipo, idx) => (<Input.SelectItem key={idx} value={tipo}>{tipo}</Input.SelectItem>))}
+                </Input.Select>
+              </Input.Root>
+            </div>
 
-          <Input.Root>
-            <Input.Label htmlFor="posicao" text="Posição:" />
-            <Input.Control control={control} name="posicao" />
-          </Input.Root>
+            <Input.Root>
+              <Input.Label htmlFor="posicao">Posição:</Input.Label>
+              <Input.Text {...form.register("posicao")} />
+            </Input.Root>
 
-          <Input.Root>
-            <Input.Label htmlFor="inicio" text="Início:" />
-            <Input.Control control={control} name="inicio" />
-          </Input.Root>
+            <Input.Root>
+              <Input.Label htmlFor="inicio">Início:</Input.Label>
+              <Input.Text {...form.register("inicio")} />
+            </Input.Root>
 
-          <Input.Root>
-            <Input.Label htmlFor="fim" text="Fim:" />
-            <Input.Control control={control} name="fim" />
-          </Input.Root>
+            <Input.Root>
+              <Input.Label htmlFor="fim">Fim:</Input.Label>
+              <Input.Text {...form.register("fim")} />
+            </Input.Root>
 
-          <Input.Root>
-            <Input.Label htmlFor="referenciaTabela" text="Tabela Referência:" />
-            <Input.Control control={control} name="referenciaTabela" />
-          </Input.Root>
+            <Input.Root>
+              <Input.Label htmlFor="referenciaTabela">Tabela Referência:</Input.Label>
+              <Input.Text {...form.register("referenciaTabela")} />
+            </Input.Root>
 
-          <Input.Root>
-            <Input.Label htmlFor="referenciaColuna" text="Coluna Referência:" />
-            <Input.Control control={control} name="referenciaColuna" />
-          </Input.Root>
+            <Input.Root>
+              <Input.Label htmlFor="referenciaColuna">Coluna Referência:</Input.Label>
+              <Input.Text {...form.register("referenciaColuna")} />
+            </Input.Root>
 
-          <div>
-            <Button.Root submit>
-              <Button.Content>Salvar</Button.Content>
-              <Button.Icon>
-                <FaFloppyDisk />
-              </Button.Icon>
-            </Button.Root>
-          </div>
-        </form>
+            <div>
+              <Button.Root type="submit" variant="accent">
+                <Button.Content>Salvar</Button.Content>
+                <Button.Icon>
+                  <FaFloppyDisk />
+                </Button.Icon>
+              </Button.Root>
+            </div>
+          </Form.Root>
+        </FormProvider>
       </Dialog.Content>
     </Dialog.Root>
   );

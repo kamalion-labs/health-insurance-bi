@@ -7,7 +7,7 @@ import { z } from "zod";
 import { Form, Input } from "@kamalion/ui";
 import { useEffect } from "react";
 import { useFiltro } from "@/stores";
-import { subYears } from "date-fns";
+import { subMonths } from "date-fns";
 
 const formSchema = z.object({
   categoria: z.coerce.number(),
@@ -28,7 +28,7 @@ export function FiltersForm({
 
   const form = useForm<FormData>({ resolver: zodResolver(formSchema), defaultValues: {
     dataFim: new Date(),
-    dataInicio: subYears(new Date(), 1),
+    dataInicio: subMonths(new Date(), 6),
   } });
   const categoria = form.watch("categoria");
   const dataInicio = form.watch("dataInicio");

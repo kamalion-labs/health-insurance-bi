@@ -37,7 +37,7 @@ export function TableRoot({
 
   return (
     <div className="flex flex-col">
-      <div className="max-w-scren flex overflow-x-auto p-2">
+      <div className="max-w-scren flex overflow-x-auto">
         <table className="w-full table-auto border-separate border-spacing-y-2">
           {!children && (
             <>
