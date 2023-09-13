@@ -16,7 +16,7 @@ function getData(faixa: string, items: Evento[]): DataType {
   return {
     Faixa: faixa,
     "Valor Acumulado": items.reduce(
-      (sum, evento) => sum + evento.custoTotal,
+      (sum, evento) => sum + evento.custoTotal * evento.quantidade,
       0
     ),
     Quantidade: items.length,

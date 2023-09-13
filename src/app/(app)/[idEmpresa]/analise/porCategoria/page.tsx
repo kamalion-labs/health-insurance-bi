@@ -86,7 +86,10 @@ export default async function Page({ params: { idEmpresa } }: Props) {
           <Card.Value className="flex flex-col">
             R${" "}
             {eventos
-              .reduce((sum, current) => sum + current.custoTotal, 0)
+              .reduce(
+                (sum, current) => sum + current.custoTotal * current.quantidade,
+                0
+              )
               .toLocaleString("pt-BR", {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,

@@ -41,6 +41,12 @@ export default async function CovidDashboard({ params: { idEmpresa } }: Props) {
     return hasCidCovid || hasTussCovid;
   });
 
+  const eventosSRAG = eventos.filter((evento) => {
+    const hasCidSRAG = Cids.cidsSRAG.includes(evento.CID?.codigo!);
+    const hasTussSRAG = Tuss.tussSRAG.includes(evento.procedimento.tuss);
+    return hasCidSRAG || hasTussSRAG;
+  });
+
   const examesCovid = eventos.filter((evento) =>
     Tuss.tussCovid.includes(evento.procedimento.tuss)
   );
@@ -64,27 +70,14 @@ export default async function CovidDashboard({ params: { idEmpresa } }: Props) {
         </Card.Root>
 
         <Card.Root>
-          <Card.Title>Internação de Coronavírus</Card.Title>
-          <Card.Value>
-            {
-              // Filtra eventos que possuem internação e depois eventos que possuem CID de covid.
-              eventos
-                .filter((evento) => evento.teveInternacao)
-                .filter((evento) =>
-                  Cids.cidsCovid.includes(evento.CID?.codigo!)
-                ).length
-            }
-          </Card.Value>
+          <Card.Title>Procedimentos com CID/TUSS de Coronavírus</Card.Title>
+          <Card.Value>{eventosCovid.length}</Card.Value>
         </Card.Root>
 
         <Card.Root>
-          <Card.Title>Procedimentos com CID de Coronavírus</Card.Title>
+          <Card.Title>Internação de Coronavírus</Card.Title>
           <Card.Value>
-            {
-              eventos.filter((evento) =>
-                Cids.cidsCovid.includes(evento.CID?.codigo!)
-              ).length
-            }
+            {eventosCovid.filter((evento) => evento.teveInternacao).length}
           </Card.Value>
         </Card.Root>
       </div>
@@ -96,41 +89,46 @@ export default async function CovidDashboard({ params: { idEmpresa } }: Props) {
         </Card.Root>
 
         <Card.Root>
+          <Card.Title>Procedimentos com CID/TUSS de SRAG</Card.Title>
+          <Card.Value>{eventosSRAG.length}</Card.Value>
+        </Card.Root>
+
+        <Card.Root>
           <Card.Title>Internação de SRAG</Card.Title>
           <Card.Value>
             {
               // Filtra eventos que possuem internação e depois eventos que possuem CID de SRAG.
-              eventos
-                .filter((evento) => evento.teveInternacao)
-                .filter((evento) => Cids.cidsSRAG.includes(evento.CID?.codigo!))
-                .length
-            }
-          </Card.Value>
-        </Card.Root>
-
-        <Card.Root>
-          <Card.Title>Procedimentos com CID de SRAG</Card.Title>
-          <Card.Value>
-            {
-              eventos.filter((evento) =>
-                Cids.cidsSRAG.includes(evento.CID?.codigo!)
-              ).length
+              eventosSRAG.filter((evento) => evento.teveInternacao).length
             }
           </Card.Value>
         </Card.Root>
       </div>
 
-      <Card.Root>
-        <Card.Title>Impacto Custo Total Covid-19</Card.Title>
-        <Card.Value>
-          <Money
-            value={eventosCovid.reduce(
-              (sum, evento) => sum + evento.custoTotal,
-              0
-            )}
-          />
-        </Card.Value>
-      </Card.Root>
+      <div className="grid grid-cols-2 gap-5">
+        <Card.Root>
+          <Card.Title>Impacto Custo Total Covid-19</Card.Title>
+          <Card.Value>
+            <Money
+              value={eventosCovid.reduce(
+                (sum, evento) => sum + evento.custoTotal * evento.quantidade,
+                0
+              )}
+            />
+          </Card.Value>
+        </Card.Root>
+
+        <Card.Root>
+          <Card.Title>Impacto Custo Total SRAG</Card.Title>
+          <Card.Value>
+            <Money
+              value={eventosSRAG.reduce(
+                (sum, evento) => sum + evento.custoTotal * evento.quantidade,
+                0
+              )}
+            />
+          </Card.Value>
+        </Card.Root>
+      </div>
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
         {/* Gráfico 1 */}

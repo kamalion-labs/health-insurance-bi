@@ -1,13 +1,13 @@
 "use client";
 
 import { Chart } from "@/components";
-import { Cids } from "@/lib/consts";
+import { Cids, Tuss } from "@/lib/consts";
 import { CenteredMoneyMetric } from "@/lib/util/charts/pie";
 import { PieSvgProps } from "@nivo/pie";
 import { Evento, Prisma } from "@prisma/client";
 
 type EventoWithCids = Prisma.EventoGetPayload<{
-  include: { CID: true };
+  include: { CID: true; procedimento: true };
 }>;
 
 type DataType = {
@@ -19,9 +19,11 @@ type DataType = {
 export function GraficoCustoTotal({ data }: { data: EventoWithCids[] }) {
   const chartData: DataType[] = [];
 
-  const eventosCovid = data.filter((evento) =>
-    Cids.cidsCovid.includes(evento.CID?.codigo!)
-  );
+  const eventosCovid = data.filter((evento) => {
+    const hasCidCovid = Cids.cidsCovid.includes(evento.CID?.codigo!);
+    const hasTussCovid = Tuss.tussCovid.includes(evento.procedimento.tuss);
+    return hasCidCovid || hasTussCovid;
+  });
 
   const eventosNaoCovid = data.filter(
     (evento) => !Cids.cidsCovid.includes(evento.CID?.codigo!)
@@ -29,13 +31,19 @@ export function GraficoCustoTotal({ data }: { data: EventoWithCids[] }) {
 
   chartData.push({
     id: "Covid",
-    value: eventosCovid.reduce((sum, evento) => sum + evento.custoTotal, 0),
+    value: eventosCovid.reduce(
+      (sum, evento) => sum + evento.custoTotal * evento.quantidade,
+      0
+    ),
     items: eventosCovid,
   });
 
   chartData.push({
     id: "Não Covid",
-    value: eventosNaoCovid.reduce((sum, evento) => sum + evento.custoTotal, 0),
+    value: eventosNaoCovid.reduce(
+      (sum, evento) => sum + evento.custoTotal * evento.quantidade,
+      0
+    ),
     items: eventosNaoCovid,
   });
 
