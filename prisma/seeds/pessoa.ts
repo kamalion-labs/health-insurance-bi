@@ -4,7 +4,7 @@ import { hrtime } from "process";
 
 export async function insertPessoas(prisma: PrismaClient) {
   const start = hrtime.bigint();
-  
+
   await prisma.tipoTitularidade.createMany({
     data: [
       {
@@ -232,6 +232,69 @@ export async function insertPessoas(prisma: PrismaClient) {
         idEmpresa: 1,
         idPlano: 1,
         idTipoTitularidade: 2,
+      },
+      {
+        id: 11,
+        nome: faker.person.fullName(),
+        CPF: faker.number
+          .int({ min: 10000000000, max: 99999999999 })
+          .toString()
+          .padStart(11, "0"),
+        sexo: "M",
+        dataNascimento: faker.date.betweens({
+          from: "1960-01-01T00:00:00.000Z",
+          to: new Date(),
+        })[0],
+        scoreDiabetes: parseFloat(Math.random().toFixed(4)),
+        scoreHipertensao: parseFloat(Math.random().toFixed(4)),
+        status: "ATIVO",
+        funcionario: true,
+        idEmpresa: 1,
+        idPlano: 1,
+        idTipoTitularidade: 2,
+        idCargo: 2,
+      },
+      {
+        id: 12,
+        nome: faker.person.fullName(),
+        CPF: faker.number
+          .int({ min: 10000000000, max: 99999999999 })
+          .toString()
+          .padStart(11, "0"),
+        sexo: "F",
+        dataNascimento: faker.date.betweens({
+          from: "1960-01-01T00:00:00.000Z",
+          to: new Date(),
+        })[0],
+        scoreDiabetes: parseFloat(Math.random().toFixed(4)),
+        scoreHipertensao: parseFloat(Math.random().toFixed(4)),
+        status: "ATIVO",
+        funcionario: true,
+        idEmpresa: 1,
+        idPlano: 1,
+        idTipoTitularidade: 2,
+        idCargo: 1,
+      },
+      {
+        id: 13,
+        nome: faker.person.fullName(),
+        CPF: faker.number
+          .int({ min: 10000000000, max: 99999999999 })
+          .toString()
+          .padStart(11, "0"),
+        sexo: "F",
+        dataNascimento: faker.date.betweens({
+          from: "1960-01-01T00:00:00.000Z",
+          to: new Date(),
+        })[0],
+        scoreDiabetes: parseFloat(Math.random().toFixed(4)),
+        scoreHipertensao: parseFloat(Math.random().toFixed(4)),
+        status: "ATIVO",
+        funcionario: false,
+        idEmpresa: 1,
+        idPlano: 2,
+        idTipoTitularidade: 2,
+        idCargo: 2,
       },
     ],
   });

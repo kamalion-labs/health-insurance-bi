@@ -5,13 +5,10 @@ import { addDays } from "date-fns";
 
 require("ts-node").register();
 
-const sleep = () => new Promise((resolve) => setTimeout(resolve, 1000));
-
 const prisma = new PrismaClient();
 
 parentPort?.on("message", async (params) => {
   const {
-    amount,
     threadId,
     cids,
     prestadores,
@@ -49,8 +46,9 @@ parentPort?.on("message", async (params) => {
 
     const gravida =
       procedimento.idEspecialidade === 8 &&
+      pessoa.sexo === "F" &&
       faker.datatype.boolean({ probability: 0.4 });
-    const teveParto = gravida && faker.datatype.boolean({ probability: 0.1 });
+    const teveParto = gravida && faker.datatype.boolean({ probability: 0.5 });
 
     await prisma.evento.create({
       data: {

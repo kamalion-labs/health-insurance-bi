@@ -2,6 +2,7 @@
 
 import { Chart } from "@/components";
 import { CenteredMoneyMetric } from "@/lib/util/charts/pie";
+import { colorSchemes } from "@nivo/colors";
 import { PieSvgProps } from "@nivo/pie";
 import { Evento, Prisma } from "@prisma/client";
 
@@ -14,6 +15,8 @@ type DataType = {
   value: number;
   items: Evento[];
 };
+
+const customColors: string[] = [...colorSchemes.set2, "#BF7DCC", "#FD6B6B"];
 
 export function GraficoSinistroEspecialidade({
   data,
@@ -40,7 +43,7 @@ export function GraficoSinistroEspecialidade({
 
   const options: Omit<PieSvgProps<DataType>, "width" | "height"> = {
     data: chartData,
-    colors: { scheme: "set2" },
+    colors: customColors,
     enableArcLabels: false,
     enableArcLinkLabels: false,
     innerRadius: 0.7,

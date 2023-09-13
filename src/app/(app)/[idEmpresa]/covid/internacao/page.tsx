@@ -47,6 +47,13 @@ export default async function Internacao({ params: { idEmpresa } }: Props) {
     return [...lista, evento.pessoa];
   }, []);
 
+  const idadeMedia =
+    pessoas.reduce(
+      (sum, current) =>
+        sum + differenceInYears(new Date(), current.dataNascimento!),
+      0
+    ) / pessoas.length;
+
   const tabelaInternacoes = internacoesCovid.map<InternacoesTabela>((exame) => {
     const nome = exame.pessoa.nome;
     const titularidade = exame.pessoa.tipoTitularidade.nome;
@@ -89,16 +96,12 @@ export default async function Internacao({ params: { idEmpresa } }: Props) {
         <Card.Root className="h-30">
           <Card.Title>Idade média de quem foi internado</Card.Title>
           <Card.Value>
-            {(
-              pessoas.reduce(
-                (sum, current) =>
-                  sum + differenceInYears(new Date(), current.dataNascimento!),
-                0
-              ) / pessoas.length
-            ).toLocaleString("pt-br", {
-              minimumFractionDigits: 0,
-              maximumFractionDigits: 0,
-            })}
+            {idadeMedia
+              ? idadeMedia.toLocaleString("pt-br", {
+                  minimumFractionDigits: 0,
+                  maximumFractionDigits: 0,
+                })
+              : "Não há dados"}
           </Card.Value>
         </Card.Root>
 

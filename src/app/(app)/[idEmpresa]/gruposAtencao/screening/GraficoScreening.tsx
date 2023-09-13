@@ -1,7 +1,6 @@
 "use client";
 
 import { Chart } from "@/components";
-import { BarTotalLayer } from "@/lib/util/charts/bars";
 import { BarSvgProps } from "@nivo/bar";
 import { Prisma } from "@prisma/client";
 
@@ -52,23 +51,17 @@ export function GraficoScreening({
       format: (value: number) =>
         `${value.toLocaleString("pt-BR", {
           minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
         })}%`,
     },
     valueFormat: (value: any) =>
       `${value.toLocaleString("pt-BR", {
         minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
       })}%`,
     margin: { top: 20, right: 40, bottom: 160, left: 60 },
     colors: { scheme: "set2" },
-    layers: [
-      "grid",
-      "axes",
-      "markers",
-      "bars",
-      "legends",
-      "annotations",
-      BarTotalLayer,
-    ],
+    layers: ["grid", "axes", "markers", "bars", "legends", "annotations"],
   };
 
   return <Chart.Bar {...options} />;

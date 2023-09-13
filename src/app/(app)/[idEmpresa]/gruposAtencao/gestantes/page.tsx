@@ -56,10 +56,10 @@ export default async function Page({ params: { idEmpresa } }: Props) {
   data10MesesAtras.setMonth(data10MesesAtras.getMonth() - 10);
 
   const mulheresGravidas = mulheres.filter((pessoa) => {
-    const eventosDeGravidez = pessoa.eventos
+    const eventosDeGravidezUltimos10Meses = pessoa.eventos
       .filter((evento) => Tuss.tussGravidez.includes(evento.procedimento.tuss))
       .filter((evento) => evento.dataRealizacao! >= data10MesesAtras);
-    return eventosDeGravidez.length > 0;
+    return eventosDeGravidezUltimos10Meses.length > 0;
   });
 
   const eventosDeGravidez = eventos.filter((evento) =>
@@ -168,7 +168,7 @@ export default async function Page({ params: { idEmpresa } }: Props) {
         <Box.Title>Histórico de Partos realizados</Box.Title>
 
         <Box.Content>
-          <TabelaParto data={mulheresGravidas} />
+          <TabelaParto data={mulheres} />
         </Box.Content>
       </Box.Root>
     </div>
