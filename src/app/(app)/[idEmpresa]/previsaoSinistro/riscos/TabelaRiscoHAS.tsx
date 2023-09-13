@@ -62,7 +62,7 @@ export function TabelaRiscoHAS({
       risco = "Baixo";
     } else if (
       pessoa.scoreHipertensao! >= 0.6 &&
-      pessoa.scoreHipertensao! < 0.8
+      pessoa.scoreHipertensao! < 0.79
     ) {
       risco = "Médio";
     } else {
@@ -83,7 +83,10 @@ export function TabelaRiscoHAS({
       nome: pessoa.nome,
       idade,
       sexo,
-      scoreHipertensao: pessoa.scoreHipertensao?.toFixed(2),
+      scoreHipertensao: pessoa.scoreHipertensao?.toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }),
       risco,
       titularidade: pessoa.tipoTitularidade.nome,
     };
@@ -92,7 +95,8 @@ export function TabelaRiscoHAS({
   tabelaPessoas = tabelaPessoas
     .sort(
       (a, b) =>
-        parseFloat(b.scoreHipertensao!) - parseFloat(a.scoreHipertensao!)
+        parseFloat(b.scoreHipertensao!.replace(",", ".")) -
+        parseFloat(a.scoreHipertensao!.replace(",", "."))
     )
     .splice(0, 10);
 

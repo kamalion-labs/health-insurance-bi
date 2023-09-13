@@ -55,7 +55,10 @@ export default async function Page({ params: { idEmpresa } }: Props) {
                 (sum, current) => sum + current.scoreDiabetes!,
                 0
               ) / pessoas.length
-            ).toFixed(2)}
+            ).toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
           </Card.Value>
         </Card.Root>
 
@@ -67,7 +70,10 @@ export default async function Page({ params: { idEmpresa } }: Props) {
                 (sum, current) => sum + current.scoreHipertensao!,
                 0
               ) / pessoas.length
-            ).toFixed(2)}
+            ).toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
           </Card.Value>
         </Card.Root>
       </div>
@@ -81,7 +87,10 @@ export default async function Page({ params: { idEmpresa } }: Props) {
                 (sum, current) => sum + current.scoreDiabetes!,
                 0
               ) / pessoas.length
-            ).toFixed(2)}
+            ).toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
           </Card.Value>
         </Card.Root>
 
@@ -93,7 +102,10 @@ export default async function Page({ params: { idEmpresa } }: Props) {
                 (sum, current) => sum + current.scoreDiabetes!,
                 0
               ) / pessoas.length
-            ).toFixed(2)}
+            ).toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
           </Card.Value>
         </Card.Root>
 
@@ -105,7 +117,10 @@ export default async function Page({ params: { idEmpresa } }: Props) {
                 (sum, current) => sum + current.scoreHipertensao!,
                 0
               ) / pessoas.length
-            ).toFixed(2)}
+            ).toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
           </Card.Value>
         </Card.Root>
 
@@ -117,7 +132,10 @@ export default async function Page({ params: { idEmpresa } }: Props) {
                 (sum, current) => sum + current.scoreHipertensao!,
                 0
               ) / pessoas.length
-            ).toFixed(2)}
+            ).toLocaleString("pt-BR", {
+              minimumFractionDigits: 2,
+              maximumFractionDigits: 2,
+            })}
           </Card.Value>
         </Card.Root>
       </div>

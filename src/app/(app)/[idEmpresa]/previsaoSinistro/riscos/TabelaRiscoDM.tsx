@@ -60,7 +60,7 @@ export function TabelaRiscoDM({
 
     if (pessoa.scoreDiabetes! < 0.6) {
       risco = "Baixo";
-    } else if (pessoa.scoreDiabetes! >= 0.6 && pessoa.scoreDiabetes! < 0.8) {
+    } else if (pessoa.scoreDiabetes! >= 0.6 && pessoa.scoreDiabetes! < 0.79) {
       risco = "Médio";
     } else {
       risco = "Alto";
@@ -80,14 +80,21 @@ export function TabelaRiscoDM({
       nome: pessoa.nome,
       idade,
       sexo,
-      scoreDiabetes: pessoa.scoreDiabetes?.toFixed(2),
+      scoreDiabetes: pessoa.scoreDiabetes?.toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      }),
       risco,
       titularidade: pessoa.tipoTitularidade.nome,
     };
   });
 
   tabelaPessoas = tabelaPessoas
-    .sort((a, b) => parseFloat(b.scoreDiabetes!) - parseFloat(a.scoreDiabetes!))
+    .sort(
+      (a, b) =>
+        parseFloat(b.scoreDiabetes!.replace(",", ".")) -
+        parseFloat(a.scoreDiabetes!.replace(",", "."))
+    )
     .splice(0, 10);
 
   return <Table.Root columns={cols} data={tabelaPessoas} />;
