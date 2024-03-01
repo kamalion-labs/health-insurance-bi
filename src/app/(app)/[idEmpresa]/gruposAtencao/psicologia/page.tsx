@@ -3,6 +3,7 @@ import { prisma } from "@/lib/db/prisma";
 import { GraficoFaturamentoSinistro } from "./GraficoFaturamentoSinistro";
 import { GraficoSinistralidadeTempo } from "./GraficoSinistralidadeTempo";
 import { GraficoServicosPorCompetencia } from "./GraficoServicosPorCompetencia";
+import { Filters } from "@/components/Filters";
 
 type Props = {
   params: {
@@ -35,6 +36,9 @@ export default async function Page({ params: { idEmpresa } }: Props) {
         },
       },
     },
+    orderBy: {
+      dataPagamento: "asc"
+    }
   });
 
   return (
@@ -44,6 +48,8 @@ export default async function Page({ params: { idEmpresa } }: Props) {
         id="psicologoa"
         parentId="gruposAtencao"
       />
+      
+      <Filters hideCategorias />
 
       <div className="grid grid-cols-3 gap-5">
         <Card.Root>

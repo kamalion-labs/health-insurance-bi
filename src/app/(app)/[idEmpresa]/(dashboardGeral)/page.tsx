@@ -16,7 +16,7 @@ export type EventoWithChilds = Prisma.EventoGetPayload<{
 
 export async function generateStaticParams() {
   const empresas = await prisma.empresa.findMany();
-
+  
   return empresas.map((empresa) => ({ idEmpresa: empresa.id.toString() }));
 }
 

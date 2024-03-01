@@ -22,7 +22,7 @@ export function DetalhesPessoa({
 
   if (!pessoa) return null;
 
-  const tabelaEventos = pessoa.eventos.map<ProcedimentoTabela>((evento) => {
+  const tabelaEventos = pessoa.eventos.map((evento) => {
     return {
       dataRealizacao: evento.dataRealizacao,
       nome: evento.procedimento.nome,

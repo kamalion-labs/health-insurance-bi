@@ -2,6 +2,7 @@
 
 import { Chart } from "@/components";
 import { BarTotalLayer } from "@/lib/util/charts/bars";
+import { useFiltro } from "@/stores";
 import { BarSvgProps } from "@nivo/bar";
 import { Prisma } from "@prisma/client";
 import { format } from "date-fns";
@@ -21,8 +22,10 @@ type EventoWithPessoa = Prisma.EventoGetPayload<{
 }>;
 
 export function GraficoUsuariosMes({ data }: { data: EventoWithPessoa[] }) {
+  const { dataInicio, dataFim } = useFiltro();
+  
   const competencias = [
-    ...new Set(data.map((x) => format(x?.dataPagamento!, "MM/yyyy"))),
+    ...new Set(data.filter(x => x.dataPagamento >= dataInicio && x.dataPagamento <= dataFim).map((x) => format(x?.dataPagamento!, "MM/yyyy"))),
   ];
 
   const chartData = competencias.map<DataType>((comp) => ({

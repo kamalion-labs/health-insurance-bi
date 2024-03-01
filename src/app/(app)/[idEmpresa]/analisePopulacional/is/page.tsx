@@ -6,6 +6,8 @@ import { GraficoTitularidade } from "./GraficoTitularidade";
 import { GraficoSexo } from "./GraficoSexo";
 import { GraficoUsuariosMes } from "./GraficoUsuariosMes";
 import { EventoRepositorio } from "@/lib/evento/repositorio/EventoRepositorio";
+import { Filters } from "@/components/Filters";
+import { useFiltro } from "@/stores";
 
 type Props = {
   params: {
@@ -127,8 +129,14 @@ export default async function ISPage({ params: { idEmpresa } }: Props) {
         <Box.Root>
           <Box.Title>Quantidade de Usuários por Mês</Box.Title>
 
-          <Box.Content className="h-[300px]">
+          <Box.Content>
+            <div className="px-4">
+              <Filters hideCategorias />
+            </div>
+
+          <div className="h-[300px]">
             <GraficoUsuariosMes data={eventos} />
+            </div>
           </Box.Content>
         </Box.Root>
       </div>

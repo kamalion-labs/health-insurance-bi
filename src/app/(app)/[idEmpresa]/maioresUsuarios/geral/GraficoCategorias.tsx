@@ -23,7 +23,7 @@ export function GraficoCategorias({
 
   for (const categoria of categorias) {
     chartData.push({
-      id: categoria,
+      id: categoria as any,
       value: data.eventos.reduce(
         (sum, current) =>
           current.procedimento.categoria.nome === categoria

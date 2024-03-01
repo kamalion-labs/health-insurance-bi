@@ -1,6 +1,7 @@
 "use client";
 
 import { Chart } from "@/components";
+import { useFiltro } from "@/stores";
 import { LineSvgProps } from "@nivo/line";
 import { Evento } from "@prisma/client";
 import { format } from "date-fns";
@@ -14,6 +15,7 @@ type DataType = {
 const META = 70;
 
 export function GraficoSinistralidadeTempo({ data }: { data: Evento[] }) {
+  const { dataInicio, dataFim } = useFiltro();
   const chartData: DataType[] = [
     {
       id: "Meta",
@@ -28,7 +30,9 @@ export function GraficoSinistralidadeTempo({ data }: { data: Evento[] }) {
   ];
 
   const competencias = [
-    ...new Set(data.map((x) => format(x.dataPagamento!, "MM/yyyy"))),
+    ...new Set(data
+      .filter(x => x.dataPagamento >= dataInicio && x.dataPagamento <= dataFim)
+      .map((x) => format(x.dataPagamento!, "MM/yyyy"))),
   ];
 
   chartData[0].data = competencias.map((comp) => {

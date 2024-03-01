@@ -28,150 +28,152 @@ model ResetToken {
   usuario   Usuario @relation(fields: [idUsuario], references: [id])
   idUsuario Int
 }
+
 model Evento {
-    id             Int             @id @default(autoincrement())
-    descricao      String
-    dataRealizacao DateTime        @db.Date
-    dataPagamento  DateTime?       @db.Date
-    quantidade     Int
-    custoTotal     Float           @db.DoublePrecision
-    sinistro       Float           @db.DoublePrecision
-    coparticipacao Float           @db.DoublePrecision
-    teveInternacao Boolean?
-    prontoSocorro  Boolean?
-    UTI            Boolean?
-    situacao       Situacao?
-    risco          Risco?
-    tipoInternacao TipoInternacao?
-    tipoParto      TipoParto?
-    reembolso      Boolean?
+  id             Int             @id @default(autoincrement())
+  descricao      String
+  dataRealizacao DateTime        @db.Date
+  dataPagamento  DateTime?       @db.Date
+  quantidade     Int
+  custoTotal     Float           @db.DoublePrecision
+  sinistro       Float           @db.DoublePrecision
+  coparticipacao Float           @db.DoublePrecision
+  teveInternacao Boolean?
+  prontoSocorro  Boolean?
+  UTI            Boolean?
+  situacao       Situacao?
+  risco          Risco?
+  tipoInternacao TipoInternacao?
+  tipoParto      TipoParto?
+  reembolso      Boolean?
 
-    liberacao      Liberacao? @relation(fields: [idLiberacao], references: [id])
-    idLiberacao    Int @unique
+  liberacao   Liberacao? @relation(fields: [idLiberacao], references: [id])
+  idLiberacao Int        @unique
 
-    prestador   Prestador @relation(fields: [idPrestador], references: [id])
-    idPrestador Int
+  prestador   Prestador @relation(fields: [idPrestador], references: [id])
+  idPrestador Int
 
-    CID       Cid?    @relation(fields: [codigoCID], references: [codigo])
-    codigoCID String?
+  CID       Cid?    @relation(fields: [codigoCID], references: [codigo])
+  codigoCID String?
 
-    pessoa   Pessoa @relation(fields: [idPessoa], references: [id])
-    idPessoa Int
+  pessoa   Pessoa @relation(fields: [idPessoa], references: [id])
+  idPessoa Int
 
-    procedimento   Procedimento @relation(fields: [idProcedimento], references: [id])
-    idProcedimento Int
+  procedimento   Procedimento @relation(fields: [idProcedimento], references: [id])
+  idProcedimento Int
 }
 
 model Prestador {
-    id         Int         @id @default(autoincrement())
-    nome       String
-    UF         String?
-    hospital   Boolean
-    eventos    Evento[]
-    liberacoes Liberacao[]
+  id         Int         @id @default(autoincrement())
+  nome       String
+  UF         String?
+  hospital   Boolean
+  eventos    Evento[]
+  liberacoes Liberacao[]
 }
 
 model Cid {
-    codigo             String   @id @unique
-    descricao          String?
-    descricaoAbreviada String?
-    eventos            Evento[]
+  codigo             String   @id @unique
+  descricao          String?
+  descricaoAbreviada String?
+  eventos            Evento[]
 }
 
 model Especialidade {
-    id            Int            @id @default(autoincrement())
-    codigo        String         @unique
-    nome          String
-    procedimentos Procedimento[]
+  id            Int            @id @default(autoincrement())
+  codigo        String         @unique
+  nome          String
+  procedimentos Procedimento[]
 }
 
 model Procedimento {
-    id      Int      @id @default(autoincrement())
-    nome    String
-    tuss    String
-    eventos Evento[]
+  id      Int      @id @default(autoincrement())
+  nome    String
+  tuss    String
+  eventos Evento[]
 
-    especialidade   Especialidade @relation(fields: [idEspecialidade], references: [id])
-    idEspecialidade Int
+  especialidade   Especialidade @relation(fields: [idEspecialidade], references: [id])
+  idEspecialidade Int
 
-    categoria   Categoria @relation(fields: [idCategoria], references: [id])
-    idCategoria Int
+  categoria   Categoria @relation(fields: [idCategoria], references: [id])
+  idCategoria Int
 }
 
 model Categoria {
-    id            Int            @id @default(autoincrement())
-    codigo        String         @unique
-    nome          String
-    procedimentos Procedimento[]
-    subcategorias SubCategoria[]
+  id            Int            @id @default(autoincrement())
+  codigo        String         @unique
+  nome          String
+  procedimentos Procedimento[]
+  subcategorias SubCategoria[]
 }
 
 model SubCategoria {
-    id   Int    @id @default(autoincrement())
-    nome String
+  id   Int    @id @default(autoincrement())
+  nome String
 
-    categoria   Categoria @relation(fields: [idCategoria], references: [id])
-    idCategoria Int
+  categoria   Categoria @relation(fields: [idCategoria], references: [id])
+  idCategoria Int
 }
 
 model Liberacao {
-    id                   Int               @id @default(autoincrement())
-    certificado          Int
-    dependencia          Int?
-    contrato             Int?
-    subfatura            Int?
-    senha                String?
-    diasSolicitacaoSenha Int?
-    diasLiberacaoSenha   Int?
-    situacaoSenha        SituacaoSenha?
-    possuiLiminar        Boolean?
-    regimeInternacao     RegimeInternacao?
-    dataSolicitacao      DateTime?         @db.Date
-    dataInternacao       DateTime?         @db.Date
-    evento               Evento?
+  id                   Int               @id @default(autoincrement())
+  certificado          Int
+  dependencia          Int?
+  contrato             Int?
+  subfatura            Int?
+  senha                String?
+  diasSolicitacaoSenha Int?
+  diasLiberacaoSenha   Int?
+  situacaoSenha        SituacaoSenha?
+  possuiLiminar        Boolean?
+  regimeInternacao     RegimeInternacao?
+  dataSolicitacao      DateTime?         @db.Date
+  dataInternacao       DateTime?         @db.Date
+  evento               Evento?
 
-    plano   Plano @relation(fields: [idPlano], references: [id])
-    idPlano Int
+  plano   Plano @relation(fields: [idPlano], references: [id])
+  idPlano Int
 
-    prestador   Prestador @relation(fields: [idPrestador], references: [id])
-    idPrestador Int
+  prestador   Prestador @relation(fields: [idPrestador], references: [id])
+  idPrestador Int
 }
 
 enum Situacao {
-    PENDENTE
-    LIBERADA
-    NEGADA
-    CANCELADA
+  PENDENTE
+  LIBERADA
+  NEGADA
+  CANCELADA
 }
 
 enum Risco {
-    BAIXO
-    MEDIO
-    ALTO
+  BAIXO
+  MEDIO
+  ALTO
 }
 
 enum TipoInternacao {
-    CLINICA
-    CIRURGICA
-    OBSTETRICA
-    PSIQUIATRICA
-    PEDIATRICA
+  CLINICA
+  CIRURGICA
+  OBSTETRICA
+  PSIQUIATRICA
+  PEDIATRICA
 }
 
 enum TipoParto {
-    CESAREO
-    VAGINAL
+  CESAREO
+  VAGINAL
 }
 
 enum SituacaoSenha {
-    LIBERADA
-    NEGADA
+  LIBERADA
+  NEGADA
 }
 
 enum RegimeInternacao {
-    HOSPITALAR
-    HOSPITAL_DIA
+  HOSPITALAR
+  HOSPITAL_DIA
 }
+
 model Operadora {
   id               Int                @id @default(autoincrement())
   nome             String
@@ -266,6 +268,7 @@ enum TipoColuna {
   mesAno
   referencia
 }
+
 model Pessoa {
   id                Int        @id @default(autoincrement())
   nome              String

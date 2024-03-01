@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/db/prisma";
 import { FiltersForm } from "./FiltersForm";
 
-export async function Filters() {
+export async function Filters({ hideCategorias = false }: { hideCategorias?: boolean; }) {
   let categorias = await prisma.categoria.findMany();
   const cids = await prisma.cid.findMany();
 
@@ -9,7 +9,7 @@ export async function Filters() {
 
   return (
     <div>
-      <FiltersForm categorias={categorias} cids={cids} />
+      <FiltersForm categorias={!hideCategorias && categorias} cids={cids} />
     </div>
   );
 }

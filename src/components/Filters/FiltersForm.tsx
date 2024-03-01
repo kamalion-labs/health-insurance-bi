@@ -54,6 +54,7 @@ export function FiltersForm({
       <Form.Root className="flex flex-col space-y-5">
         <div className="flex space-x-5">
           <div className="flex space-x-3">
+            {categorias && (
             <Input.Root>
               <Input.Label>Categoria:</Input.Label>
               <Input.Select {...form.register("categoria")}>
@@ -67,6 +68,7 @@ export function FiltersForm({
                 ))}
               </Input.Select>
             </Input.Root>
+            )}
 
             <Input.Root>
               <Input.Label htmlFor="dataInicio">Data Início:</Input.Label>

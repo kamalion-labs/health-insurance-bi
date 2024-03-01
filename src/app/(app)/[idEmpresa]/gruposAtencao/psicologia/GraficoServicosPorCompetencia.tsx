@@ -2,6 +2,7 @@
 
 import { Chart } from "@/components";
 import { BarTotalLayer } from "@/lib/util/charts/bars";
+import { useFiltro } from "@/stores";
 import { BarSvgProps } from "@nivo/bar";
 import { Evento } from "@prisma/client";
 import { format } from "date-fns";
@@ -14,8 +15,12 @@ type DataType = {
 const labels = ["Quantidade"];
 
 export function GraficoServicosPorCompetencia({ data }: { data: Evento[] }) {
+  const { dataInicio, dataFim } = useFiltro();
+  
   const competencias = [
-    ...new Set(data.map((x) => format(x.dataRealizacao!, "MM/yyyy"))),
+    ...new Set(data
+      .filter(x => x.dataPagamento >= dataInicio && x.dataPagamento <= dataFim)
+      .map((x) => format(x.dataRealizacao!, "MM/yyyy"))),
   ];
 
   const chartData: DataType[] = competencias.map((comp) => {

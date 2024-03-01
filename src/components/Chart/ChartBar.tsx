@@ -10,6 +10,7 @@ export function ChartBar(props: Omit<BarSvgProps<any>, "width" | "height">) {
       colors={({ id, data }) => data[`${id}Color`]}
       labelSkipWidth={12}
       labelSkipHeight={12}
+      
       labelTextColor={{
         from: "color",
         modifiers: [["brighter", 100]],

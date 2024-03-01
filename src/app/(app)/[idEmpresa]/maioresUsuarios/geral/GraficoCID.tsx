@@ -6,7 +6,7 @@ import { PieSvgProps } from "@nivo/pie";
 import { CenteredMoneyMetric } from "@/lib/util/charts/pie";
 
 interface DataType {
-  id: string;
+  id: string | unknown;
   value: number;
 }
 
